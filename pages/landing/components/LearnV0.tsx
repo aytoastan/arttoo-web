@@ -46,6 +46,7 @@ const Learn: React.FC = () => {
               playsInline
               muted
               loop
+              poster={step.poster}
               preload='auto'
             >
               <source src={step.videoWebm} type="video/webm; codecs='vp8, vorbis'" />
