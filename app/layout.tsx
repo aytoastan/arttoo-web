@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Art Is The Visual Proof Of History For Humanity',
   openGraph: {
     type: 'website',
-    siteName: 'My Website',
+    siteName: 'Arttoo',
     title: 'Arttoo',
     description: 'Art Is The Visual Proof Of History For Humanity',
     url: 'https://arttoo.co.uk',
