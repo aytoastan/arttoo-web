@@ -6,7 +6,7 @@ interface SubmitResponse {
   error?: string;
 }
 
-const useEmailSubmit = () => {
+export const useEmailSubmit = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
