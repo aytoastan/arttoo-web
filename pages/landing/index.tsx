@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 import { Axa, Dietl, Gurrjohns, Momart } from '@/assets/images';
 import { useEffect, useRef, useState } from "react"
@@ -47,7 +48,7 @@ const LandingPage = () => {
     init()
     setCanvasSize()
     initCanvas()
-    console.log(1)
+    // console.log(1)
   }, [])
   const init = async () => {
     scrollRef.current?.addEventListener('scroll', () => {
@@ -127,7 +128,7 @@ const LandingPage = () => {
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 4) {
         // 跟随滚动
         // let scale = 1 - (scrollRef.current?.scrollTop - windowHeight * 4) / (windowHeight * 0.5)
-        let y = - (scrollRef.current?.scrollTop - windowHeight * 4)
+        const y = - (scrollRef.current?.scrollTop - windowHeight * 4)
         // if (scale < 0.1 || scale < 0) scale = 0
         // console.log('scale ', scale)
         canvasRef.current!.style.transform = `translateY(${y}px)`
@@ -190,7 +191,7 @@ const LandingPage = () => {
     container?.appendChild(renderer.domElement);
     // 创建平面几何体，并添加到场景
     const geometry = new THREE.PlaneGeometry(5, 5); // 16:9 比例的平面
-    let texture = new THREE.TextureLoader().load(imgs[0].src); // 加载第一帧图片
+    const texture = new THREE.TextureLoader().load(imgs[0].src); // 加载第一帧图片
     const material = new THREE.MeshBasicMaterial({
       map: texture,
       transparent: true, // 支持透明
@@ -271,7 +272,7 @@ const LandingPage = () => {
   }
   return <div className='w-full h-full'>
     <div className={`flex md:px-[80px] md:py-[30px] px-[20px] py-[20px] relative z-[13] absolute top-0 left-0 w-full ${step === 1 ? 'frosted-glass' : ''}`} ref={headerRef}>
-      <img src={'/arttoo-logo.png'} alt="logo" className='md:h-[35px] h-[30px]' style={{ filter: isOpen || step === 1 ? 'invert(1)' : 'invert(0)' }} />
+      {/* <img src={'/arttoo-logo.png'} alt="logo" className='md:h-[35px] h-[30px]' style={{ filter: isOpen || step === 1 ? 'invert(1)' : 'invert(0)' }} /> */}
       <div className={`hidden md:flex items-center flex-1 justify-end ${isOpen || step === 1 ? 'text-black' : 'text-white'}`}>
         <div className='nav-item'>Artworks</div>
         <div className='nav-item'>Learn</div>
@@ -457,8 +458,9 @@ const LandingPage = () => {
                         Submit
                       </button>
                     </form>
-                    <p className="text-white text-[11.5px] lg:text-base leading-[19.2px] font-light">Join the Waitlist &amp; Get
-                      Informed when New Artworks are Available!</p>
+                    <p className="text-white text-[11.5px] lg:text-base leading-[19.2px] font-light">Join the Waitlist & Get Informed when New Artworks are Available!</p>
+                    {message && <p className='text-green-600 text-sm'>{message}</p>}
+                    {messageError && <p className='text-red-600 text-sm'>{messageError}</p>}
                   </div>
                 </div>
                 <div className="flex flex-col gap-4 min-w-48">
