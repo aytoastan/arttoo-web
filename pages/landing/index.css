@@ -1,0 +1,513 @@
+* {
+  user-select: none;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Victor Sherif, sans-serif;
+  background-color: #000;
+}
+
+html,
+body {
+  font-family: Victor Sherif, sans-serif;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* 构建一个从底部中间放大的动画,并且透明度从 0 到 1 */
+.scale-in-center {
+  animation: scale-in-center 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes scale-in-center {
+  0% {
+    /* transform: scale(0.5); */
+    opacity: 0;
+  }
+
+  100% {
+    /* transform: scale(1); */
+    opacity: 1;
+  }
+}
+
+/* 上移 50px 并且透明度从 0 ～1 */
+.move-up-and-fade-in {
+  animation: move-up-and-fade-in 800ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.move-up-and-fade-in2 {
+  animation: move-up-and-fade-in 300ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.move-up-and-fade-out {
+  animation: move-up-and-fade-out 800ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes move-up-and-fade-in {
+  0% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes move-up-and-fade-out {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+}
+
+/* 大于 700px 高度 */
+.video2 {
+  height: 100%;
+  min-height: 700px;
+}
+
+@media (min-height: 700px) and (max-height: 1000px) and (min-width: 768px) {
+  .video2 {
+    height: 50%;
+    bottom: -120px;
+  }
+}
+
+@media (max-height: 1000px) and (max-width: 768px) {
+  .video2 {
+    height: 50%;
+    bottom: -120px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .video2 {
+    height: 100%;
+    bottom: 1220px;
+  }
+}
+
+
+.nav-item {
+  font-size: 18px;
+  margin-left: 100px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  .nav-item {
+    margin-left: 40px;
+  }
+}
+
+/* 768px 以下 */
+@media (max-width: 768px) {
+  .nav-item {
+    margin-left: 0;
+    font-size: 32px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    font-weight: 400;
+  }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #171717;
+}
+
+/* 圆角 */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/* .section_hover_btn {} */
+
+.section_hover_btn svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  /* color: #000; */
+}
+
+
+.section_hover_btn:hover .section_hover_circle {
+  width: 64px;
+  height: 64px;
+}
+
+/* 768 以下 */
+@media (max-width: 768px) {
+  .section_hover_btn:hover .section_hover_circle {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* 鼠标悬停时，圆圈放大 */
+.section_hover_circle {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  background-color: #000;
+}
+
+.section_hover_btnSvgHover {
+  color: #fff;
+}
+
+.section_hover_circleHover {
+  /* 从中心放大 */
+  width: 64px;
+  height: 64px;
+}
+
+.section_2 {
+  padding: 150px 70px 0;
+  align-items: center;
+}
+
+.section_2 h1 {
+  line-height: 1.2;
+  flex: 2;
+  font-size: 90px;
+}
+
+.section_2 p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-left: 70px;
+  flex: 1;
+  font-size: 20px;
+  margin-top: 120px;
+}
+
+/* 大于 2000px */
+@media (min-width: 2000px) {
+  .section_2 h1 {
+    font-size: 120px;
+  }
+
+  .section_2 p {
+    font-size: 24px;
+  }
+}
+
+/* 小于 1000px */
+@media (max-width: 1100px) {
+  .section_2 {
+    padding: 120px 40px 0;
+    align-items: center;
+  }
+
+  .section_2 h1 {
+    font-size: 60px;
+  }
+
+  .section_2 p {
+    font-size: 16px;
+    margin-left: 0;
+    margin-left: 40px;
+  }
+}
+
+/* 768px 以下 */
+@media (max-width: 768px) {
+  .section_hover_circleHover {
+    width: 50px;
+    height: 50px;
+  }
+
+  .section_2 {
+    padding: 80px 20px 0;
+    flex-direction: column;
+  }
+
+  .section_2 h1 {
+    font-size: 32px;
+  }
+
+  .section_2 p {
+    font-size: 16px;
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+}
+
+#video2 {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  /* width: 100%;
+  max-height: 1000px; */
+  /* min-height: 600px; */
+}
+
+@media (max-width: 768px) {
+  #video2 {
+    width: 1000px;
+    max-width: 1000px;
+    left: 50%;
+    bottom: -50px;
+    transform: translateX(-50%);
+  }
+}
+
+/* 1000 ~ 1500 */
+@media (min-width: 1000px) and (max-width: 1500px) {
+  #video2 {
+    bottom: -120px;
+  }
+}
+
+@media (min-width: 1500px) and (max-width: 2000px) {
+  #video2 {
+    bottom: -160px;
+  }
+}
+
+@media (min-width: 2000px) and (max-width: 3000px) {
+  #video2 {
+    bottom: -180px;
+  }
+}
+
+.stepBox {
+  padding-left: 50px;
+  position: relative;
+  margin-right: 80px;
+  /* margin-left: 20px; */
+}
+
+.stepBox2 {
+  padding-left: 40px;
+  position: relative;
+}
+
+.stepIndex {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.stepTitle {
+  font-size: 100px;
+  line-height: 131px;
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.stepDesc {
+  font-size: 16px;
+  line-height: 20.8px;
+  font-weight: 400;
+  margin-top: 15px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 768 以下 */
+@media (max-width: 768px) {
+  .stepBox {
+    padding-left: 40px;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 130px;
+  }
+
+  .stepIndex {
+    font-size: 32px;
+    top: 8px;
+  }
+
+  .stepTitle {
+    font-size: 50px;
+    line-height: 80px;
+  }
+
+  .stepDesc {
+    font-size: 16px;
+    line-height: 20.8px;
+    margin-top: 0px;
+  }
+}
+
+/* 768 ～ 1000 一下 */
+@media (min-width: 768px) and (max-width: 1000px) {
+  .stepBox {
+    padding-left: 40px;
+  }
+
+  .stepIndex {
+    font-size: 32px;
+  }
+
+  .stepTitle {
+    font-size: 60px;
+    line-height: 80px;
+  }
+
+  .stepDesc {
+    font-size: 16px;
+    line-height: 20.8px;
+  }
+}
+
+/* 1000 ～ 1400 一下 */
+@media (min-width: 1000px) and (max-width: 1400px) {
+  .stepBox {
+    padding-left: 50px;
+  }
+
+  .stepIndex {
+    font-size: 36px;
+    top: 10px;
+  }
+
+  .stepTitle {
+    font-size: 80px;
+    line-height: 106px;
+  }
+
+  .stepDesc {
+    font-size: 16px;
+    line-height: 20.8px;
+  }
+}
+
+
+@media (min-width: 1500px) {
+  .stepBox {
+    padding-left: 80px;
+  }
+
+  .stepIndex {
+    font-size: 60px;
+    top: 20px;
+  }
+
+  .stepTitle {
+    font-size: 140px;
+    line-height: 182px;
+  }
+
+  .stepDesc {
+    font-size: 26px;
+    line-height: 31.2px;
+  }
+}
+
+/* @media (min-width: 2000px) and (max-width: 3000px) {
+  .stepBox {
+    padding-left: 80px;
+  }
+
+  .stepIndex {
+    font-size: 80px;
+
+  }
+
+  .stepTitle {
+    font-size: 160px;
+    line-height: 211px;
+  }
+
+  .stepDesc {
+    font-size: 28px;
+    line-height: 36.4px;
+  }
+} */
+
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.3);
+  /* 半透明白色背景 */
+  /* border-radius: 10px; */
+  /* 圆角 */
+  backdrop-filter: blur(10px);
+  /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari 支持 */
+  /* border: 1px solid rgba(255, 255, 255, 0.3); */
+  /* 边框增加视觉效果 */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  /* 轻微阴影，提升立体感 */
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+}
+
+.section_title4 {
+  font-size: 80px;
+  line-height: 106px;
+  /* font-style: italic; */
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.9);
+  /* padding-top: 40px; */
+  /* margin-left: 80px; */
+}
+
+/* 768 以下 */
+@media (max-width: 768px) {
+  .section_title4 {
+    font-size: 40px;
+    line-height: 53px;
+    padding-top: 20px;
+  }
+}
+
+/* 1200 ~ 1500 */
+@media (min-width: 1200px) and (max-width: 1500px) {
+  .section_title4 {
+    font-size: 60px;
+    line-height: 80px;
+  }
+}
+
+.fade-in {
+  animation: fade-in 800ms ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
