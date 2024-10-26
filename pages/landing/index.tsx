@@ -301,10 +301,10 @@ const LandingPage = () => {
       <div className='text-black nav-item'>About</div>
       <div className='text-black nav-item'>Contact us</div>
     </div> : null}
-    <div className='w-full h-full overflow-y-auto bg-white absolute top-0 left-0' ref={scrollRef}>
+    <div className='w-full h-full overflow-y-auto bg-white fixed top-0 left-0' ref={scrollRef}>
       <div>
         {/* section 1 */}
-        <section className='h-svh w-full absolute top-0 left-0 bg-white' >
+        <section className='h-svh w-full fixed top-0 left-0 bg-white' >
           <div className="w-full h-full" ref={videoBoxRef}>
             <video playsInline={true} autoPlay={true} muted={true} loop={true}
               id='video1'
@@ -481,7 +481,6 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
     {/* floating  content  from mobile */}
