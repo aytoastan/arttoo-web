@@ -193,7 +193,7 @@ const LandingPage = () => {
     let texture = new THREE.TextureLoader().load(imgs[0].src); // 加载第一帧图片
     const material = new THREE.MeshBasicMaterial({
       map: texture,
-      transparent: false, // 支持透明
+      transparent: true, // 支持透明
       opacity: 1, // 完全不透明
     });
     const plane = new THREE.Mesh(geometry, material);
@@ -479,38 +479,39 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-        {/* floating  content  from mobile */}
-        <div ref={stepTextRef} className="fixed bottom-[0px] left-[20px] h-svh pr-[20px] z-[1] pt-[85px] pointer-events-none md:hidden">
-          {
-            step3 === -1 ? null : <>
-              {
-                step3 === 0 ? <div className='stepBox2 fade-in'>
-                  <div className='stepIndex'>01</div>
-                  <div className='stepTitle'>Explore</div>
-                  <div className='stepDesc'>Browse a collection of iconic masterpieces carefully handpicked by our expert curators from Sotheby's and Christie's.</div>
-                </div> : null
-              }
-              {
-                step3 === 1 ? <div className='stepBox2 fade-in'>
-                  <div className='stepIndex'>02</div>
-                  <div className='stepTitle'>Invest</div>
-                  <div className='stepDesc'>Start investing in fractional shares of legacy masterpieces with no auction house markups, no gallery markups, no hidden true-up fees.</div>
-                </div> : null
-              }
-              {
-                step3 === 2 ? <div className='stepBox2 fade-in'>
-                  <div className='stepIndex'>03</div>
-                  <div className='stepTitle'>Earn</div>
-                  <div className='stepDesc'>Watch your investment grow in value through auction exits, rents from exhibitions in museums and galleries, loyalty from NFT recreations and consumer merchandise and many more.</div>
-                </div> : null
-              }
-            </>
-          }
-        </div>
-        {/* floating canvas */}
-        <div id="canvas" ref={canvasRef} className='z-[2] pointer-events-none'></div>
+
       </div>
     </div>
+    {/* floating  content  from mobile */}
+    <div ref={stepTextRef} className="fixed bottom-[0px] left-[20px] h-svh pr-[20px] z-[1] pt-[85px] pointer-events-none md:hidden">
+      {
+        step3 === -1 ? null : <>
+          {
+            step3 === 0 ? <div className='stepBox2 fade-in'>
+              <div className='stepIndex'>01</div>
+              <div className='stepTitle'>Explore</div>
+              <div className='stepDesc'>Browse a collection of iconic masterpieces carefully handpicked by our expert curators from Sotheby's and Christie's.</div>
+            </div> : null
+          }
+          {
+            step3 === 1 ? <div className='stepBox2 fade-in'>
+              <div className='stepIndex'>02</div>
+              <div className='stepTitle'>Invest</div>
+              <div className='stepDesc'>Start investing in fractional shares of legacy masterpieces with no auction house markups, no gallery markups, no hidden true-up fees.</div>
+            </div> : null
+          }
+          {
+            step3 === 2 ? <div className='stepBox2 fade-in'>
+              <div className='stepIndex'>03</div>
+              <div className='stepTitle'>Earn</div>
+              <div className='stepDesc'>Watch your investment grow in value through auction exits, rents from exhibitions in museums and galleries, loyalty from NFT recreations and consumer merchandise and many more.</div>
+            </div> : null
+          }
+        </>
+      }
+    </div>
+    {/* floating canvas */}
+    <div id="canvas" ref={canvasRef} className='z-[2] bg-transparent pointer-events-none'></div>
     <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="beforeInteractive" />
   </div>
 }
