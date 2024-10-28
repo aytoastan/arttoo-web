@@ -114,7 +114,7 @@ const LandingPage = () => {
       }
 
       // step3
-      if (scrollRef.current?.scrollTop && (scrollRef.current?.scrollTop > 0.8 * windowHeight + sec2BoxRef.current!.clientHeight && scrollRef.current?.scrollTop < windowHeight * 1.5 + sec2BoxRef.current!.clientHeight)) {
+      if (scrollRef.current?.scrollTop && (scrollRef.current?.scrollTop > 0.6 * windowHeight + sec2BoxRef.current!.clientHeight && scrollRef.current?.scrollTop < windowHeight * 1.5 + sec2BoxRef.current!.clientHeight)) {
         setStep3(0)
       }
       // 3 ~ 4
