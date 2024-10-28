@@ -32,7 +32,7 @@ const LandingPage = () => {
   const stepTextRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
   const sec2BoxRef = useRef<HTMLDivElement>(null)
-  const videoElementRef = useRef<HTMLVideoElement>(null)
+  // const videoElementRef = useRef<HTMLVideoElement>(null)
   const isInit = useRef(false)
   useEffect(() => {
     if (isInit.current) return
@@ -316,7 +316,7 @@ const LandingPage = () => {
           <div className="w-full h-full" ref={videoBoxRef}>
             <video playsInline={true} autoPlay={true} muted={true} loop={true}
               id='video1'
-              ref={videoElementRef}
+              // ref={videoElementRef}
               className="h-full w-full object-cover"
               poster='/hero.jpg'
               ref={videoRef}>
