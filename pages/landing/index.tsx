@@ -375,7 +375,7 @@ const LandingPage = () => {
             </video>
           </div>
           {/* section 3 */}
-          <div className="relative w-full h-svh flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
+          <div className="relative bg-white md:bg-transparent w-full h-svh flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
             <div className="flex-1 md:block hidden"></div>
             <div className="flex-1 stepBox md:block hidden">
               <div className='stepIndex'>01</div>
