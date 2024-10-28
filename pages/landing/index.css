@@ -192,7 +192,7 @@ body {
 }
 
 .section_2 {
-  padding: 150px 70px 0;
+  padding: 150px 80px 0;
   align-items: center;
 }
 
@@ -205,10 +205,10 @@ body {
 .section_2 p {
   font-size: 16px;
   line-height: 1.5;
-  margin-left: 70px;
+  margin-left: 80px;
   flex: 1;
   font-size: 20px;
-  margin-top: 120px;
+  margin-top: 200px;
 }
 
 /* 大于 2000px */
@@ -219,24 +219,6 @@ body {
 
   .section_2 p {
     font-size: 24px;
-  }
-}
-
-/* 小于 1000px */
-@media (max-width: 1100px) {
-  .section_2 {
-    padding: 120px 40px 0;
-    align-items: center;
-  }
-
-  .section_2 h1 {
-    font-size: 60px;
-  }
-
-  .section_2 p {
-    font-size: 16px;
-    margin-left: 0;
-    margin-left: 40px;
   }
 }
 
@@ -264,9 +246,9 @@ body {
 }
 
 #video2 {
-  position: absolute;
-  bottom: 0px;
-  left: 0;
+  /* position: absolute;
+  bottom: -250px;
+  left: 0; */
   /* width: 100%;
   max-height: 1000px; */
   /* min-height: 600px; */
@@ -283,7 +265,7 @@ body {
 }
 
 /* 1000 ~ 1500 */
-@media (min-width: 1000px) and (max-width: 1500px) {
+/* @media (min-width: 1000px) and (max-width: 1500px) {
   #video2 {
     bottom: -120px;
   }
@@ -299,7 +281,7 @@ body {
   #video2 {
     bottom: -180px;
   }
-}
+} */
 
 .stepBox {
   padding-left: 50px;
@@ -332,11 +314,11 @@ body {
 }
 
 .stepDesc {
-  font-size: 16px;
-  line-height: 20.8px;
+  font-size: 20px;
+  line-height: 32px;
   font-weight: 400;
   margin-top: 15px;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.9);
 }
 
 /* 768 以下 */
@@ -386,88 +368,11 @@ body {
   }
 }
 
-/* 1000 ～ 1400 一下 */
-@media (min-width: 1000px) and (max-width: 1400px) {
-  .stepBox {
-    padding-left: 50px;
-  }
-
-  .stepIndex {
-    font-size: 36px;
-    top: 10px;
-  }
-
-  .stepTitle {
-    font-size: 80px;
-    line-height: 106px;
-  }
-
-  .stepDesc {
-    font-size: 16px;
-    line-height: 20.8px;
-  }
-}
-
-
-@media (min-width: 1500px) {
-  .stepBox {
-    padding-left: 80px;
-  }
-
-  .stepIndex {
-    font-size: 60px;
-    top: 20px;
-  }
-
-  .stepTitle {
-    font-size: 140px;
-    line-height: 182px;
-  }
-
-  .stepDesc {
-    font-size: 26px;
-    line-height: 31.2px;
-  }
-}
-
-/* @media (min-width: 2000px) and (max-width: 3000px) {
-  .stepBox {
-    padding-left: 80px;
-  }
-
-  .stepIndex {
-    font-size: 80px;
-
-  }
-
-  .stepTitle {
-    font-size: 160px;
-    line-height: 211px;
-  }
-
-  .stepDesc {
-    font-size: 28px;
-    line-height: 36.4px;
-  }
-} */
 
 .frosted-glass {
   background: rgba(255, 255, 255, 0.3);
-  /* 半透明白色背景 */
-  /* border-radius: 10px; */
-  /* 圆角 */
   backdrop-filter: blur(10px);
-  /* 毛玻璃效果 */
   -webkit-backdrop-filter: blur(10px);
-  /* Safari 支持 */
-  /* border: 1px solid rgba(255, 255, 255, 0.3); */
-  /* 边框增加视觉效果 */
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-  /* 轻微阴影，提升立体感 */
-  padding: 20px;
-  text-align: center;
-  color: white;
-  font-size: 18px;
 }
 
 .section_title4 {
