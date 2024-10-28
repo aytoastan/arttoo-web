@@ -80,12 +80,12 @@ body {
 }
 
 /* 大于 700px 高度 */
-.video2 {
+/* .video2 {
   height: 100%;
   min-height: 700px;
-}
+} */
 
-@media (min-height: 700px) and (max-height: 1000px) and (min-width: 768px) {
+/* @media (min-height: 700px) and (max-height: 1000px) and (min-width: 768px) {
   .video2 {
     height: 50%;
     bottom: -120px;
@@ -104,7 +104,7 @@ body {
     height: 100%;
     bottom: 1220px;
   }
-}
+} */
 
 
 .nav-item {
@@ -115,11 +115,11 @@ body {
   cursor: pointer;
 }
 
-@media (min-width: 768px) and (max-width: 1000px) {
+/* @media (min-width: 768px) and (max-width: 1000px) {
   .nav-item {
     margin-left: 40px;
   }
-}
+} */
 
 /* 768px 以下 */
 @media (max-width: 768px) {
@@ -193,7 +193,7 @@ body {
 
 .section_2 {
   padding: 150px 80px 0;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .section_2 h1 {
@@ -208,19 +208,11 @@ body {
   margin-left: 80px;
   flex: 1;
   font-size: 20px;
-  margin-top: 200px;
+  padding-top: 140px;
 }
 
 /* 大于 2000px */
-@media (min-width: 2000px) {
-  .section_2 h1 {
-    font-size: 120px;
-  }
 
-  .section_2 p {
-    font-size: 24px;
-  }
-}
 
 /* 768px 以下 */
 @media (max-width: 768px) {
@@ -252,6 +244,7 @@ body {
   /* width: 100%;
   max-height: 1000px; */
   /* min-height: 600px; */
+  margin-top: -280px;
 
 }
 
@@ -303,7 +296,7 @@ body {
   color: rgba(0, 0, 0, 0.3);
   font-size: 40px;
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 0;
   font-style: italic;
   font-weight: 500;
@@ -352,7 +345,7 @@ body {
 }
 
 /* 768 ～ 1000 一下 */
-@media (min-width: 768px) and (max-width: 1000px) {
+/* @media (min-width: 768px) and (max-width: 1000px) {
   .stepBox {
     padding-left: 40px;
   }
@@ -370,7 +363,7 @@ body {
     font-size: 16px;
     line-height: 20.8px;
   }
-}
+} */
 
 
 .frosted-glass {
