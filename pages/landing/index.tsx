@@ -351,7 +351,7 @@ const LandingPage = () => {
         {/* main content */}
         <div className='w-full bg-white'>
           {/* section 2 */}
-          <div className="relative w-screen bg-white relative overflow-hidden" ref={sec2BoxRef}>
+          <div className="relative w-screen bg-white z-[3] relative overflow-hidden" ref={sec2BoxRef}>
             <div className='flex relative z-[1] section_2'>
               <h1 ref={sec2TitleRef} className='text-black move-up-and-fade-out'>Art Is The Visual <span className="italic font-medium">Proof Of History</span> For Humanity</h1>
               <p ref={sec2DescRef} className='text-black move-up-and-fade-out'>
@@ -372,7 +372,7 @@ const LandingPage = () => {
             </video>
           </div>
           {/* section 3 */}
-          <div className="relative w-full bg-transparent h-svh flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
+          <div className="relative w-full bg-white h-svh z-[2] flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
             <div className="flex-1 md:block hidden"></div>
             <div className="flex-1 stepBox md:block hidden">
               <div className='stepIndex'>01</div>
