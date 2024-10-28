@@ -10,7 +10,7 @@ import { useEmailSubmit } from './components/Footer';
 
 const LandingPage = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState(0)
   const [step3, setStep3] = useState(-1)
   const [hover, setHover] = useState(false)
@@ -275,8 +275,8 @@ const LandingPage = () => {
   }
   return <div className='w-full h-full'>
     <div className={`flex md:px-[80px] md:py-[30px] px-[20px] py-[20px] relative z-[13] absolute top-0 left-0 w-full ${step === 1 ? 'frosted-glass' : ''}`} ref={headerRef}>
-      <img src={'/arttoo-logo.png'} alt="logo" className='md:h-[35px] h-[30px]' style={{ filter: isOpen || step === 1 ? 'invert(1)' : 'invert(0)' }} />
-      <div className={`hidden md:flex items-center flex-1 justify-end ${isOpen || step === 1 ? 'text-black' : 'text-white'}`}>
+      <img src={'/arttoo-logo.png'} alt="logo" className='md:h-[35px] h-[30px]' style={{ filter: false || step === 1 ? 'invert(1)' : 'invert(0)' }} />
+      <div className={`hidden md:flex items-center flex-1 justify-end ${false || step === 1 ? 'text-black' : 'text-white'}`}>
         {/* <div className='nav-item'>Artworks</div>
         <div className='nav-item'>Learn</div>
         <div className='nav-item'>About</div>
@@ -297,7 +297,7 @@ const LandingPage = () => {
         }
       </div> */}
     </div>
-    {isOpen ? <div className='absolute top-0 left-0 w-full h-full bg-white z-[10] bg-white move-up-and-fade-in2'>
+    {false ? <div className='absolute top-0 left-0 w-full h-full bg-white z-[10] bg-white move-up-and-fade-in2'>
       <div className='h-[70px]'></div>
       <div className='text-black nav-item'>Artworks</div>
       <div className='text-black nav-item'>Learn</div>
