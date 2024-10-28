@@ -130,10 +130,11 @@ const LandingPage = () => {
       }
 
       // 4 ~ 4.5 之间 ，把 canvas 的 缩小到 0
-      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3 + sec2BoxRef.current!.clientHeight) {
+      const isMd = window.innerWidth > 768
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         // 跟随滚动
         // let scale = 1 - (scrollRef.current?.scrollTop - windowHeight * 4) / (windowHeight * 0.5)
-        const y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight)
+        const y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
         // if (scale < 0.1 || scale < 0) scale = 0
         // console.log('scale ', scale)
         canvasRef.current!.style.transform = `translateY(${y}px)`
@@ -238,7 +239,9 @@ const LandingPage = () => {
       const maxScroll = 2.5 * window.innerHeight
       const scrollTop = scrollContainer?.scrollTop
       // 计算当前帧数 (0 ~ 240)，免去 1.5 倍 windowHeight
-      const scrollProgress = (scrollTop - (0.5 * window.innerHeight + sec2BoxRef.current!.clientHeight)) / (maxScroll);
+      //  如果是 md 屏幕，则减去 300px
+      const isMd = window.innerWidth > 768
+      const scrollProgress = (scrollTop + (isMd ? 300 : 0) - (0.5 * window.innerHeight + sec2BoxRef.current!.clientHeight)) / (maxScroll);
       let currentFrame = Math.min(totalFrames - 1, Math.floor(scrollProgress * totalFrames));
       // 小于 0 设置为 0
       if (currentFrame < 0) {
@@ -369,7 +372,7 @@ const LandingPage = () => {
             </video>
           </div>
           {/* section 3 */}
-          <div className="relative w-full bg-white h-svh flex md:flex-row flex-col justify-center items-center">
+          <div className="relative w-full bg-transparent h-svh flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
             <div className="flex-1 md:block hidden"></div>
             <div className="flex-1 stepBox md:block hidden">
               <div className='stepIndex'>01</div>
