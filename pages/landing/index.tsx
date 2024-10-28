@@ -404,7 +404,7 @@ const LandingPage = () => {
                   <Image src={Gurrjohns} alt='Gurrjohns' className='w-[160px]' />
                   <div className="flex flex-col gap-1">
                     <h3 className="text-[20px] md:text-[24px] font-semibold leading-[31.44px]">Expert Authentication</h3>
-                    <p className="text-[16px] md:text-[20px] leading-[20.4px] md:leading-[26.2px] text-black/60">We collaborates with
+                    <p className="text-[16px] md:text-[20px] md:mt-[24px] mt-[16px] leading-[20.4px] md:leading-[26.2px] text-black/60">We collaborates with
                       renowned appraisers from GurrJohns (or other established appraisal firms) to meticulously verify artwork
                       authenticity, condition, and provenance, with its proof of appraisal embedded directly within each token.</p>
                   </div>
@@ -415,7 +415,7 @@ const LandingPage = () => {
                   <Image src={Axa} alt='Axa' className=' w-[40px]' />
                   <div className="flex flex-col gap-1">
                     <h3 className="text-[20px] md:text-[24px] font-semibold leading-[31.44px]">Comprehensive Insurance</h3>
-                    <p className="text-[16px] md:text-[20px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with a
+                    <p className="text-[16px] md:text-[20px] md:mt-[24px] mt-[16px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with a
                       leading art insurance company to provide tailored coverage against theft, damage, and loss during
                       transportation, storage, and loans.</p>
                   </div>
@@ -429,7 +429,7 @@ const LandingPage = () => {
                   </div>
                   <div className="flex flex-col gap-1">
                     <h3 className="text-[20px] md:text-[24px] font-semibold leading-[31.44px]">Secure Transportation and Storage</h3>
-                    <p className="text-[16px] md:text-[20px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with trusted
+                    <p className="text-[16px] md:text-[20px] md:mt-[24px] mt-[16px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with trusted
                       companies like Momart and DIETL International, to ensure secure transportation of the artwork from your
                       location to our state-of-the-art storage facility equipped with advanced security systems and climate control
                       to guarantee its preservation.</p>
