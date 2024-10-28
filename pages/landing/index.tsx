@@ -32,6 +32,7 @@ const LandingPage = () => {
   const stepTextRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
   const sec2BoxRef = useRef<HTMLDivElement>(null)
+  const videoElementRef = useRef<HTMLVideoElement>(null)
   const isInit = useRef(false)
   useEffect(() => {
     if (isInit.current) return
@@ -60,10 +61,11 @@ const LandingPage = () => {
       const windowHeight = window.innerHeight
       // 离开第一屏则 videoBoxRef 透明度设置成 0 
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight) {
-        videoBoxRef.current!.style.opacity = '0'
+        // 不可见
+        videoBoxRef.current!.style.visibility = 'hidden'
       }
       else {
-        videoBoxRef.current!.style.opacity = '1'
+        videoBoxRef.current!.style.visibility = 'visible'
       }
       // section 2 标题和描述 从 0.6 * windowHeight 到 windowHeight  之间, 逐渐显示
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= 0.1 * windowHeight) {
@@ -314,6 +316,7 @@ const LandingPage = () => {
           <div className="w-full h-full" ref={videoBoxRef}>
             <video playsInline={true} autoPlay={true} muted={true} loop={true}
               id='video1'
+              ref={videoElementRef}
               className="h-full w-full object-cover"
               poster='/hero.jpg'
               ref={videoRef}>
@@ -349,9 +352,9 @@ const LandingPage = () => {
           </div>
         </div>
         {/* main content */}
-        <div className='w-full bg-white'>
+        <div className='w-full bg-white h-auto'>
           {/* section 2 */}
-          <div className="relative w-screen bg-white z-[3] relative overflow-hidden" ref={sec2BoxRef}>
+          <div className="relative w-screen bg-white relative overflow-hidden" ref={sec2BoxRef}>
             <div className='flex relative z-[1] section_2'>
               <h1 ref={sec2TitleRef} className='text-black move-up-and-fade-out'>Art Is The Visual <span className="italic font-medium">Proof Of History</span> For Humanity</h1>
               <p ref={sec2DescRef} className='text-black move-up-and-fade-out'>
@@ -372,7 +375,7 @@ const LandingPage = () => {
             </video>
           </div>
           {/* section 3 */}
-          <div className="relative w-full bg-white h-svh z-[2] flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
+          <div className="relative w-full h-svh flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
             <div className="flex-1 md:block hidden"></div>
             <div className="flex-1 stepBox md:block hidden">
               <div className='stepIndex'>01</div>
