@@ -252,13 +252,15 @@ body {
   /* width: 100%;
   max-height: 1000px; */
   /* min-height: 600px; */
-  
+
 }
 
 @media (max-width: 768px) {
   #video2 {
     width: 100%;
-    margin-top: 100px;
+    margin-top: -100px;
+    max-height: 1000px;
+    min-height: 600px;
     /* max-width: 1000px;
     left: 50%;
     bottom: -50px; */
