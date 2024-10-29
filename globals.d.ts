@@ -6,3 +6,9 @@ declare global {
     THREE: typeof import('three');
   }
 }
+
+declare global {
+  interface Window {
+    innerHeight: number;
+  }
+}

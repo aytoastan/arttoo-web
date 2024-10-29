@@ -1,3 +1,24 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+    /* 强制使用亮色主题 */
+  }
+
+  /* 设置页面的背景颜色和文字颜色 */
+  body {
+    background-color: white;
+    /* 强制白色背景 */
+    color: black;
+    /* 强制黑色文字 */
+  }
+
+  /* 针对其他元素的样式 */
+  /* 例如，覆盖深色模式的链接颜色 */
+  a {
+    color: blue;
+    /* 强制链接为蓝色 */
+  }
+}
 * {
   user-select: none;
 }

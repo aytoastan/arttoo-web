@@ -7,7 +7,7 @@ import Image from 'next/image';
 import './index.css'
 import { imgs } from '@/assets/images/action';
 import { useEmailSubmit } from './components/Footer';
-const windowHeight = window.innerHeight
+// const windowHeight = window.innerHeight
 const LandingPage = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   // const [isOpen, setIsOpen] = useState(false)
@@ -32,9 +32,11 @@ const LandingPage = () => {
   const stepTextRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
   const sec2BoxRef = useRef<HTMLDivElement>(null)
+  const windowHeightRef = useRef(0)
   // const videoElementRef = useRef<HTMLVideoElement>(null)
   const isInit = useRef(false)
   useEffect(() => {
+    windowHeightRef.current = window.innerHeight
     if (isInit.current) return
     isInit.current = true
     if (isFirstTouch.current) {
@@ -58,7 +60,7 @@ const LandingPage = () => {
   }, [])
   const init = async () => {
     scrollRef.current?.addEventListener('scroll', () => {
-      // const windowHeight = window.innerHeight
+      const windowHeight = windowHeightRef.current
       // 离开第一屏则 videoBoxRef 透明度设置成 0 
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight) {
         // 不可见
