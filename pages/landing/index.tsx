@@ -55,8 +55,21 @@ const LandingPage = () => {
     initCanvas()
     //  window resize 重新设置 canvas
     window.addEventListener('resize', () => {
-      setCanvasSize()
-      // setH(window.innerHeight)
+      const isMd = window.innerWidth > 768
+      const fixH = windowHeightRef.current
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= fixH * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
+        // 跟随滚动
+        const y = - (scrollRef.current?.scrollTop - fixH * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        // if (y > 0) y = 0
+        // if (scale < 0.1 || scale < 0) scale = 0
+        // console.log('scale ', scale)
+        canvasRef.current!.style.transform = `translateY(${y}px)`
+        canvasRef.current!.style.webkitTransform = `translateY(${y}px)`
+
+        // stepTextRef
+        stepTextRef.current!.style.transform = `translateY(${y}px)`
+        stepTextRef.current!.style.webkitTransform = `translateY(${y}px)`
+      }
     })
     // console.log(1)
   }, [])
@@ -138,10 +151,11 @@ const LandingPage = () => {
 
       // 4 ~ 4.5 之间 ，把 canvas 的 缩小到 0
       const isMd = window.innerWidth > 768
-      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
+      // const fixH = windowHeightRef.current
+      const fixH = windowHeight
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= fixH * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         // 跟随滚动
-        // let scale = 1 - (scrollRef.current?.scrollTop - windowHeight * 4) / (windowHeight * 0.5)
-        const y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        const y = - (scrollRef.current?.scrollTop - fixH * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
         // if (y > 0) y = 0
         // if (scale < 0.1 || scale < 0) scale = 0
         // console.log('scale ', scale)
@@ -153,23 +167,13 @@ const LandingPage = () => {
         stepTextRef.current!.style.webkitTransform = `translateY(${y}px)`
       }
       else {
-        if (!isMd) {
-          if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight + sec2BoxRef.current!.clientHeight && scrollRef.current?.scrollTop < windowHeight * 2.5 + sec2BoxRef.current!.clientHeight) {
-            canvasRef.current!.style.transform = `translateY(0)`
-            canvasRef.current!.style.webkitTransform = `translateY(0)`
-            stepTextRef.current!.style.transform = `translateY(0)`
-            stepTextRef.current!.style.webkitTransform = `translateY(0)`
-          }
-        }
-        else {
-          canvasRef.current!.style.transform = `translateY(0)`
-          canvasRef.current!.style.webkitTransform = `translateY(0)`
-          stepTextRef.current!.style.transform = `translateY(0)`
-          stepTextRef.current!.style.webkitTransform = `translateY(0)`
-        }
+        canvasRef.current!.style.transform = `translateY(0)`
+        canvasRef.current!.style.webkitTransform = `translateY(0)`
+        stepTextRef.current!.style.transform = `translateY(0)`
+        stepTextRef.current!.style.webkitTransform = `translateY(0)`
       }
       // 5 之后
-      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3.1 + sec2BoxRef.current!.clientHeight) {
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= fixH * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         sec4TitleRef.current?.classList.add('move-up-and-fade-in')
         sec4Box1Ref.current?.classList.add('move-up-and-fade-in')
         sec4Box2Ref.current?.classList.add('move-up-and-fade-in')
@@ -274,19 +278,35 @@ const LandingPage = () => {
     // 768px 以上 50% 宽度
     // 
     const width = window.innerWidth > 768 ? window.innerWidth * 0.5 : window.innerWidth * 1.4
+
     canvas!.style.width = `${width}px`
     canvas!.style.height = `${width}px`
     if (window.innerWidth > 768) {
+      
       canvas!.style.position = 'fixed'
       canvas!.style.top = window.innerHeight / 2 - width / 2 + 'px'
       canvas!.style.pointerEvents = 'none'
     }
     else {
+      // 如果 width > 412 ，则
+      // if (width > 412) {
+      //   width = 412
+      //   canvas!.style.left = (window.innerWidth - width) / 2 + 'px'
+      // }
+      canvas!.style.width = `${width}px`
+      canvas!.style.height = `${width}px`
+
       canvas!.style.position = 'fixed'
       canvas!.style.pointerEvents = 'none'
+      // 
       canvas!.style.bottom = 0 + 'px'
+      // canvas!.style.top = window.innerHeight - width + 'px'
       canvas!.style.zIndex = '1'
       canvas!.style.left = window.innerWidth * -0.2 + 'px'
+
+      window.addEventListener('resize', () => {
+        // canvas!.style.top = window.innerHeight - width + 'px'
+      })
     }
 
   }
