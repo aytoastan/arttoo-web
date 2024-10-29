@@ -14,6 +14,7 @@ const LandingPage = () => {
   const [step, setStep] = useState(0)
   const [step3, setStep3] = useState(-1)
   const [hover, setHover] = useState(false)
+  const [h, setH] = useState(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -32,11 +33,11 @@ const LandingPage = () => {
   const stepTextRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
   const sec2BoxRef = useRef<HTMLDivElement>(null)
-  const windowHeightRef = useRef(0)
+  // const windowHeightRef = useRef(0)
   // const videoElementRef = useRef<HTMLVideoElement>(null)
   const isInit = useRef(false)
   useEffect(() => {
-    windowHeightRef.current = window.innerHeight
+    // windowHeightRef.current = window.innerHeight
     if (isInit.current) return
     isInit.current = true
     if (isFirstTouch.current) {
@@ -55,12 +56,14 @@ const LandingPage = () => {
     //  window resize 重新设置 canvas
     window.addEventListener('resize', () => {
       setCanvasSize()
+      setH(window.innerHeight)
     })
     // console.log(1)
   }, [])
   const init = async () => {
     scrollRef.current?.addEventListener('scroll', () => {
-      const windowHeight = windowHeightRef.current
+      // const windowHeight = windowHeightRef.current
+      const windowHeight = window.innerHeight
       // 离开第一屏则 videoBoxRef 透明度设置成 0 
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight) {
         // 不可见
@@ -143,20 +146,26 @@ const LandingPage = () => {
         // console.log('scale ', scale)
         canvasRef.current!.style.transform = `translateY(${y}px)`
         canvasRef.current!.style.webkitTransform = `translateY(${y}px)`
-        // canvasRef.current!.style.MozTransform = `translateY(${y}px)`
 
         // stepTextRef
         stepTextRef.current!.style.transform = `translateY(${y}px)`
         stepTextRef.current!.style.webkitTransform = `translateY(${y}px)`
-        // stepTextRef.current!.style.MozTransform = `translateY(${y}px)`
       }
       else {
-        canvasRef.current!.style.transform = `translateY(0)`
-        canvasRef.current!.style.webkitTransform = `translateY(0)`
-        // canvasRef.current!.style.MozTransform = `translateY(0)`
-        stepTextRef.current!.style.transform = `translateY(0)`
-        stepTextRef.current!.style.webkitTransform = `translateY(0)`
-        // stepTextRef.current!.style.MozTransform = `translateY(0)`
+        if (!isMd) {
+          if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight + sec2BoxRef.current!.clientHeight && scrollRef.current?.scrollTop < windowHeight * 2.5 + sec2BoxRef.current!.clientHeight) {
+            canvasRef.current!.style.transform = `translateY(0)`
+            canvasRef.current!.style.webkitTransform = `translateY(0)`
+            stepTextRef.current!.style.transform = `translateY(0)`
+            stepTextRef.current!.style.webkitTransform = `translateY(0)`
+          }
+        }
+        else {
+          // canvasRef.current!.style.transform = `translateY(0)`
+          // canvasRef.current!.style.webkitTransform = `translateY(0)`
+          // stepTextRef.current!.style.transform = `translateY(0)`
+          // stepTextRef.current!.style.webkitTransform = `translateY(0)`
+        }
       }
       // 5 之后
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3.1 + sec2BoxRef.current!.clientHeight) {
@@ -402,7 +411,7 @@ const LandingPage = () => {
             </div>
           </div>
           {/* section 4 */}
-          <div className="relative w-full bg-white md:px-[80px] px-[20px] pb-[100px]">
+          <div className="relative w-full bg-white md:px-[80px] px-[20px] pb-[100px] fixDrak">
             <div ref={sec4TitleRef} className='section_title4'>
               Your investments<br />are <span className='font-medium italic'>secured</span> with us
             </div>
@@ -524,6 +533,9 @@ const LandingPage = () => {
     </div>
     {/* floating canvas */}
     <div id="canvas" ref={canvasRef} className='z-[2] bg-transparent pointer-events-none'></div>
+    <div className='fixed left-0 w-full h-[30px] bg-red-500'>
+      <p>{h}</p>
+    </div>
     <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="beforeInteractive" />
   </div>
 }
