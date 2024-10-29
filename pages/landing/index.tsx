@@ -7,7 +7,7 @@ import Image from 'next/image';
 import './index.css'
 import { imgs } from '@/assets/images/action';
 import { useEmailSubmit } from './components/Footer';
-
+const windowHeight = window.innerHeight
 const LandingPage = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   // const [isOpen, setIsOpen] = useState(false)
@@ -58,7 +58,7 @@ const LandingPage = () => {
   }, [])
   const init = async () => {
     scrollRef.current?.addEventListener('scroll', () => {
-      const windowHeight = window.innerHeight
+      // const windowHeight = window.innerHeight
       // 离开第一屏则 videoBoxRef 透明度设置成 0 
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight) {
         // 不可见

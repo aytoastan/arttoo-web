@@ -386,7 +386,7 @@ body {
 /* 768 以下 */
 @media (max-width: 768px) {
   .section_title4 {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 53px;
     padding-top: 20px;
   }
