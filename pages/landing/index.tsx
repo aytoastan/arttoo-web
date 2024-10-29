@@ -14,7 +14,7 @@ const LandingPage = () => {
   const [step, setStep] = useState(0)
   const [step3, setStep3] = useState(-1)
   const [hover, setHover] = useState(false)
-  const [h, setH] = useState(0)
+  // const [h, setH] = useState(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -56,7 +56,7 @@ const LandingPage = () => {
     //  window resize 重新设置 canvas
     window.addEventListener('resize', () => {
       setCanvasSize()
-      setH(window.innerHeight)
+      // setH(window.innerHeight)
     })
     // console.log(1)
   }, [])
@@ -141,7 +141,7 @@ const LandingPage = () => {
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         // 跟随滚动
         // let scale = 1 - (scrollRef.current?.scrollTop - windowHeight * 4) / (windowHeight * 0.5)
-        let y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        const y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
         // if (y > 0) y = 0
         // if (scale < 0.1 || scale < 0) scale = 0
         // console.log('scale ', scale)
