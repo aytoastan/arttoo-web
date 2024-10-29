@@ -33,11 +33,11 @@ const LandingPage = () => {
   const stepTextRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
   const sec2BoxRef = useRef<HTMLDivElement>(null)
-  // const windowHeightRef = useRef(0)
+  const windowHeightRef = useRef(0)
   // const videoElementRef = useRef<HTMLVideoElement>(null)
   const isInit = useRef(false)
   useEffect(() => {
-    // windowHeightRef.current = window.innerHeight
+    windowHeightRef.current = window.innerHeight
     if (isInit.current) return
     isInit.current = true
     if (isFirstTouch.current) {
@@ -141,7 +141,8 @@ const LandingPage = () => {
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         // 跟随滚动
         // let scale = 1 - (scrollRef.current?.scrollTop - windowHeight * 4) / (windowHeight * 0.5)
-        const y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        let y = - (scrollRef.current?.scrollTop - windowHeight * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        // if (y > 0) y = 0
         // if (scale < 0.1 || scale < 0) scale = 0
         // console.log('scale ', scale)
         canvasRef.current!.style.transform = `translateY(${y}px)`
@@ -161,10 +162,10 @@ const LandingPage = () => {
           }
         }
         else {
-          // canvasRef.current!.style.transform = `translateY(0)`
-          // canvasRef.current!.style.webkitTransform = `translateY(0)`
-          // stepTextRef.current!.style.transform = `translateY(0)`
-          // stepTextRef.current!.style.webkitTransform = `translateY(0)`
+          canvasRef.current!.style.transform = `translateY(0)`
+          canvasRef.current!.style.webkitTransform = `translateY(0)`
+          stepTextRef.current!.style.transform = `translateY(0)`
+          stepTextRef.current!.style.webkitTransform = `translateY(0)`
         }
       }
       // 5 之后
@@ -533,9 +534,9 @@ const LandingPage = () => {
     </div>
     {/* floating canvas */}
     <div id="canvas" ref={canvasRef} className='z-[2] bg-transparent pointer-events-none'></div>
-    <div className='fixed left-0 w-full h-[30px] bg-red-500'>
+    {/* <div className='fixed left-0 w-full h-[30px] bg-red-500'>
       <p>{h}</p>
-    </div>
+    </div> */}
     <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="beforeInteractive" />
   </div>
 }
