@@ -7,13 +7,14 @@ import Image from 'next/image';
 import './index.css'
 import { imgs } from '@/assets/images/action';
 import { useEmailSubmit } from './components/Footer';
-
+// const windowHeight = window.innerHeight
 const LandingPage = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
   const [step, setStep] = useState(0)
   const [step3, setStep3] = useState(-1)
   const [hover, setHover] = useState(false)
+  // const [h, setH] = useState(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -31,8 +32,12 @@ const LandingPage = () => {
   const sec4Box3Ref = useRef<HTMLDivElement>(null)
   const stepTextRef = useRef<HTMLDivElement>(null)
   const videoBoxRef = useRef<HTMLDivElement>(null)
+  const sec2BoxRef = useRef<HTMLDivElement>(null)
+  const windowHeightRef = useRef(0)
+  // const videoElementRef = useRef<HTMLVideoElement>(null)
   const isInit = useRef(false)
   useEffect(() => {
+    windowHeightRef.current = window.innerHeight
     if (isInit.current) return
     isInit.current = true
     if (isFirstTouch.current) {
@@ -48,17 +53,37 @@ const LandingPage = () => {
     init()
     setCanvasSize()
     initCanvas()
+    //  window resize 重新设置 canvas
+    window.addEventListener('resize', () => {
+      const isMd = window.innerWidth > 768
+      const fixH = windowHeightRef.current
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= fixH * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
+        // 跟随滚动
+        const y = - (scrollRef.current?.scrollTop - fixH * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        // if (y > 0) y = 0
+        // if (scale < 0.1 || scale < 0) scale = 0
+        // console.log('scale ', scale)
+        canvasRef.current!.style.transform = `translateY(${y}px)`
+        canvasRef.current!.style.webkitTransform = `translateY(${y}px)`
+
+        // stepTextRef
+        stepTextRef.current!.style.transform = `translateY(${y}px)`
+        stepTextRef.current!.style.webkitTransform = `translateY(${y}px)`
+      }
+    })
     // console.log(1)
   }, [])
   const init = async () => {
     scrollRef.current?.addEventListener('scroll', () => {
+      // const windowHeight = windowHeightRef.current
       const windowHeight = window.innerHeight
       // 离开第一屏则 videoBoxRef 透明度设置成 0 
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight) {
-        videoBoxRef.current!.style.opacity = '0'
+        // 不可见
+        videoBoxRef.current!.style.visibility = 'hidden'
       }
       else {
-        videoBoxRef.current!.style.opacity = '1'
+        videoBoxRef.current!.style.visibility = 'visible'
       }
       // section 2 标题和描述 从 0.6 * windowHeight 到 windowHeight  之间, 逐渐显示
       if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= 0.1 * windowHeight) {
@@ -109,15 +134,15 @@ const LandingPage = () => {
       }
 
       // step3
-      if (scrollRef.current?.scrollTop && (scrollRef.current?.scrollTop > 1.8 * windowHeight && scrollRef.current?.scrollTop < windowHeight * 2.5)) {
+      if (scrollRef.current?.scrollTop && (scrollRef.current?.scrollTop > 0.6 * windowHeight + sec2BoxRef.current!.clientHeight && scrollRef.current?.scrollTop < windowHeight * 1.5 + sec2BoxRef.current!.clientHeight)) {
         setStep3(0)
       }
       // 3 ~ 4
-      else if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight * 2.5 && scrollRef.current?.scrollTop < windowHeight * 3.5) {
+      else if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop > windowHeight * 1.5 + sec2BoxRef.current!.clientHeight && scrollRef.current?.scrollTop < windowHeight * 2.5 + sec2BoxRef.current!.clientHeight) {
         setStep3(1)
       }
       // 4 
-      else if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 3.5) {
+      else if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 2.5 + sec2BoxRef.current!.clientHeight) {
         setStep3(2)
       }
       else {
@@ -125,31 +150,30 @@ const LandingPage = () => {
       }
 
       // 4 ~ 4.5 之间 ，把 canvas 的 缩小到 0
-      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 4) {
+      const isMd = window.innerWidth > 768
+      // const fixH = windowHeightRef.current
+      const fixH = windowHeight
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= fixH * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         // 跟随滚动
-        // let scale = 1 - (scrollRef.current?.scrollTop - windowHeight * 4) / (windowHeight * 0.5)
-        const y = - (scrollRef.current?.scrollTop - windowHeight * 4)
+        const y = - (scrollRef.current?.scrollTop - fixH * 3 - sec2BoxRef.current!.clientHeight + (isMd ? 300 : 0))
+        // if (y > 0) y = 0
         // if (scale < 0.1 || scale < 0) scale = 0
         // console.log('scale ', scale)
         canvasRef.current!.style.transform = `translateY(${y}px)`
         canvasRef.current!.style.webkitTransform = `translateY(${y}px)`
-        // canvasRef.current!.style.MozTransform = `translateY(${y}px)`
 
         // stepTextRef
         stepTextRef.current!.style.transform = `translateY(${y}px)`
         stepTextRef.current!.style.webkitTransform = `translateY(${y}px)`
-        // stepTextRef.current!.style.MozTransform = `translateY(${y}px)`
       }
       else {
         canvasRef.current!.style.transform = `translateY(0)`
         canvasRef.current!.style.webkitTransform = `translateY(0)`
-        // canvasRef.current!.style.MozTransform = `translateY(0)`
         stepTextRef.current!.style.transform = `translateY(0)`
         stepTextRef.current!.style.webkitTransform = `translateY(0)`
-        // stepTextRef.current!.style.MozTransform = `translateY(0)`
       }
       // 5 之后
-      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= windowHeight * 4.1) {
+      if (scrollRef.current?.scrollTop && scrollRef.current?.scrollTop >= fixH * 3 + sec2BoxRef.current!.clientHeight - (isMd ? 300 : 0)) {
         sec4TitleRef.current?.classList.add('move-up-and-fade-in')
         sec4Box1Ref.current?.classList.add('move-up-and-fade-in')
         sec4Box2Ref.current?.classList.add('move-up-and-fade-in')
@@ -228,11 +252,14 @@ const LandingPage = () => {
     }
     // 根据滚动条位置计算当前帧数
     // 1.5 ~ 4 倍 windowHeight 之间, 其中 0.5 在 ScrollRef 中,  0.5 ~4 在 ScrollContainer 中
+    // 1 倍 windowHeight + sec2BoxRef.current?.clientHeight ~ 3 倍 windowHeight + sec2BoxRef.current?.clientHeight
     function onScroll() {
       const maxScroll = 2.5 * window.innerHeight
       const scrollTop = scrollContainer?.scrollTop
       // 计算当前帧数 (0 ~ 240)，免去 1.5 倍 windowHeight
-      const scrollProgress = (scrollTop - 1.5 * window.innerHeight) / (maxScroll);
+      //  如果是 md 屏幕，则减去 300px
+      const isMd = window.innerWidth > 768
+      const scrollProgress = (scrollTop + (isMd ? 300 : 0) - (0.5 * window.innerHeight + sec2BoxRef.current!.clientHeight)) / (maxScroll);
       let currentFrame = Math.min(totalFrames - 1, Math.floor(scrollProgress * totalFrames));
       // 小于 0 设置为 0
       if (currentFrame < 0) {
@@ -251,35 +278,48 @@ const LandingPage = () => {
     // 768px 以上 50% 宽度
     // 
     const width = window.innerWidth > 768 ? window.innerWidth * 0.5 : window.innerWidth * 1.4
+
     canvas!.style.width = `${width}px`
     canvas!.style.height = `${width}px`
     if (window.innerWidth > 768) {
+      
       canvas!.style.position = 'fixed'
       canvas!.style.top = window.innerHeight / 2 - width / 2 + 'px'
       canvas!.style.pointerEvents = 'none'
     }
     else {
+      // 如果 width > 412 ，则
+      // if (width > 412) {
+      //   width = 412
+      //   canvas!.style.left = (window.innerWidth - width) / 2 + 'px'
+      // }
+      canvas!.style.width = `${width}px`
+      canvas!.style.height = `${width}px`
+
       canvas!.style.position = 'fixed'
       canvas!.style.pointerEvents = 'none'
+      // 
       canvas!.style.bottom = 0 + 'px'
+      // canvas!.style.top = window.innerHeight - width + 'px'
       canvas!.style.zIndex = '1'
       canvas!.style.left = window.innerWidth * -0.2 + 'px'
+
+      window.addEventListener('resize', () => {
+        // canvas!.style.top = window.innerHeight - width + 'px'
+      })
     }
-    //  window resize 重新设置 canvas
-    window.addEventListener('resize', () => {
-      setCanvasSize()
-    })
+
   }
   return <div className='w-full h-full'>
     <div className={`flex md:px-[80px] md:py-[30px] px-[20px] py-[20px] relative z-[13] absolute top-0 left-0 w-full ${step === 1 ? 'frosted-glass' : ''}`} ref={headerRef}>
-      <img src={'/arttoo-logo.png'} alt="logo" className='md:h-[35px] h-[30px]' style={{ filter: isOpen || step === 1 ? 'invert(1)' : 'invert(0)' }} />
-      <div className={`hidden md:flex items-center flex-1 justify-end ${isOpen || step === 1 ? 'text-black' : 'text-white'}`}>
-        <div className='nav-item'>Artworks</div>
+      <img src={'/arttoo-logo.png'} alt="logo" className='md:h-[35px] h-[30px]' style={{ filter: false || step === 1 ? 'invert(1)' : 'invert(0)' }} />
+      <div className={`hidden md:flex items-center flex-1 justify-end ${false || step === 1 ? 'text-black' : 'text-white'}`}>
+        {/* <div className='nav-item'>Artworks</div>
         <div className='nav-item'>Learn</div>
         <div className='nav-item'>About</div>
-        <div className='nav-item'>Contact us</div>
+        <div className='nav-item'>Contact us</div> */}
       </div>
-      <div className={`md:hidden w-[70px] h-[70px] absolute right-0 top-0 flex items-center justify-center cursor-pointer ${isOpen || step === 1 ? 'text-black' : 'text-white'}`} onClick={() => {
+      {/* <div className={`md:hidden w-[70px] h-[70px] absolute right-0 top-0 flex items-center justify-center cursor-pointer ${isOpen || step === 1 ? 'text-black' : 'text-white'}`} onClick={() => {
         setIsOpen(!isOpen)
       }}>
         {!isOpen ? <svg width="24" height="22" viewBox="0 0 24 22" fill="none">
@@ -292,9 +332,9 @@ const LandingPage = () => {
             <rect width="24" height="2" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 21.1914 18.7783)" fill="currentColor" style={{ fill: 'currentColor', fillOpacity: 1 }} />
           </svg>
         }
-      </div>
+      </div> */}
     </div>
-    {isOpen ? <div className='absolute top-0 left-0 w-full h-full bg-white z-[10] bg-white move-up-and-fade-in2'>
+    {false ? <div className='absolute top-0 left-0 w-full h-full bg-white z-[10] bg-white move-up-and-fade-in2'>
       <div className='h-[70px]'></div>
       <div className='text-black nav-item'>Artworks</div>
       <div className='text-black nav-item'>Learn</div>
@@ -308,6 +348,7 @@ const LandingPage = () => {
           <div className="w-full h-full" ref={videoBoxRef}>
             <video playsInline={true} autoPlay={true} muted={true} loop={true}
               id='video1'
+              // ref={videoElementRef}
               className="h-full w-full object-cover"
               poster='/hero.jpg'
               ref={videoRef}>
@@ -343,9 +384,9 @@ const LandingPage = () => {
           </div>
         </div>
         {/* main content */}
-        <div className='w-full bg-white'>
+        <div className='w-full bg-white h-auto'>
           {/* section 2 */}
-          <div className="relative w-screen h-svh bg-white relative overflow-hidden">
+          <div className="relative w-screen bg-white relative overflow-hidden" ref={sec2BoxRef}>
             <div className='flex relative z-[1] section_2'>
               <h1 ref={sec2TitleRef} className='text-black move-up-and-fade-out'>Art Is The Visual <span className="italic font-medium">Proof Of History</span> For Humanity</h1>
               <p ref={sec2DescRef} className='text-black move-up-and-fade-out'>
@@ -366,7 +407,7 @@ const LandingPage = () => {
             </video>
           </div>
           {/* section 3 */}
-          <div className="relative w-full bg-white h-svh flex md:flex-row flex-col justify-center items-center">
+          <div className="relative bg-white md:bg-transparent w-full h-svh flex md:flex-row flex-col justify-center items-center md:mt-[-300px]">
             <div className="flex-1 md:block hidden"></div>
             <div className="flex-1 stepBox md:block hidden">
               <div className='stepIndex'>01</div>
@@ -391,9 +432,9 @@ const LandingPage = () => {
             </div>
           </div>
           {/* section 4 */}
-          <div className="relative w-full bg-white md:px-[80px] px-[20px] pb-[100px]">
+          <div className="relative w-full bg-white md:px-[80px] px-[20px] pb-[100px] fixDrak">
             <div ref={sec4TitleRef} className='section_title4'>
-              Your investments<br />are <span className='font-bold italic'>secured</span> with us
+              Your investments<br />are <span className='font-medium italic'>secured</span> with us
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 justify-between gap-8 lg:gap-16 md:mt-[150px] mt-[40px]">
               <div ref={sec4Box1Ref} className="w-fit" style={{ opacity: 1, willChange: 'transform', transform: 'none' }}>
@@ -401,7 +442,7 @@ const LandingPage = () => {
                   <Image src={Gurrjohns} alt='Gurrjohns' className='w-[160px]' />
                   <div className="flex flex-col gap-1">
                     <h3 className="text-[20px] md:text-[24px] font-semibold leading-[31.44px]">Expert Authentication</h3>
-                    <p className="text-[16px] md:text-[20px] leading-[20.4px] md:leading-[26.2px] text-black/60">We collaborates with
+                    <p className="text-[16px] md:text-[20px] md:mt-[24px] mt-[16px] leading-[20.4px] md:leading-[26.2px] text-black/60">We collaborates with
                       renowned appraisers from GurrJohns (or other established appraisal firms) to meticulously verify artwork
                       authenticity, condition, and provenance, with its proof of appraisal embedded directly within each token.</p>
                   </div>
@@ -412,7 +453,7 @@ const LandingPage = () => {
                   <Image src={Axa} alt='Axa' className=' w-[40px]' />
                   <div className="flex flex-col gap-1">
                     <h3 className="text-[20px] md:text-[24px] font-semibold leading-[31.44px]">Comprehensive Insurance</h3>
-                    <p className="text-[16px] md:text-[20px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with a
+                    <p className="text-[16px] md:text-[20px] md:mt-[24px] mt-[16px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with a
                       leading art insurance company to provide tailored coverage against theft, damage, and loss during
                       transportation, storage, and loans.</p>
                   </div>
@@ -426,7 +467,7 @@ const LandingPage = () => {
                   </div>
                   <div className="flex flex-col gap-1">
                     <h3 className="text-[20px] md:text-[24px] font-semibold leading-[31.44px]">Secure Transportation and Storage</h3>
-                    <p className="text-[16px] md:text-[20px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with trusted
+                    <p className="text-[16px] md:text-[20px] md:mt-[24px] mt-[16px] leading-[20.4px] md:leading-[26.2px] text-black/60">We partner with trusted
                       companies like Momart and DIETL International, to ensure secure transportation of the artwork from your
                       location to our state-of-the-art storage facility equipped with advanced security systems and climate control
                       to guarantee its preservation.</p>
@@ -513,6 +554,9 @@ const LandingPage = () => {
     </div>
     {/* floating canvas */}
     <div id="canvas" ref={canvasRef} className='z-[2] bg-transparent pointer-events-none'></div>
+    {/* <div className='fixed left-0 w-full h-[30px] bg-red-500'>
+      <p>{h}</p>
+    </div> */}
     <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" strategy="beforeInteractive" />
   </div>
 }
