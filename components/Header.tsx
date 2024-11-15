@@ -1,17 +1,13 @@
 'use client'
 import Link from "next/link"
 import { useState } from "react"
-interface HeaderProps {
-  isLogin?: boolean
-}
-export default function Header({ isLogin }: HeaderProps) {
+export default function Header() {
   const navs = [
     "Explore",
     "Trade",
     "Portfolio",
   ]
   const [isOpen, setIsOpen] = useState(false)
-  const [step, setStep] = useState(0)
   return <>
     <div className='md:mx-[80px] ml-[20px] md:h-[88px] h-[52px] items-center flex'>
       <div className="md:w-[312px]">

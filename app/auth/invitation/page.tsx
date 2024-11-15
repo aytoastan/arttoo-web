@@ -1,32 +1,12 @@
 'use client'
-import { useRef, useState } from "react"
-import Link from 'next/link';
-import { useSearchParams } from "next/navigation";
+import { useState } from "react"
 
 
 export default function Register() {
-  const [email, setEmail] = useState('')
   const [inviteCode, setInviteCode] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false)
-  const [isPasswordFocused2, setIsPasswordFocused2] = useState(false)
-  const [isShowPassword, setIsShowPassword] = useState(false)
-  const [step, setStep] = useState(1)
-  const [codes, setCodes] = useState(['', '', '', '', '', ''])
-  const inputRefs = useRef<HTMLInputElement[]>([])
-  // 获取 URL 参数
-  const searchParams = useSearchParams()
-  const isFromThirdParty = searchParams?.get('from') === 'google' || searchParams?.get('from') === 'sui'
-  console.log(isFromThirdParty)
   const handleSendEmail = () => {
     console.log('send email')
-    setStep(2)
   }
-  const handleConfirm = () => {
-    // setStep(3)
-  }
-  const handleResendCode = () => { }
   return <div className='md:h-full w-full flex md:items-center flex-col md:px-[0px] px-[20px]'>
     <div className='md:w-[444px] w-full'>
       <div className='text-[30px] font-[600] leading-[45px] w-full md:mt-[80px] mt-[40px] myLabel'>
