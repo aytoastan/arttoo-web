@@ -7,7 +7,6 @@ import Image from 'next/image';
 import './index.css'
 import { imgs } from '@/assets/images/action';
 import { useEmailSubmit } from './components/Footer';
-// const windowHeight = window.innerHeight
 const LandingPage = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   // const [isOpen, setIsOpen] = useState(false)
