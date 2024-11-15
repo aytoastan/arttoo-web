@@ -1,7 +1,10 @@
 'use client'
 import Link from "next/link"
 import { useState } from "react"
-export default function Header() {
+interface HeaderProps {
+  isLogin?: boolean
+}
+export default function Header({ isLogin }: HeaderProps) {
   const navs = [
     "Explore",
     "Trade",
@@ -16,7 +19,7 @@ export default function Header() {
       </div>
       <div className='md:flex hidden items-center flex-1 justify-center'>
         {navs.map((nav, index) => (
-          <Link href={`/`} key={index} className={`text-[18px] font-[500] ${index === navs.length - 1 ? 'mr-0' : 'mr-10'} myTitle`}>{nav}</Link>
+          <Link href={`/${nav.toLowerCase()}`} key={index} className={`text-[18px] font-[500] ${index === navs.length - 1 ? 'mr-0' : 'mr-10'} myTitle`}>{nav}</Link>
         ))}
       </div>
       <div className='hidden md:flex items-center justify-center'>
