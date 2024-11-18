@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 
+// const clientId = "YOUR_CLIENT_ID";
 export default function Home() {
   const [isPasswordFocused, setIsPasswordFocused] = useState(false)
   const [isShowPassword, setIsShowPassword] = useState(false)
