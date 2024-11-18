@@ -101,6 +101,9 @@ input:-webkit-autofill:focus {
 .bg-black-0-1 {
   background-color: rgba(0, 0, 0, 0.1);
 }
+.bg-black-0-02 {
+  background-color: rgba(0, 0, 0, 0.02);
+}
 
 .border-black-0-1 {
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -306,4 +309,36 @@ input:-webkit-autofill:focus {
 
 .VictorSherif{
   font-family: 'Victor Sherif';
+}
+
+.bg-green-0-1 {
+  background-color: rgba(18, 183, 111, 0.1);
+}
+.bg-green-0-2 {
+  background-color: rgba(18, 183, 111, 0.2);
+}
+.bg-green-0-3 {
+  background-color: rgba(18, 183, 111, 0.3);
+}
+
+.bg-green-0-4 {
+  background-color: rgba(18, 183, 111, 0.4);
+}
+.bg-green-0-5 {
+  background-color: rgba(18, 183, 111, 0.5);
+}
+.bg-green-0-6 {
+  background-color: rgba(18, 183, 111, 0.6);
+}
+.bg-green-0-7 {
+  background-color: rgba(18, 183, 111, 0.7);
+}
+.bg-green-0-8 {
+  background-color: rgba(18, 183, 111, 0.8);
+}
+.bg-green-0-9 {
+  background-color: rgba(18, 183, 111, 0.9);
+}
+.bg-green-0-10 {
+  background-color: rgba(18, 183, 111, 1);
 }
