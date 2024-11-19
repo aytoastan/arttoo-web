@@ -47,7 +47,7 @@ const Trade = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   const [showMore, setShowMore] = useState(false)
   const [showMorePrice, setShowMorePrice] = useState(false)
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(0)
   const [width] = useWindowSize()
   const [isBuy, setIsBuy] = useState(true)
   const [amount, setAmount] = useState('')
@@ -380,6 +380,7 @@ const Trade = () => {
               }
             }}
           />
+          <div className="h-[16px]"></div>
           {[
             {
               key: 'Buying Power',
