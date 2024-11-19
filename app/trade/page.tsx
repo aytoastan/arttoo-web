@@ -47,7 +47,7 @@ const Trade = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   const [showMore, setShowMore] = useState(false)
   const [showMorePrice, setShowMorePrice] = useState(false)
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(2)
   const [width] = useWindowSize()
   const [isBuy, setIsBuy] = useState(true)
   const [amount, setAmount] = useState('')
@@ -151,7 +151,7 @@ const Trade = () => {
       // 图表尺寸
       const width = 560;
       const height = 400;
-      const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+      const margin = { top: 0, right: 0, bottom: 30, left: 40 };
 
 
       // 格式化日期
@@ -166,12 +166,14 @@ const Trade = () => {
       // 创建比例尺
       const xScale = d3
         .scaleTime()
-        .domain((d3 as any).extent(data, (d: any) => d.date))
+        .domain((d3 as any).extent(data, (d: any) => {
+          return d.date
+        }))
         .range([margin.left, width - margin.right]);
 
       const yScale = d3
         .scaleLinear()
-        .domain([0, (d3 as any).max(data, (d: any) => d.value) * 1.2]) // 放大最大值以留白
+        .domain([1, (d3 as any).max(data, (d: any) => d.value) * 1.2]) // 放大最大值以留白
         .range([height - margin.bottom, margin.top]);
 
       // 创建 SVG 容器
@@ -182,7 +184,6 @@ const Trade = () => {
 
       // 清空 SVG（防止多次渲染重复）
       svg.selectAll("*").remove();
-
       // 绘制 x 轴
       svg
         .append("g")
@@ -190,26 +191,58 @@ const Trade = () => {
         .call(
           (d3 as any).axisBottom(xScale)
             .ticks(data.length)
-            .tickFormat(formatDate)
+            .tickFormat((d: any) => {
+              if (new Date(d).getMonth() === 0) return "2024"
+              return formatDate(d)
+            })
         )
-        .selectAll("text")
-        .style("font-size", "12px")
+        // .selectAll("text")
+        // .style("font-size", "12px")
+        // .style("color", "rgba(0, 0, 0, 0.4)")
         .call((g) => {
-          console.log(g.selectAll(".tick line")); // 打印检查
           g.select(".domain").attr("stroke", "rgba(0, 0, 0, 0.4)")
-          g.selectAll(".tick line")
-            .attr("stroke", "rgba(0, 0, 0, 0.4)") // 刻度线颜色
-            .attr("stroke-width", 1); // 可选：修改刻度线宽度
-        });
+          g.selectAll(".tick line") // 修改刻度线样式
+            .attr("stroke", "rgba(0, 0, 0, 0.2)")
+            .attr("stroke-width", 1)
+
+          g.selectAll(".tick text") // 调整刻度文字的位置
+            // .attr("dx", "-0px") // 将文字向左移动 10px
+            .attr("fill", "black") // 设置文字颜色
+            .attr("font-size", "12px");
+
+          // 最后一个刻度左移 10px
+          g.selectAll(".tick:last-of-type text")
+            .attr("dx", "-10px")
+        })
+        .attr("font-size", "12px")
 
       // 绘制 y 轴
       svg
         .append("g")
         .call(
-          d3.axisLeft(yScale).ticks(5).tickSize(0) // 隐藏刻度线
+          (d3 as any).axisLeft(yScale)
+            .ticks(5) // 设置刻度数量
+            .tickSize(-width) // 设置刻度线长度为图表宽度的负值，横穿整个象限
+            .tickFormat((d: any) => d) // 可选：保留默认刻度文字
+            .tickFormat((d: any) => {
+              // 0 不展示
+              if (d === 0) return ''
+              return d + 'M'
+            })
         )
         .attr("transform", `translate(${margin.left}, 0)`)
-        .call((g) => g.select(".domain").remove()) // 移除轴线
+        .call((g) => {
+          g.select(".domain").remove()
+
+          g.selectAll(".tick line") // 修改刻度线样式
+            .attr("stroke", "rgba(0, 0, 0, 0.2)")
+            .attr("stroke-width", 1)
+
+          g.selectAll(".tick text") // 调整刻度文字的位置
+            .attr("dx", "-10px") // 将文字向左移动 10px
+            .attr("fill", "black") // 设置文字颜色
+            .attr("font-size", "12px");
+        }) // 移除轴线
         .attr("font-size", "12px")
 
       // 修改 Y 轴刻度文字的颜色
