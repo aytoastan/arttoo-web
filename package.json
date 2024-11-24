@@ -15,6 +15,9 @@
     "@react-spring/parallax": "^9.7.5",
     "@react-spring/web": "^9.7.4",
     "@vercel/postgres": "^0.10.0",
+    "@web3auth/auth-adapter": "^9.4.4",
+    "@web3auth/base-provider": "^9.4.4",
+    "@web3auth/no-modal": "^9.4.4",
     "d3": "^7.9.0",
     "framer-motion": "^11.11.1",
     "gsap": "^3.12.5",
@@ -38,5 +41,6 @@
     "resize-observer-polyfill": "^1.5.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
