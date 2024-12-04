@@ -251,8 +251,8 @@ input:-webkit-autofill:focus {
   padding: 0px 80px;
   align-items: start;
   display: grid;
-  grid-template-columns: 1fr 560px;
-  gap: 40px;
+  grid-template-columns: 1fr 520px;
+  gap: 80px;
 }
 
 .trade_page_2 {
@@ -268,6 +268,7 @@ input:-webkit-autofill:focus {
   background-color:rgba(0, 0, 0, 2%);
   /* background-color: #ffff00; */
   height: calc(100vh - 80px);
+  flex: 1;
   position: sticky;
   border-radius: 12px;
   top: 40px;
@@ -280,12 +281,13 @@ input:-webkit-autofill:focus {
 }
 
 .trade_page_content {
+  /* width: 520px; */
   min-height: calc(100vh - 80px);
 }
 .trade_desc_title{
   /* Victor Sherif */
   font-family: 'Victor Sherif';
-  font-weight: 500px;
+  font-weight: 500;
   font-size: 40px;
   line-height: 48px;
 }
@@ -315,6 +317,7 @@ input:-webkit-autofill:focus {
     display: none;
   }
   .trade_page_content{
+    width: 100%;
     padding: 0px 20px;
     margin-top: 20px;
     min-height: auto;
