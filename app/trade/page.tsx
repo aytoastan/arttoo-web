@@ -1070,12 +1070,15 @@ const Trade = () => {
             </div>)
           }
         </div>
-        <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] md:block hidden"></div>
+        <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] max-md:hidden"></div>
+        {/* about Henri Matisse PC */}
         <div className="md:flex hidden">
           <div className="flex-1 mr-[80px]">
             <div className="text-[60px] font-[400] leading-[80px] text-black-0-9 VictorSherif">About <span className="font-[500] VictorSherif italic">Henri Matisse</span></div>
             <div className="mt-[104px]">
-              <div className="w-[409px] h-[222px] bg-[#D9D9D9]"></div>
+              <div className="w-[409px] h-[222px] bg-[#D9D9D9]">
+                <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
+              </div>
               <div className="text-[32px] mt-[132px] text-right font-[400] leading-[38.4px] text-black-0-9 VictorSherif">The Lower East Side Gets a New Gallery.</div>
               <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
             </div>
@@ -1084,9 +1087,12 @@ const Trade = () => {
             <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 VictorSherif">Since</div>
             <div className="text-[48px] font-[500] italic leading-[60px] text-black-0-9 VictorSherif">1869-1954</div>
             <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
-            <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]"></div>
+            <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
+              <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
+        {/* artist career  */}
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] max-md:hidden"></div>
         <div className="md:block hidden text-[60px] font-[400] mb-[60px] leading-[80px] text-black-0-9 VictorSherif">Artist Career <span className="font-[500] VictorSherif italic">Path</span></div>
         {/*  */}
@@ -1245,7 +1251,7 @@ const Trade = () => {
             </svg>
           </div>
         </div>
-        <div className="gap-[80px] grid md:grid-cols-2 grid-cols-1">
+        <div className="md:gap-[80px] gap-[40px] grid md:grid-cols-2 grid-cols-1">
           {
             [
               {
@@ -1263,20 +1269,20 @@ const Trade = () => {
                 desc: `You trade artwork tokens on Arttoo's AMM-based trading platform. Our platform offers a complete DeFi ecosystem where you can provide liquidity, stake tokens, access lending features, and explore more innovative financial opportunities powered by our DeFi partners – all in one place.`,
               },
             ].map((item, index) => <div key={index} className="flex">
-              <div className="mr-[20px]">
-                <div className="text-[20px] font-[500] leading-[32px] italic text-black-0-9 VictorSherif">{item.time}</div>
-                <div className="text-[20px] font-[500] leading-[32px] italic text-black-0-9 VictorSherif">{item.time2}</div>
+              <div className="md:mr-[20px] mr-[10px]">
+                <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[20px] italic text-black-0-9 VictorSherif">{item.time}</div>
+                <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[20px] italic text-black-0-9 VictorSherif">{item.time2}</div>
               </div>
 
               <div className="flex-1">
-                <div className="w-full h-[220px] bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${item.img})` }}></div>
-                <div className="text-[20px] font-[500] leading-[32px] text-black-0-9 VictorSherif mt-[24px]">{item.title}</div>
-                <div className="text-[16px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif mt-[24px]">{item.desc}</div>
-                <div className="flex items-center text-[20px] font-[500] leading-[32px] text-black-0-9 VictorSherif mt-[60px] hover:underline cursor-pointer">
+                <div className="w-full md:h-[220px] h-[110px] bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${item.img})` }}></div>
+                <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[20px] text-black-0-9 VictorSherif md:mt-[24px] mt-[12px]">{item.title}</div>
+                <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 VictorSherif md:mt-[24px] mt-[12px]">{item.desc}</div>
+                <div className="flex items-center md:text-[20px] text-[10px] font-[500] md:leading-[32px] leading-[16px] text-black-0-9 VictorSherif md:mt-[60px] mt-[30px] hover:underline cursor-pointer">
                   See More
                   <svg
-                    className="mt-[2px] ml-[4px]"
-                    width="10" height="10" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    className="mt-[2px] md:ml-[4px] ml-[2px] md:w-[10px] md:h-[10px] w-[6px] h-[6px]"
+                    viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13 1V13H1" stroke="black" strokeLinejoin="round" />
                     <path d="M13 1V13L1 1" stroke="black" strokeLinejoin="round" />
                   </svg>
