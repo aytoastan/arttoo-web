@@ -303,9 +303,27 @@ input:-webkit-autofill:focus {
   color: rgba(0, 0, 0, 0.6);
 }
 @media (max-width: 768px) {
+  .trade_page {
+    display: block;
+    padding: 0px 0px;
+  }
+  .trade_page_2{
+    padding: 0px 20px;
+    margin-top: 40px;
+  }
   .trade_page_image {
-    height: calc(100vh - 40px);
-    top: 20px;
+    display: none;
+  }
+  .trade_page_content{
+    padding: 0px 20px;
+    margin-top: 20px;
+    min-height: auto;
+  }
+  .trade_desc_title{
+    font-family: 'Victor Sherif';
+    font-weight: 500px;
+    font-size: 30px;
+    line-height: 36px;
   }
 }
 
@@ -377,3 +395,7 @@ input:-webkit-autofill:focus {
 }
 
 /*  */
+svg.responsive {
+  width: 100%;
+  height: auto;
+}
