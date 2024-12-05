@@ -20,7 +20,7 @@
   font-family: 'Victor Sherif';
   src: url('../assets/fonts/VictorSerifTrial-50Medium.otf');
   font-weight: 500;
-  font-style: italic;
+  font-style: normal;
 }
 
 @font-face {
@@ -333,8 +333,8 @@ input:-webkit-autofill:focus {
 }
 .trade_desc_title{
   /* Victor Sherif */
-  font-family: 'Victor Sherif';
-  font-weight: 500;
+  /* font-family: Victor Sherif; */
+  /* font-weight: 500; */
   font-size: 40px;
   line-height: 48px;
 }

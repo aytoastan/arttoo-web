@@ -885,7 +885,7 @@ const Trade = () => {
         </div>
         <img src="/trade/1.png" alt="trade_page_image_mobile" className="w-full md:hidden" />
         <div className='trade_page_content'>
-          <div className="trade_desc_title">Nature Morte avec des Fruits</div>
+          <div className="trade_desc_title VictorSherif font-[500]">Nature Morte avec des Fruits</div>
           <div className="trade_desc_desc">
             <div className="trade_desc_desc_item1 poppins">NATHM1898</div>
             <div className="trade_desc_desc_item2 mx-[8px] poppins">/</div>
