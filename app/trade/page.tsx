@@ -3,7 +3,7 @@
 import Header from "@/components/Header"
 import { useEmailSubmit } from "@/pages/landing/components/Footer"
 import { useEffect, useRef, useState } from "react"
-import { isValidNumber, useWindowSize } from "@/utils"
+import { isValidNumber } from "@/utils"
 import { AmountInput, SlideInput } from "@/components/input"
 import * as d3 from "d3";
 const times = ['Days', 'Hours', 'Min', 'Seconds']
@@ -47,12 +47,12 @@ const Trade = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   const [showMore, setShowMore] = useState(false)
   const [showMorePrice, setShowMorePrice] = useState(false)
-  const [step, setStep] = useState(0)
-  const [width] = useWindowSize()
+  const [step, setStep] = useState(2)
+  // const [width] = useWindowSize()
   const [isBuy, setIsBuy] = useState(true)
   const [amount, setAmount] = useState('')
   const [slideValue, setSlideValue] = useState(0)
-  const blockWidth = (width - 160 - 140 - (2 * 63)) / 64
+  // const blockWidth = (width - 160 - 140 - (2 * 63)) / 64
   const svgRef = useRef<SVGSVGElement>(null)
   const svgRef2 = useRef<SVGSVGElement>(null)
   const svgRef3 = useRef<SVGSVGElement>(null)
@@ -153,8 +153,8 @@ const Trade = () => {
       ];
 
       // 图表尺寸
-      const width = 560;
-      const height = 400;
+      const width = 520;
+      const height = 169;
       const margin = { top: 0, right: 0, bottom: 30, left: 40 };
 
 
@@ -183,8 +183,9 @@ const Trade = () => {
       // 创建 SVG 容器
       const svg = d3
         .select(svgRef2.current)
-        .attr("width", width)
-        .attr("height", height);
+        .attr('viewBox', `0 0 ${width} ${height}`) // 设置视窗大小
+        .attr('preserveAspectRatio', 'xMidYMid meet') // 保持纵横比
+        .classed('responsive', true); // 添加类以便后续使用 CSS
 
       // 清空 SVG（防止多次渲染重复）
       svg.selectAll("*").remove();
@@ -240,7 +241,7 @@ const Trade = () => {
 
           g.selectAll(".tick line") // 修改刻度线样式
             .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", 0.5)
 
           g.selectAll(".tick text") // 调整刻度文字的位置
             .attr("dx", "-10px") // 将文字向左移动 10px
@@ -361,8 +362,10 @@ const Trade = () => {
         .call((g) => {
           g.select(".domain").attr("stroke", "rgba(0, 0, 0, 0.4)")
           g.selectAll(".tick line") // 修改刻度线样式
+            // 虚线
+            .attr("stroke-dasharray", "5,5")
             .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", 0.5)
 
           g.selectAll(".tick text") // 调整刻度文字的位置
             // .attr("dx", "-0px") // 将文字向左移动 10px
@@ -395,7 +398,9 @@ const Trade = () => {
 
           g.selectAll(".tick line") // 修改刻度线样式
             .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", 0.5)
+            // 虚线
+            .attr("stroke-dasharray", "5,5")
 
           g.selectAll(".tick text") // 调整刻度文字的位置
             .attr("dx", "-10px") // 将文字向左移动 10px
@@ -410,12 +415,12 @@ const Trade = () => {
         .attr("fill", "rgba(0, 0, 0, 0.4)"); // 设置字体颜色
 
       // 绘制填充区域
-      const area = d3
-        .area()
-        .x((d: any) => xScale(d.date))
-        .y0(height - margin.bottom) // 起始 y 值（底部）
-        .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
-        .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
+      // const area = d3
+      //   .area()
+      //   .x((d: any) => xScale(d.date))
+      //   .y0(height - margin.bottom) // 起始 y 值（底部）
+      //   .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
+      //   .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
       // 绘制填充区域
       const gradient = svg.append("defs")
         .append("linearGradient")
@@ -435,8 +440,8 @@ const Trade = () => {
       svg
         .append("path")
         .datum(data)
-        .attr("fill", "url(#greenGradient)") // 填充颜色
-        .attr("d", (area as any));
+      // .attr("fill", "url(#greenGradient)") // 填充颜色
+      // .attr("d", (area as any));
 
       // 绘制折线
       const line = d3
@@ -549,7 +554,9 @@ const Trade = () => {
 
           g.selectAll(".tick line") // 修改刻度线样式
             .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 1)
+            .attr("stroke-width", 0.5)
+            // 虚线
+            .attr("stroke-dasharray", "5,5")
 
           g.selectAll(".tick text") // 调整刻度文字的位置
             .attr("dx", "-10px") // 将文字向左移动 10px
@@ -564,12 +571,12 @@ const Trade = () => {
         .attr("fill", "rgba(0, 0, 0, 0.4)"); // 设置字体颜色
 
       // 绘制填充区域
-      const area = d3
-        .area()
-        .x((d: any) => xScale(d.date))
-        .y0(height - margin.bottom) // 起始 y 值（底部）
-        .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
-        .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
+      // const area = d3
+      //   .area()
+      //   .x((d: any) => xScale(d.date))
+      //   .y0(height - margin.bottom) // 起始 y 值（底部）
+      //   .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
+      //   .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
       // 绘制填充区域
       const gradient = svg.append("defs")
         .append("linearGradient")
@@ -589,8 +596,8 @@ const Trade = () => {
       svg
         .append("path")
         .datum(data)
-        .attr("fill", "url(#greenGradient)") // 填充颜色
-        .attr("d", (area as any));
+      // .attr("fill", "url(#greenGradient)") // 填充颜色
+      // .attr("d", (area as any));
 
       // 绘制折线
       const line = d3
@@ -620,7 +627,7 @@ const Trade = () => {
     switch (step) {
       case 0:
         return <div className="md:my-[50px] my-[24px]">
-          <div className="flex md:text-[16px] text-[12px] font-[400] text-black-0-9 items-center">
+          <div className="flex md:text-[16px] text-[12px] font-[400] text-black-0-9 items-center poppins">
             <svg
               width="20"
               height="20"
@@ -635,99 +642,108 @@ const Trade = () => {
           </div>
           <div className="flex md:mt-[16px] mt-[8px] gap-[48px] md:gap-[32px]">
             {['07', '27', '59', '20'].map((item, index) => <div key={index} className={`flex flex-col items-center`}>
-              <div className="md:text-[32px] text-[24px] text-black-0-9 font-[500] md:leading-[38.4px] leading-[28.8px]">{item}</div>
-              <div className="md:text-[12px] text-[8px] text-black-0-9 font-[400] md:leading-[14.4px] leading-[9.6px]">{times[index]}</div>
+              <div className="md:text-[32px] text-[24px] text-black-0-9 font-[500] md:leading-[38.4px] leading-[28.8px] poppins">{item}</div>
+              <div className="md:text-[12px] text-[8px] text-black-0-9 font-[400] md:leading-[14.4px] leading-[9.6px] poppins">{times[index]}</div>
             </div>)}
           </div>
           <div
             onClick={handleNotify}
-            className="h-[56px] md:flex hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] items-center justify-center hover:bg-[#474747]">
+            className="h-[56px] md:flex hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] items-center justify-center hover:bg-[#474747] poppins">
             Notify me on launch
           </div>
         </div>
       case 1:
-        return <div className="my-[40px]">
-          <div className="text-[24px] font-[500] leading-[28.8px] text-black-0-9">Amount for Sale 50,000 SUI</div>
-          <div className="relative bg-black-0-1 h-[11px] my-[16px]">
+        return <div className="md:my-[40px] my-[24px]">
+          <div className="md:text-[24px] text-[18px] font-[500] md:leading-[28.8px] leading-[21.6px] text-black-0-9 poppins">Amount for Sale 50,000 SUI</div>
+          <div className="relative bg-black-0-1 h-[11px] md:my-[16px] my-[8px]">
             <div className="h-[11px] bg-black w-[50%]"></div>
           </div>
           <div className="flex justify-between">
-            <div className="text-[16px] font-[400] leading-[20px] text-black-0-6">Goal 100,000 SUI</div>
+            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 poppins">Goal 100,000 SUI</div>
             <div className="flex-1"></div>
-            <div className="text-[16px] font-[400] leading-[20px] text-black-0-6">Progress 50.5%</div>
+            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 poppins">Progress 50.5%</div>
           </div>
-          <div className="flex mt-[24px] gap-[48px]">
-            <div className="flex flex-col items-center">
-              <div className="text-[24px] font-[400] leading-[28.8px] text-black-0-6">144</div>
-              <div className="text-[12px] font-[400] leading-[14.4px] text-black-0-6">Backers</div>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="text-[24px] font-[400] leading-[28.8px] text-black-0-6">18</div>
-              <div className="text-[12px] font-[400] leading-[14.4px] text-black-0-6">Days to go</div>
-            </div>
-          </div>
-          <div className="h-[1px] bg-black-0-1 w-full my-[40px]"></div>
-          {/* 输入框 */}
-          <div className="flex items-center text-[16px] font-[400] leading-[20px] text-black-0-6 mb-[8px]">
-            {`Amount (`}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-[4px]">
-              <g clipPath="url(#clip0_1_3747)">
-                <path d="M10 20C15.5417 20 20 15.5417 20 10C20 4.4583 15.5417 0 10 0C4.4583 0 0 4.4583 0 10C0 15.5417 4.4583 20 10 20Z" fill="#2775CA" />
-                <path d="M12.7513 11.583C12.7513 10.1247 11.8763 9.62471 10.1263 9.41641C8.87627 9.24971 8.62627 8.91641 8.62627 8.33301C8.62627 7.74961 9.04297 7.37471 9.87627 7.37471C10.6263 7.37471 11.043 7.62471 11.2513 8.24971C11.293 8.37471 11.418 8.45801 11.543 8.45801H12.2096C12.3763 8.45801 12.5013 8.33301 12.5013 8.16641V8.12471C12.3346 7.20801 11.5846 6.49971 10.6263 6.41641V5.41641C10.6263 5.24971 10.5013 5.12471 10.293 5.08301H9.66797C9.50127 5.08301 9.37627 5.20801 9.33457 5.41641V6.37471C8.08457 6.54141 7.29297 7.37471 7.29297 8.41641C7.29297 9.79141 8.12627 10.333 9.87627 10.5414C11.043 10.7497 11.418 10.9997 11.418 11.6664C11.418 12.3331 10.8346 12.7914 10.043 12.7914C8.95957 12.7914 8.58457 12.333 8.45957 11.708C8.41797 11.5414 8.29297 11.458 8.16797 11.458H7.45957C7.29297 11.458 7.16797 11.583 7.16797 11.7497V11.7914C7.33457 12.833 8.00127 13.583 9.37627 13.7914V14.7914C9.37627 14.958 9.50127 15.083 9.70957 15.1247H10.3346C10.5013 15.1247 10.6263 14.9997 10.668 14.7914V13.7914C11.918 13.583 12.7513 12.708 12.7513 11.583Z" fill="white" />
-                <path d="M7.87581 15.9576C4.62581 14.791 2.95911 11.166 4.16751 7.95762C4.79251 6.20762 6.16751 4.87432 7.87581 4.24932C8.04251 4.16602 8.12581 4.04102 8.12581 3.83262V3.24932C8.12581 3.08262 8.04251 2.95762 7.87581 2.91602C7.83411 2.91602 7.75081 2.91602 7.70911 2.95762C3.75081 4.20762 1.58411 8.41602 2.83411 12.3743C3.58411 14.7076 5.37581 16.4993 7.70911 17.2493C7.87581 17.3326 8.04251 17.2493 8.08411 17.0826C8.12581 17.041 8.12581 16.9993 8.12581 16.916V16.3326C8.12581 16.2076 8.00081 16.041 7.87581 15.9576ZM12.2925 2.95762C12.1258 2.87432 11.9591 2.95762 11.9175 3.12432C11.8758 3.16602 11.8758 3.20762 11.8758 3.29102V3.87432C11.8758 4.04102 12.0008 4.20762 12.1258 4.29102C15.3758 5.45762 17.0425 9.08262 15.8341 12.291C15.2091 14.041 13.8341 15.3743 12.1258 15.9993C11.9591 16.0826 11.8758 16.2076 11.8758 16.416V16.9993C11.8758 17.166 11.9591 17.291 12.1258 17.3326C12.1675 17.3326 12.2508 17.3326 12.2925 17.291C16.2508 16.041 18.4175 11.8326 17.1675 7.87432C16.4175 5.49932 14.5841 3.70762 12.2925 2.95762Z" fill="white" />
-              </g>
-              <defs>
-                <clipPath id="clip0_1_3747">
-                  <rect width="20" height="20" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-            {`USDC)`}
-          </div>
-          <AmountInput
-            value={'$10,385.00'}
-            disabled={true}
-            onChange={(value) => {
-              // 只允许输入数字，'',可以带上小数点，但是小数点不能在开头和结尾
-              if (isValidNumber(value)) {
-                setAmount(value)
+          <div className="flex md:mt-[24px] mt-[12px] gap-[48px]">
+            {[
+              {
+                key: 'Backers',
+                value: '144'
+              },
+              {
+                key: 'Days to go',
+                value: '18'
               }
-            }}
-          />
-          <div className="h-[16px]"></div>
-          {[
-            {
-              key: 'Buying Power',
-              value: '$188,888.00'
-            },
-            {
-              key: 'Estimated Fee',
-              value: '$0.00'
-            },
-            {
-              key: 'Estimated Total',
-              value: '$10,385.00'
-            },
-          ].map((item, index) => <div className={`${index === props.length - 1 ? '' : 'mb-[16px]'} flex justify-between`} key={index}>
-            <div className="flex-1 text-[16px] font-[400] leading-[20px] text-black-0-3">{item.key}</div>
-            <div className="flex-1 text-[16px] text-right font-[400] leading-[20px] text-black-0-9">{item.value}</div>
-          </div>)}
+            ].map((item, index) => <div className="flex flex-col items-center" key={index}>
+              <div className="md:text-[24px] text-[18px] font-[400] md:leading-[28.8px] leading-[21.6px] text-black-0-6 poppins">{item.value}</div>
+              <div className="md:text-[12px] text-[8px] font-[400] md:leading-[14.4px] leading-[9.6px] text-black-0-6 poppins">{item.key}</div>
+            </div>)}
+          </div>
+          <div className="max-md:hidden">
+            <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
+            {/* 输入框 */}
+            <div className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 mb-[8px]">
+              {`Amount (`}
+              <svg
+                className="md:w-[20px] md:h-[20px] w-[10px] h-[10px] mx-[4px]"
+                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clipPath="url(#clip0_1_3747)">
+                  <path d="M10 20C15.5417 20 20 15.5417 20 10C20 4.4583 15.5417 0 10 0C4.4583 0 0 4.4583 0 10C0 15.5417 4.4583 20 10 20Z" fill="#2775CA" />
+                  <path d="M12.7513 11.583C12.7513 10.1247 11.8763 9.62471 10.1263 9.41641C8.87627 9.24971 8.62627 8.91641 8.62627 8.33301C8.62627 7.74961 9.04297 7.37471 9.87627 7.37471C10.6263 7.37471 11.043 7.62471 11.2513 8.24971C11.293 8.37471 11.418 8.45801 11.543 8.45801H12.2096C12.3763 8.45801 12.5013 8.33301 12.5013 8.16641V8.12471C12.3346 7.20801 11.5846 6.49971 10.6263 6.41641V5.41641C10.6263 5.24971 10.5013 5.12471 10.293 5.08301H9.66797C9.50127 5.08301 9.37627 5.20801 9.33457 5.41641V6.37471C8.08457 6.54141 7.29297 7.37471 7.29297 8.41641C7.29297 9.79141 8.12627 10.333 9.87627 10.5414C11.043 10.7497 11.418 10.9997 11.418 11.6664C11.418 12.3331 10.8346 12.7914 10.043 12.7914C8.95957 12.7914 8.58457 12.333 8.45957 11.708C8.41797 11.5414 8.29297 11.458 8.16797 11.458H7.45957C7.29297 11.458 7.16797 11.583 7.16797 11.7497V11.7914C7.33457 12.833 8.00127 13.583 9.37627 13.7914V14.7914C9.37627 14.958 9.50127 15.083 9.70957 15.1247H10.3346C10.5013 15.1247 10.6263 14.9997 10.668 14.7914V13.7914C11.918 13.583 12.7513 12.708 12.7513 11.583Z" fill="white" />
+                  <path d="M7.87581 15.9576C4.62581 14.791 2.95911 11.166 4.16751 7.95762C4.79251 6.20762 6.16751 4.87432 7.87581 4.24932C8.04251 4.16602 8.12581 4.04102 8.12581 3.83262V3.24932C8.12581 3.08262 8.04251 2.95762 7.87581 2.91602C7.83411 2.91602 7.75081 2.91602 7.70911 2.95762C3.75081 4.20762 1.58411 8.41602 2.83411 12.3743C3.58411 14.7076 5.37581 16.4993 7.70911 17.2493C7.87581 17.3326 8.04251 17.2493 8.08411 17.0826C8.12581 17.041 8.12581 16.9993 8.12581 16.916V16.3326C8.12581 16.2076 8.00081 16.041 7.87581 15.9576ZM12.2925 2.95762C12.1258 2.87432 11.9591 2.95762 11.9175 3.12432C11.8758 3.16602 11.8758 3.20762 11.8758 3.29102V3.87432C11.8758 4.04102 12.0008 4.20762 12.1258 4.29102C15.3758 5.45762 17.0425 9.08262 15.8341 12.291C15.2091 14.041 13.8341 15.3743 12.1258 15.9993C11.9591 16.0826 11.8758 16.2076 11.8758 16.416V16.9993C11.8758 17.166 11.9591 17.291 12.1258 17.3326C12.1675 17.3326 12.2508 17.3326 12.2925 17.291C16.2508 16.041 18.4175 11.8326 17.1675 7.87432C16.4175 5.49932 14.5841 3.70762 12.2925 2.95762Z" fill="white" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1_3747">
+                    <rect width="20" height="20" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              {`USDC)`}
+            </div>
+            <AmountInput
+              value={'$10,385.00'}
+              disabled={true}
+              onChange={(value) => {
+                // 只允许输入数字，'',可以带上小数点，但是小数点不能在开头和结尾
+                if (isValidNumber(value)) {
+                  setAmount(value)
+                }
+              }}
+            />
+            <div className="md:h-[16px] h-[8px]"></div>
+            {[
+              {
+                key: 'Buying Power',
+                value: '$188,888.00'
+              },
+              {
+                key: 'Estimated Fee',
+                value: '$0.00'
+              },
+              {
+                key: 'Estimated Total',
+                value: '$10,385.00'
+              },
+            ].map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between`} key={index}>
+              <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-black-0-3 poppins">{item.key}</div>
+              <div className="flex-1 md:text-[16px] text-[12px] text-right font-[400] md:leading-[20px] leading-[18px] text-black-0-9 poppins">{item.value}</div>
+            </div>)}
+          </div>
           <div
             onClick={handleBuy}
-            className="h-[56px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+            className="h-[56px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
             Buy
           </div>
         </div>
       case 2:
-        return <div className="my-[40px]">
+        return <div className="md:my-[40px] my-[24px]">
           <div className="h-[51px] mt-[16px] flex">
             <div className="flex-1">
-              <div className="text-[16px] font-[400] leading-[20px] text-black-0-6">Price (USDC)</div>
-              <div className="text-[20px] font-[500] leading-[30px] text-black-0-9">100.2350</div>
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6">Price (USDC)</div>
+              <div className="md:text-[20px] text-[15px] font-[500] md:leading-[30px] leading-[22.5px] text-black-0-9">100.2350</div>
             </div>
             <div className="flex-1">
-              <div className="text-[16px] font-[400] leading-[20px] text-black-0-6">24h Change</div>
-              <div className="text-[20px] font-[400] leading-[30px] text-[#12B76A] flex items-center">
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6">24h Change</div>
+              <div className="md:text-[20px] text-[15px] font-[500] md:leading-[30px] leading-[22.5px] text-[#12B76A] flex items-center">
                 <svg
                   className="mr-[4px]"
                   width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -736,8 +752,8 @@ const Trade = () => {
                 1.21%</div>
             </div>
             <div className="flex-1">
-              <div className="text-[16px] font-[400] leading-[20px] text-black-0-6">YTD Change</div>
-              <div className="text-[20px] font-[400] leading-[30px] text-[#12B76A] flex items-center">
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6">YTD Change</div>
+              <div className="md:text-[20px] text-[15px] font-[500] md:leading-[30px] leading-[22.5px] text-[#12B76A] flex items-center">
                 <svg
                   className="mr-[4px]"
                   width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -751,17 +767,17 @@ const Trade = () => {
           </div>
           {
             showMorePrice ? <>
-              <div className="text-[16px] font-[400] mt-[24px] mb-[8px] leading-[20px] text-black-0-9">Price (USDC)</div>
+              <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
               <div className="w-full">
                 <svg ref={svgRef2} />
               </div>
-              <div className='h-[16px]'></div>
+              <div className='md:h-[16px] h-[0px]'></div>
             </> : null
           }
           <div className="flex items-center justify-center mt-[8px]">
             <div className="w-[21px] h-[20px] cursor-pointer" onClick={() => setShowMorePrice(!showMorePrice)}>
               <svg
-                className={`text-black-0-3 ml-[4px] ${!showMorePrice ? 'rotate-180' : ''}`}
+                className={`text-black-0-3 ${!showMorePrice ? 'rotate-180' : ''}`}
                 width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.5 12.5L10.5 7.5L15.5 12.5"
                   stroke='currentColor'
@@ -770,69 +786,93 @@ const Trade = () => {
             </div>
 
           </div>
-          <div className="h-[1px] bg-black-0-1 w-full my-[40px]"></div>
-          <div className="h-[48px] w-full bg-black-0-05 rounded-[12px] mb-[16px] flex items-center justify-center p-[4px]">
+          <div className="max-md:hidden">
+            <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
+            <div className="h-[48px] w-full bg-black-0-05 rounded-[12px] mb-[16px] flex items-center justify-center p-[4px]">
+              <div
+                onClick={() => setIsBuy(true)}
+                className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Buy</div>
+              <div
+                onClick={() => setIsBuy(false)}
+                className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
+            </div>
+            <div className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 mb-[8px]">
+              {`Amount (`}
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-[4px]">
+                <g clipPath="url(#clip0_1_3747)">
+                  <path d="M10 20C15.5417 20 20 15.5417 20 10C20 4.4583 15.5417 0 10 0C4.4583 0 0 4.4583 0 10C0 15.5417 4.4583 20 10 20Z" fill="#2775CA" />
+                  <path d="M12.7513 11.583C12.7513 10.1247 11.8763 9.62471 10.1263 9.41641C8.87627 9.24971 8.62627 8.91641 8.62627 8.33301C8.62627 7.74961 9.04297 7.37471 9.87627 7.37471C10.6263 7.37471 11.043 7.62471 11.2513 8.24971C11.293 8.37471 11.418 8.45801 11.543 8.45801H12.2096C12.3763 8.45801 12.5013 8.33301 12.5013 8.16641V8.12471C12.3346 7.20801 11.5846 6.49971 10.6263 6.41641V5.41641C10.6263 5.24971 10.5013 5.12471 10.293 5.08301H9.66797C9.50127 5.08301 9.37627 5.20801 9.33457 5.41641V6.37471C8.08457 6.54141 7.29297 7.37471 7.29297 8.41641C7.29297 9.79141 8.12627 10.333 9.87627 10.5414C11.043 10.7497 11.418 10.9997 11.418 11.6664C11.418 12.3331 10.8346 12.7914 10.043 12.7914C8.95957 12.7914 8.58457 12.333 8.45957 11.708C8.41797 11.5414 8.29297 11.458 8.16797 11.458H7.45957C7.29297 11.458 7.16797 11.583 7.16797 11.7497V11.7914C7.33457 12.833 8.00127 13.583 9.37627 13.7914V14.7914C9.37627 14.958 9.50127 15.083 9.70957 15.1247H10.3346C10.5013 15.1247 10.6263 14.9997 10.668 14.7914V13.7914C11.918 13.583 12.7513 12.708 12.7513 11.583Z" fill="white" />
+                  <path d="M7.87581 15.9576C4.62581 14.791 2.95911 11.166 4.16751 7.95762C4.79251 6.20762 6.16751 4.87432 7.87581 4.24932C8.04251 4.16602 8.12581 4.04102 8.12581 3.83262V3.24932C8.12581 3.08262 8.04251 2.95762 7.87581 2.91602C7.83411 2.91602 7.75081 2.91602 7.70911 2.95762C3.75081 4.20762 1.58411 8.41602 2.83411 12.3743C3.58411 14.7076 5.37581 16.4993 7.70911 17.2493C7.87581 17.3326 8.04251 17.2493 8.08411 17.0826C8.12581 17.041 8.12581 16.9993 8.12581 16.916V16.3326C8.12581 16.2076 8.00081 16.041 7.87581 15.9576ZM12.2925 2.95762C12.1258 2.87432 11.9591 2.95762 11.9175 3.12432C11.8758 3.16602 11.8758 3.20762 11.8758 3.29102V3.87432C11.8758 4.04102 12.0008 4.20762 12.1258 4.29102C15.3758 5.45762 17.0425 9.08262 15.8341 12.291C15.2091 14.041 13.8341 15.3743 12.1258 15.9993C11.9591 16.0826 11.8758 16.2076 11.8758 16.416V16.9993C11.8758 17.166 11.9591 17.291 12.1258 17.3326C12.1675 17.3326 12.2508 17.3326 12.2925 17.291C16.2508 16.041 18.4175 11.8326 17.1675 7.87432C16.4175 5.49932 14.5841 3.70762 12.2925 2.95762Z" fill="white" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1_3747">
+                    <rect width="20" height="20" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              {`USDC)`}
+            </div>
+            <AmountInput
+              value={amount}
+              onChange={(value) => {
+                // 只允许输入数字，'',可以带上小数点，但是小数点不能在开头和结尾
+                if (isValidNumber(value)) {
+                  setAmount(value)
+                }
+              }}
+            />
+            {
+              isBuy ? <div className="h-[16px]"></div> :
+                <SlideInput
+                  value={slideValue}
+                  onChange={(value) => setSlideValue(value)}
+                />
+            }
+            {[
+              {
+                key: 'Buying Power',
+                value: '$188,888.00'
+              },
+              {
+                key: 'Estimated Fee',
+                value: '$0.00'
+              },
+              {
+                key: 'Estimated Total',
+                value: '$10,385.00'
+              },
+            ].map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
+              <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-black-0-3">{item.key}</div>
+              <div className="flex-1 md:text-[16px] text-[12px] text-right font-[400] md:leading-[20px] leading-[18px] text-black-0-9">{item.value}</div>
+            </div>)}
             <div
-              onClick={() => setIsBuy(true)}
-              className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Buy</div>
-            <div
-              onClick={() => setIsBuy(false)}
-              className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
+              onClick={handleBuyOrSell}
+              className="h-[56px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+              {isBuy ? 'Buy' : 'Sell'}
+            </div>
           </div>
-          <div className="flex items-center text-[16px] font-[400] leading-[20px] text-black-0-6 mb-[8px]">
-            {`Amount (`}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-[4px]">
-              <g clipPath="url(#clip0_1_3747)">
-                <path d="M10 20C15.5417 20 20 15.5417 20 10C20 4.4583 15.5417 0 10 0C4.4583 0 0 4.4583 0 10C0 15.5417 4.4583 20 10 20Z" fill="#2775CA" />
-                <path d="M12.7513 11.583C12.7513 10.1247 11.8763 9.62471 10.1263 9.41641C8.87627 9.24971 8.62627 8.91641 8.62627 8.33301C8.62627 7.74961 9.04297 7.37471 9.87627 7.37471C10.6263 7.37471 11.043 7.62471 11.2513 8.24971C11.293 8.37471 11.418 8.45801 11.543 8.45801H12.2096C12.3763 8.45801 12.5013 8.33301 12.5013 8.16641V8.12471C12.3346 7.20801 11.5846 6.49971 10.6263 6.41641V5.41641C10.6263 5.24971 10.5013 5.12471 10.293 5.08301H9.66797C9.50127 5.08301 9.37627 5.20801 9.33457 5.41641V6.37471C8.08457 6.54141 7.29297 7.37471 7.29297 8.41641C7.29297 9.79141 8.12627 10.333 9.87627 10.5414C11.043 10.7497 11.418 10.9997 11.418 11.6664C11.418 12.3331 10.8346 12.7914 10.043 12.7914C8.95957 12.7914 8.58457 12.333 8.45957 11.708C8.41797 11.5414 8.29297 11.458 8.16797 11.458H7.45957C7.29297 11.458 7.16797 11.583 7.16797 11.7497V11.7914C7.33457 12.833 8.00127 13.583 9.37627 13.7914V14.7914C9.37627 14.958 9.50127 15.083 9.70957 15.1247H10.3346C10.5013 15.1247 10.6263 14.9997 10.668 14.7914V13.7914C11.918 13.583 12.7513 12.708 12.7513 11.583Z" fill="white" />
-                <path d="M7.87581 15.9576C4.62581 14.791 2.95911 11.166 4.16751 7.95762C4.79251 6.20762 6.16751 4.87432 7.87581 4.24932C8.04251 4.16602 8.12581 4.04102 8.12581 3.83262V3.24932C8.12581 3.08262 8.04251 2.95762 7.87581 2.91602C7.83411 2.91602 7.75081 2.91602 7.70911 2.95762C3.75081 4.20762 1.58411 8.41602 2.83411 12.3743C3.58411 14.7076 5.37581 16.4993 7.70911 17.2493C7.87581 17.3326 8.04251 17.2493 8.08411 17.0826C8.12581 17.041 8.12581 16.9993 8.12581 16.916V16.3326C8.12581 16.2076 8.00081 16.041 7.87581 15.9576ZM12.2925 2.95762C12.1258 2.87432 11.9591 2.95762 11.9175 3.12432C11.8758 3.16602 11.8758 3.20762 11.8758 3.29102V3.87432C11.8758 4.04102 12.0008 4.20762 12.1258 4.29102C15.3758 5.45762 17.0425 9.08262 15.8341 12.291C15.2091 14.041 13.8341 15.3743 12.1258 15.9993C11.9591 16.0826 11.8758 16.2076 11.8758 16.416V16.9993C11.8758 17.166 11.9591 17.291 12.1258 17.3326C12.1675 17.3326 12.2508 17.3326 12.2925 17.291C16.2508 16.041 18.4175 11.8326 17.1675 7.87432C16.4175 5.49932 14.5841 3.70762 12.2925 2.95762Z" fill="white" />
-              </g>
-              <defs>
-                <clipPath id="clip0_1_3747">
-                  <rect width="20" height="20" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-            {`USDC)`}
-          </div>
-          <AmountInput
-            value={amount}
-            onChange={(value) => {
-              // 只允许输入数字，'',可以带上小数点，但是小数点不能在开头和结尾
-              if (isValidNumber(value)) {
-                setAmount(value)
-              }
-            }}
-          />
-          {
-            isBuy ? <div className="h-[16px]"></div> :
-              <SlideInput
-                value={slideValue}
-                onChange={(value) => setSlideValue(value)}
-              />
-          }
-          {[
-            {
-              key: 'Buying Power',
-              value: '$188,888.00'
-            },
-            {
-              key: 'Estimated Fee',
-              value: '$0.00'
-            },
-            {
-              key: 'Estimated Total',
-              value: '$10,385.00'
-            },
-          ].map((item, index) => <div className={`${index === props.length - 1 ? '' : 'mb-[16px]'} flex justify-between`} key={index}>
-            <div className="flex-1 text-[16px] font-[400] leading-[20px] text-black-0-3">{item.key}</div>
-            <div className="flex-1 text-[16px] text-right font-[400] leading-[20px] text-black-0-9">{item.value}</div>
-          </div>)}
-          <div
-            onClick={handleBuyOrSell}
-            className="h-[56px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
-            {isBuy ? 'Buy' : 'Sell'}
-          </div>
+        </div>
+    }
+  }
+  const renderFooter = () => {
+    switch (step) {
+      case 0:
+        return <div
+          onClick={handleNotify}
+          className="h-[56px] cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          Notify me on launch
+        </div>
+      case 1:
+        return <div
+          onClick={handleBuy}
+          className="h-[56px] cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          Buy
+        </div>
+      case 2:
+        return <div
+          onClick={handleBuyOrSell}
+          className="h-[56px] cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          {isBuy ? 'Buy' : 'Sell'}
         </div>
     }
   }
@@ -847,23 +887,23 @@ const Trade = () => {
         <div className='trade_page_content'>
           <div className="trade_desc_title">Nature Morte avec des Fruits</div>
           <div className="trade_desc_desc">
-            <div className="trade_desc_desc_item1">NATHM1898</div>
-            <div className="trade_desc_desc_item2 mx-[8px]">/</div>
-            <div className="trade_desc_desc_item2">USDC</div>
+            <div className="trade_desc_desc_item1 poppins">NATHM1898</div>
+            <div className="trade_desc_desc_item2 mx-[8px] poppins">/</div>
+            <div className="trade_desc_desc_item2 poppins">USDC</div>
           </div>
           <div className="h-[1px] bg-black-0-1 w-full md:mt-[50px] mt-[24px]"></div>
           {renderMain()}
           <div className="h-[1px] bg-black-0-1 w-full md:mb-[40px] mb-[24px]"></div>
           {props.map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
-            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-left text-black-0-3">{item.key}</div>
-            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] md:text-left text-right text-black-0-9">{item.value}</div>
+            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
+            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] md:text-left text-right text-black-0-9 poppins">{item.value}</div>
           </div>)}
           {
             showMore ? <>
               <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
               {props2.map((item, index) => <div className={`${index === props2.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
-                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-left text-black-0-3">{item.key}</div>
-                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] md:text-left text-right text-black-0-9 underline">{item.value}</div>
+                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
+                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] md:text-left text-right text-black-0-9 poppins">{item.value}</div>
               </div>)}
               <div className="md:h-[40px] h-[5px]"></div>
             </> : <div className="h-[1px] bg-black-0-1 w-full md:mt-[40px] mt-[24px]"></div>
@@ -871,7 +911,7 @@ const Trade = () => {
           <div className="flex items-center justify-center">
             <div
               onClick={() => setShowMore(!showMore)}
-              className="p-[17px] text-black-0-3 cursor-pointer hover:text-black flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px]">
+              className="p-[17px] text-black-0-3 cursor-pointer hover:text-black flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] poppins">
               {showMore ? 'See less' : 'See more'}
               <svg
                 className={`ml-[4px] md:w-[21px] md:h-[20px] w-[10px] h-[10px] ${!showMore ? 'rotate-180' : ''}`}
@@ -892,7 +932,7 @@ const Trade = () => {
           {
             [
               {
-                icon: <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                icon: <svg className="md:w-[64px] md:h-[64px] w-[45px] h-[45px]" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M50.058 31.4114C50.4501 29.7483 51.9698 28.6342 51.9698 25.6241C51.9698 21.174 47.6038 22.4539 51.4009 14.1482C53.2416 10.1228 50.2531 8.12586 50.2531 8.12586C47.3458 5.37442 44.8997 9.17666 42.2098 9.17666C39.5199 9.17666 36.1372 7.0395 32.5676 7C28.9635 7 25.5158 9.12728 22.8259 9.12728C20.136 9.12728 17.6899 5.32504 14.7846 8.07648C14.7846 8.07648 11.7961 10.0754 13.6368 14.0988C17.4339 22.4045 13.0679 21.1266 13.0679 25.5747C13.0679 29.132 15.1889 30.0406 15.067 32.3358C14.7399 34.0996 13.1065 35.1761 13.0923 38.2949C13.072 42.745 17.4441 41.4828 13.6103 49.7727C11.7514 53.7903 14.7318 55.801 14.7318 55.801C17.6269 58.5643 20.0913 54.7719 22.7792 54.7838C25.4426 54.7956 28.8436 56.9446 32.4112 56.9999C36.0153 57.0138 39.4732 54.9003 42.161 54.9122C44.8489 54.924 47.2808 58.7361 50.1982 55.9965C50.1982 55.9965 53.1949 54.0115 51.3725 49.9781C47.6119 41.6586 51.9718 42.9544 51.9922 38.5062C52.0084 34.787 49.6964 33.9534 50.058 31.4133V31.4114Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M45 14H20V50H45V14Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>,
@@ -900,7 +940,7 @@ const Trade = () => {
                 desc: 'We partner with renowned appraisers to verify the artwork\'s authenticity, condition, and provenance, and with custodians and insurance companies to ensure secure storage.'
               },
               {
-                icon: <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                icon: <svg className="md:w-[64px] md:h-[64px] w-[45px] h-[45px]" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M54 20.7501V43.25C54 43.7775 53.7113 44.2634 53.2457 44.5197L32.7123 55.8172C32.2694 56.0609 31.7306 56.0609 31.2877 55.8172L10.7544 44.5197C10.2888 44.2634 10 43.7775 10 43.25L10 20.7501C10 20.2226 10.2888 19.7366 10.7544 19.4804L31.2877 8.18278C31.7306 7.93907 32.2694 7.93907 32.7123 8.18278L53.2457 19.4804C53.7111 19.7366 54 20.2226 54 20.7501Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M53 44L32.7199 32.1955C32.2723 31.9348 31.7277 31.9348 31.2801 32.1955L11 44" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M11 20.0409L31.2437 31.8045C31.6921 32.0652 32.2375 32.0652 32.6859 31.8045L53 20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -910,7 +950,7 @@ const Trade = () => {
                 desc: 'You subscribe to shares of the artwork tokens through our Arttoo trading platform.'
               },
               {
-                icon: <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                icon: <svg className="md:w-[64px] md:h-[64px] w-[45px] h-[45px]" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="32" cy="32" r="24" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path fillRule="evenodd" clipRule="evenodd" d="M36.803 29.7573C37.6372 30.8328 38.1361 32.193 38.1361 33.6726C38.1361 35.1522 37.6221 36.554 36.766 37.6355L36.6918 37.729L36.6724 37.6105C36.6556 37.5101 36.6362 37.408 36.6134 37.3059C36.1845 35.3711 34.7874 33.7124 32.4879 32.3687C30.9349 31.4636 30.0459 30.3751 29.8125 29.1369C29.6617 28.3365 29.7738 27.5327 29.9903 26.8439C30.2069 26.1561 30.5288 25.5789 30.8026 25.232L31.6975 24.1088C31.8542 23.9116 32.1483 23.9116 32.305 24.1088L36.8039 29.7573H36.803ZM38.2178 28.635L32.2216 21.1072C32.107 20.9636 31.893 20.9636 31.7784 21.1072L25.783 28.6359L25.7636 28.661C24.6606 30.0662 24 31.853 24 33.7981C24 38.3278 27.5821 41.9999 32 41.9999C36.4179 41.9999 40 38.3278 40 33.7981C40 31.853 39.3394 30.0662 38.2364 28.661L38.217 28.6359L38.2178 28.635ZM27.218 29.7322L27.7539 29.0582L27.77 29.1828C27.7826 29.2814 27.7986 29.38 27.8171 29.4795C28.1643 31.3494 29.4038 32.9077 31.4759 34.1148C33.2774 35.1678 34.3265 36.3783 34.6282 37.7056C34.7546 38.2594 34.7765 38.8045 34.7217 39.2813L34.7183 39.3107L34.6922 39.3237C33.8791 39.7312 32.9648 39.9605 31.9992 39.9605C28.6109 39.9605 25.8639 37.1449 25.8639 33.6709C25.8639 32.1792 26.3703 30.8095 27.2163 29.7305L27.218 29.7322Z" fill="black" />
                   <circle cx="32" cy="13" r="1" fill="black" />
@@ -942,7 +982,7 @@ const Trade = () => {
                 desc: 'We mint a limited number of tokens on the Sui network, each representing a fractional share of the artwork. After minting, the treasury cap will be revoked.'
               },
               {
-                icon: <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                icon: <svg className="md:w-[64px] md:h-[64px] w-[45px] h-[45px]" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.333 42.6667V37.3334" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M32 56V50.6666" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M50.667 34.6667V29.3334" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -1070,11 +1110,39 @@ const Trade = () => {
             </div>)
           }
         </div>
-        <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] max-md:hidden"></div>
+        <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
         {/* about Henri Matisse PC */}
         <div className="md:flex hidden">
           <div className="flex-1 mr-[80px]">
             <div className="text-[60px] font-[400] leading-[80px] text-black-0-9 VictorSherif">About <span className="font-[500] VictorSherif italic">Henri Matisse</span></div>
+            <div className="mt-[104px]">
+              <div className="w-[409px] h-[222px] bg-[#D9D9D9]">
+                <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
+              </div>
+              <div className="text-[32px] mt-[132px] text-right font-[500] leading-[38.4px] text-black-0-9 VictorSherif">The Lower East Side Gets a New Gallery.</div>
+              <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
+            </div>
+          </div>
+          <div className="w-[560px] pt-[25px]">
+            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 VictorSherif">Since</div>
+            <div className="text-[48px] font-[500] italic leading-[60px] text-black-0-9 VictorSherif">1869-1954</div>
+            <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
+            <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
+              <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+        {/* about Henri Matisse mobile */}
+        <div className="md:hidden">
+          <div className="text-[30px] font-[400] leading-[40px] text-black-0-9 VictorSherif">About <span className="font-[500] VictorSherif italic">Henri Matisse</span></div>
+          <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover mt-[30px]" />
+          <div className="text-[20px] mt-[20px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Since</div>
+          <div className="text-[20px] font-[500] italic leading-[32px] text-black-0-9 VictorSherif">1869-1954</div>
+          <div className="text-[15px] mt-[20px] font-[400] leading-[24px] text-black-0-9 VictorSherif">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
+          <div className="text-[20px] mt-[20px] font-[500] leading-[38.4px] text-black-0-9 VictorSherif">The Lower East Side Gets a New Gallery.</div>
+          <div className="text-[15px] mt-[20px] font-[400] leading-[24px] text-black-0-9 VictorSherif">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
+          <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full mt-[20px] object-cover" />
+          {/* <div className="flex-1 mr-[80px]">
             <div className="mt-[104px]">
               <div className="w-[409px] h-[222px] bg-[#D9D9D9]">
                 <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
@@ -1090,13 +1158,13 @@ const Trade = () => {
             <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
               <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
             </div>
-          </div>
+          </div> */}
         </div>
         {/* artist career  */}
-        <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] max-md:hidden"></div>
-        <div className="md:block hidden text-[60px] font-[400] mb-[60px] leading-[80px] text-black-0-9 VictorSherif">Artist Career <span className="font-[500] VictorSherif italic">Path</span></div>
+        {/* <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] max-md:hidden"></div>
+        <div className="md:block hidden text-[60px] font-[400] mb-[60px] leading-[80px] text-black-0-9 VictorSherif">Artist Career <span className="font-[500] VictorSherif italic">Path</span></div> */}
         {/*  */}
-        <div className="md:block hidden">
+        {/* <div className="md:block hidden">
           <div className="flex items-center">
             <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
               Other -
@@ -1233,7 +1301,7 @@ const Trade = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
         <div className="flex md:mb-[60px] mb-[30px] items-center">
           <div className="md:text-[60px] text-[30px] font-[400] md:leading-[80px] leading-[36px] text-black-0-9 VictorSherif">Relevant <span className="font-[500] VictorSherif italic">News</span></div>
@@ -1336,7 +1404,14 @@ const Trade = () => {
             </div>
           </div>
         </div>
+        <div className="trade-footer-fixed"></div>
       </div>
+    </div>
+
+    <div className="trade-footer">
+      {
+        renderFooter()
+      }
     </div>
   </div >
 }

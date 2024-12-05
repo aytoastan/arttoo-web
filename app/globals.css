@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
 @font-face {
   font-family: 'Victor Sherif';
   src: url('../assets/fonts/VictorSerifTrial-40Regular.otf');
@@ -29,6 +28,54 @@
   src: url('../assets/fonts/VictorSerifTrial-55MediumItalic.otf');
   font-weight: 500;
   font-style: italic;
+}
+@font-face {
+  font-family: 'Victor Sherif';
+  src: url('../assets/fonts/VictorSerifTrial-60Semibold.otf');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Victor Sherif';
+  src: url('../assets/fonts/VictorSerifTrial-65SemiboldItalic.otf');
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Victor Sherif';
+  src: url('../assets/fonts/VictorSerifTrial-70Bold.otf');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Victor Sherif';
+  src: url('../assets/fonts/VictorSerifTrial-75BoldItalic.otf');
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../assets/fonts/Poppins-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../assets/fonts/Poppins-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../assets/fonts/Poppins-SemiBold.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../assets/fonts/Poppins-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
 }
 
 :root {
@@ -328,6 +375,21 @@ input:-webkit-autofill:focus {
     font-size: 30px;
     line-height: 36px;
   }
+  .trade-footer-fixed{
+    height: calc(88px + env(safe-area-inset-bottom));
+    background-color: #000;
+  }
+  .trade-footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    /*  IOS 安全区 */
+    height: calc(88px + env(safe-area-inset-bottom));
+    background-color: #fff;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
 }
 
 .rotate-180 {
@@ -336,6 +398,9 @@ input:-webkit-autofill:focus {
 
 .VictorSherif{
   font-family: 'Victor Sherif';
+}
+.poppins{
+  font-family: 'Poppins';
 }
 
 .bg-green-0-1 {

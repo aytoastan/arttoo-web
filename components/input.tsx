@@ -7,17 +7,22 @@ interface AmountInputProps {
 }
 export const AmountInput = (props: AmountInputProps) => {
   const [isFocus, setIsFocus] = useState(false)
-  return <div className={`flex items-center px-[12px] py-[20px] w-full h-[72px] border-2 ${!isFocus ? 'border-black' : 'border-[#12B76A]'} rounded-[12px]`}>
+  return <div className={`flex items-center px-[12px] md:py-[20px] py-[15px] w-full md:h-[72px] h-[56px] border-2 ${!isFocus ? 'border-black' : 'border-[#12B76A]'} rounded-[12px]`}>
     <input
-      className="flex-1 h-full bg-transparent outline-none text-[24px] font-[400] leading-[32px] text-black-0-9 caret-[#12B76A]"
+      className="flex-1 h-full bg-transparent outline-none md:text-[24px] text-[18px] font-[400] text-black-0-9 caret-[#12B76A] poppins"
       value={props.value}
       onFocus={() => !props.disabled && setIsFocus(true)}
       onBlur={() => !props.disabled && setIsFocus(false)}
       onChange={(e) => !props.disabled && props.onChange(e.target.value)}
       disabled={props.disabled}
     />
-    <div className="w-[48px] h-[48px] bg-black-0-05 rounded-[8px] flex items-center justify-center cursor-pointer" onClick={() => !props.disabled && setIsFocus(true)}>
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className="md:text-[24px] text-[18px] font-[400] text-black-0-3 md:mr-[12px] mr-[6px] poppins">
+      USDC
+    </div>
+    <div className="md:w-[48px] md:h-[48px] w-[36px] h-[36px] bg-black-0-05 rounded-[8px] flex items-center justify-center cursor-pointer" onClick={() => !props.disabled && setIsFocus(true)}>
+      <svg
+        className="md:w-[24px] md:h-[24px] w-[18px] h-[18px]"
+        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 17L20 17M20 17L17 20M20 17L17 14" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         <path d="M20 7L4 7M4 7L7 10M4 7L7 4" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -47,7 +52,12 @@ export const SlideInput = (props: SlideInputProps) => {
     if (value < 0) value = 0
     if (value > 100) value = 100
     props.onChange(value)
-    setShowPercent(true)
+    // 如果是 0 则不显示百分比
+    if (value === 0) {
+      setShowPercent(false)
+    } else {
+      setShowPercent(true)
+    }
 
   }
   const handleClickPoint = (index: number = 25) => {
@@ -55,7 +65,9 @@ export const SlideInput = (props: SlideInputProps) => {
     setShowPercent(true)
   }
   return <div
-    onMouseLeave={() => setShowPercent(false)}
+    onMouseLeave={() => {
+      // setShowPercent(false)
+    }}
     onClick={handleClick}
     onMouseMove={(e) => {
       if (isDraggingRef.current) {
@@ -68,7 +80,7 @@ export const SlideInput = (props: SlideInputProps) => {
         setShowPercent(true)
       }
     }}
-    className="my-[16px] mb-[14px] h-[26px] w-[calc(100%-10px)] ml-[5px] relative cursor-pointer w-full">
+    className="md:my-[16px] my-[8px] mb-[14px] h-[26px] w-[calc(100%-15px)] ml-[5px] relative cursor-pointer w-full">
     <div className="h-[2px] w-full bg-gray-1 absolute bottom-[4px]"></div>
     {/* 0% */}
     <div className="h-[10px] w-[10px] rounded-full bg-gray-1 absolute bottom-0 left-[0%] ml-[-5px]" onClick={() => handleClickPoint(0)}>
@@ -120,7 +132,7 @@ export const SlideInput = (props: SlideInputProps) => {
       style={{
         left: `${percent * 100}%`
       }}
-      className="bottom-triangle absolute bottom-[15px] translate-x-[-50%] bg-black-23 text-white text-[12px] leading-[12px] font-[500] p-[2px] rounded-[2px]"
+      className="bottom-triangle absolute bottom-[15px] translate-x-[-50%] bg-black-23 text-white text-[12px] leading-[12px] font-[500] p-[2px] rounded-[2px] poppins"
     >
       {props.value}%
     </div> : null}
