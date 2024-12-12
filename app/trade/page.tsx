@@ -999,7 +999,7 @@ const Trade = () => {
               <div key={index} className="md:block flex">
                 {item.icon}
                 <div className="block flex-1 md:mt-[24px] ml-[12px] md:ml-0">
-                  <div className="md:text-[20px] text-[15px] font-[400] md:leading-[32px] leading-[24px] text-black-0-9 poppins ">{item.title}</div>
+                  <div className="md:text-[20px] text-[15px] font-[500] md:leading-[32px] leading-[24px] text-black-0-9 poppins ">{item.title}</div>
                   <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[16px] mt-[8px] poppins ">{item.desc}</div>
                 </div>
               </div>
@@ -1015,7 +1015,7 @@ const Trade = () => {
           <div className="flex-1 flex md:justify-end md:items-end mt-[30px] md:mt-0 gap-[40px]">
             <div className="md:min-w-[260px] max-md:flex-1">
               <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] poppins">$1,734,000</div>
-              <div className="md:text-[16px] text-[12px] font-[500] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Initial Offering Price</div>
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Initial Offering Price</div>
             </div>
             <div className="md:min-w-[260px] max-md:flex-1">
               <div className="text-[#12B76A] font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] flex items-center">
@@ -1026,7 +1026,7 @@ const Trade = () => {
                 </svg>
                 16%
               </div>
-              <div className="md:text-[16px] text-[10px] font-[500] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Annual Growth of Record Price</div>
+              <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Annual Growth of Record Price</div>
             </div>
           </div>
         </div>
@@ -1126,7 +1126,7 @@ const Trade = () => {
             </div>
           </div>
           <div className="w-[560px] pt-[25px]">
-            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 poppins">Since</div>
+            <div className="text-[48px] font-[500] leading-[60px] text-black-0-9 poppins">Since</div>
             <div className="text-[48px] font-[500] leading-[60px] text-black-0-9 poppins">1869-1954</div>
             <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
             <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
