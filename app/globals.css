@@ -29,54 +29,134 @@
   font-weight: 500;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'Victor Sherif';
   src: url('../assets/fonts/VictorSerifTrial-60Semibold.otf');
   font-weight: 600;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Victor Sherif';
   src: url('../assets/fonts/VictorSerifTrial-65SemiboldItalic.otf');
   font-weight: 600;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'Victor Sherif';
   src: url('../assets/fonts/VictorSerifTrial-70Bold.otf');
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Victor Sherif';
   src: url('../assets/fonts/VictorSerifTrial-75BoldItalic.otf');
   font-weight: 700;
   font-style: italic;
 }
+
 @font-face {
   font-family: 'Poppins';
   src: url('../assets/fonts/Poppins-Regular.ttf');
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Poppins';
   src: url('../assets/fonts/Poppins-Medium.ttf');
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Poppins';
   src: url('../assets/fonts/Poppins-SemiBold.ttf');
   font-weight: 600;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Poppins';
   src: url('../assets/fonts/Poppins-Bold.ttf');
   font-weight: 700;
   font-style: normal;
 }
+
+/* lato font */
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Thin.ttf');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Light.ttf');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Regular.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Black.ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-ThinItalic.ttf');
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-LightItalic.ttf');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-Italic.ttf');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-BoldItalic.ttf');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../assets/fonts/Lato-BlackItalic.ttf');
+  font-weight: 700;
+  font-style: italic;
+}
+
 
 :root {
   --background: #fff;
@@ -148,6 +228,7 @@ input:-webkit-autofill:focus {
 .bg-black-0-1 {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
 .bg-black-0-02 {
   background-color: rgba(0, 0, 0, 0.02);
 }
@@ -173,9 +254,11 @@ input:-webkit-autofill:focus {
   user-select: none;
   font-family: sans-serif;
 }
+
 .mainPage input {
   user-select: auto;
 }
+
 .mainPage textarea {
   user-select: auto;
 }
@@ -231,13 +314,18 @@ input:-webkit-autofill:focus {
 .login_submit_button:hover {
   background-color: #474747;
 }
-
 .text-black-0-6 {
   color: rgba(0, 0, 0, 0.6);
 }
+
+.text-black-0-5 {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 .text-black-0-9 {
   color: rgba(0, 0, 0, 0.9);
 }
+
 .text-black-0-3 {
   color: rgba(0, 0, 0, 0.3);
 }
@@ -295,15 +383,15 @@ input:-webkit-autofill:focus {
 
 .trade_page {
   position: relative;
-  padding: 0px 80px;
+  padding: 0px 60px;
   align-items: start;
   display: grid;
-  grid-template-columns: 1fr 520px;
+  grid-template-columns: 1fr 460px;
   gap: 80px;
 }
 
 .trade_page_2 {
-  margin-top: 80px;
+  margin-top: 20px;
   padding: 0px 80px;
   /* background-color: #ffff00; */
   /* height: 1300px; */
@@ -312,74 +400,96 @@ input:-webkit-autofill:focus {
 
 .trade_page_image {
   display: block;
-  background-color:rgba(0, 0, 0, 2%);
+  /* background-color:rgba(0, 0, 0, 2%); */
   /* background-color: #ffff00; */
   height: calc(100vh - 80px);
+  /* max-height: 700px; */
+  /* padding: 0 100px; */
+  /* margin: 0 100px; */
   flex: 1;
   position: sticky;
-  border-radius: 12px;
+  /* border-radius: 12px; */
   top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-color: #; */
+  background-position: center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
 }
-.trade_page_image img{
-  max-height: calc(100% - 80px);
+
+/* 大于 1440 */
+@media (min-width: 1440px) {
+  .trade_page_image {
+    margin: 0 100px;
+  }
 }
 
 .trade_page_content {
   /* width: 520px; */
   min-height: calc(100vh - 80px);
 }
-.trade_desc_title{
+
+.trade_desc_title {
   /* Victor Sherif */
   /* font-family: Victor Sherif; */
   /* font-weight: 500; */
-  font-size: 40px;
-  line-height: 48px;
+  font-size: 36px;
+  line-height: 43.2px;
 }
+
 .trade_desc_desc {
-  font-size: 16px; 
+  font-size: 16px;
   line-height: 25.6px;
   margin-top: 8px;
   font-weight: 400;
   display: flex;
 }
-.trade_desc_desc_item1{
+
+.trade_desc_desc_item1 {
   color: rgba(0, 0, 0, 0.9);
 }
-.trade_desc_desc_item2{
+
+.trade_desc_desc_item2 {
   color: rgba(0, 0, 0, 0.6);
 }
+
 @media (max-width: 768px) {
   .trade_page {
     display: block;
     padding: 0px 0px;
   }
-  .trade_page_2{
+
+  .trade_page_2 {
     padding: 0px 20px;
-    margin-top: 40px;
+    margin-top: 20px;
   }
+
   .trade_page_image {
     display: none;
   }
-  .trade_page_content{
+
+  .trade_page_content {
     width: 100%;
     padding: 0px 20px;
     margin-top: 20px;
     min-height: auto;
   }
-  .trade_desc_title{
+
+  .trade_desc_title {
     font-family: 'Victor Sherif';
     font-weight: 500px;
     font-size: 30px;
     line-height: 36px;
   }
-  .trade-footer-fixed{
+
+  .trade-footer-fixed {
     height: calc(88px + env(safe-area-inset-bottom));
     background-color: #000;
   }
-  .trade-footer{
+
+  .trade-footer {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -396,19 +506,22 @@ input:-webkit-autofill:focus {
   transform: rotate(180deg);
 }
 
-.VictorSherif{
+.VictorSherif {
   font-family: 'Victor Sherif';
 }
-.poppins{
-  font-family: 'Poppins';
+
+.poppins {
+  font-family: 'Lato';
 }
 
 .bg-green-0-1 {
   background-color: rgba(18, 183, 111, 0.1);
 }
+
 .bg-green-0-2 {
   background-color: rgba(18, 183, 111, 0.2);
 }
+
 .bg-green-0-3 {
   background-color: rgba(18, 183, 111, 0.3);
 }
@@ -416,34 +529,44 @@ input:-webkit-autofill:focus {
 .bg-green-0-4 {
   background-color: rgba(18, 183, 111, 0.4);
 }
+
 .bg-green-0-5 {
   background-color: rgba(18, 183, 111, 0.5);
 }
+
 .bg-green-0-6 {
   background-color: rgba(18, 183, 111, 0.6);
 }
+
 .bg-green-0-7 {
   background-color: rgba(18, 183, 111, 0.7);
 }
+
 .bg-green-0-8 {
   background-color: rgba(18, 183, 111, 0.8);
 }
+
 .bg-green-0-9 {
   background-color: rgba(18, 183, 111, 0.9);
 }
+
 .bg-green-0-10 {
   background-color: rgba(18, 183, 111, 1);
 }
-.bg-gray-1{
+
+.bg-gray-1 {
   background-color: rgb(229, 229, 229);
 }
+
 .bg-gray-2 {
   background: #D9D9D9;
 }
-.bg-black-23{
+
+.bg-black-23 {
   background-color: rgb(23, 23, 23);
 }
-.bg-black-17{
+
+.bg-black-17 {
   background: #171717;
 }
 
@@ -459,7 +582,8 @@ input:-webkit-autofill:focus {
   /* background-color: #000; */
   border-left: 3px solid transparent;
   border-right: 3px solid transparent;
-  border-top: 3px solid #000; /* 使用 currentColor 跟随父元素颜色 */
+  border-top: 3px solid #000;
+  /* 使用 currentColor 跟随父元素颜色 */
 }
 
 /*  */

@@ -47,7 +47,7 @@ const Trade = () => {
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   const [showMore, setShowMore] = useState(false)
   const [showMorePrice, setShowMorePrice] = useState(false)
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(0)
   // const [width] = useWindowSize()
   const [isBuy, setIsBuy] = useState(true)
   const [amount, setAmount] = useState('')
@@ -55,10 +55,10 @@ const Trade = () => {
   // const blockWidth = (width - 160 - 140 - (2 * 63)) / 64
   const svgRef = useRef<SVGSVGElement>(null)
   const svgRef2 = useRef<SVGSVGElement>(null)
-  const svgRef3 = useRef<SVGSVGElement>(null)
-  const svgBoxRef3 = useRef<HTMLDivElement>(null)
-  const svgRef4 = useRef<SVGSVGElement>(null)
-  const svgBoxRef4 = useRef<HTMLDivElement>(null)
+  // const svgRef3 = useRef<SVGSVGElement>(null)
+  // const svgBoxRef3 = useRef<HTMLDivElement>(null)
+  // const svgRef4 = useRef<SVGSVGElement>(null)
+  // const svgBoxRef4 = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (svgRef.current && step === 2) {
       // 示例数据
@@ -300,322 +300,322 @@ const Trade = () => {
         .attr("d", (line as any));
     }
   }, [step, showMorePrice])
-  useEffect(() => {
-    if (svgRef3.current) {
-      const data = [
-        { date: 1996, value: 1 },
-        { date: 1998, value: 1.2 },
-        { date: 2000, value: 1.5 },
-        { date: 2002, value: 1.8 },
-        { date: 2004, value: 2 },
-        { date: 2006, value: 2.5 },
-        { date: 2008, value: 3 },
-        { date: 2010, value: 3.5 },
-        { date: 2012, value: 4 },
-        { date: 2014, value: 3 },
-        { date: 2016, value: 3.5 },
-      ];
+  // useEffect(() => {
+  //   if (svgRef3.current) {
+  //     const data = [
+  //       { date: 1996, value: 1 },
+  //       { date: 1998, value: 1.2 },
+  //       { date: 2000, value: 1.5 },
+  //       { date: 2002, value: 1.8 },
+  //       { date: 2004, value: 2 },
+  //       { date: 2006, value: 2.5 },
+  //       { date: 2008, value: 3 },
+  //       { date: 2010, value: 3.5 },
+  //       { date: 2012, value: 4 },
+  //       { date: 2014, value: 3 },
+  //       { date: 2016, value: 3.5 },
+  //     ];
 
-      // 图表尺寸
-      const width = 800;
-      const height = 400;
-      const margin = { top: 0, right: 5, bottom: 30, left: 40 };
-      // 创建比例尺
-      const xScale = d3
-        .scaleLinear()
-        .domain((d3 as any).extent(data, (d: any) => {
-          return d.date
-        }))
-        .range([margin.left, width - margin.right]);
+  //     // 图表尺寸
+  //     const width = 800;
+  //     const height = 400;
+  //     const margin = { top: 0, right: 5, bottom: 30, left: 40 };
+  //     // 创建比例尺
+  //     const xScale = d3
+  //       .scaleLinear()
+  //       .domain((d3 as any).extent(data, (d: any) => {
+  //         return d.date
+  //       }))
+  //       .range([margin.left, width - margin.right]);
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([1, (d3 as any).max(data, (d: any) => d.value) * 1.2]) // 放大最大值以留白
-        .range([height - margin.bottom, margin.top]);
+  //     const yScale = d3
+  //       .scaleLinear()
+  //       .domain([1, (d3 as any).max(data, (d: any) => d.value) * 1.2]) // 放大最大值以留白
+  //       .range([height - margin.bottom, margin.top]);
 
-      // 创建 SVG 容器
-      const svg = d3
-        .select(svgRef3.current)
-        .attr('viewBox', `0 0 ${width} ${height}`) // 设置视窗大小
-        .attr('preserveAspectRatio', 'xMidYMid meet') // 保持纵横比
-        .classed('responsive', true); // 添加类以便后续使用 CSS
+  //     // 创建 SVG 容器
+  //     const svg = d3
+  //       .select(svgRef3.current)
+  //       .attr('viewBox', `0 0 ${width} ${height}`) // 设置视窗大小
+  //       .attr('preserveAspectRatio', 'xMidYMid meet') // 保持纵横比
+  //       .classed('responsive', true); // 添加类以便后续使用 CSS
 
-      // svg.attr("width", width)
-      // svg.attr("height", height);
+  //     // svg.attr("width", width)
+  //     // svg.attr("height", height);
 
-      // 清空 SVG（防止多次渲染重复）
-      svg.selectAll("*").remove();
-      // 绘制 x 轴
-      svg
-        .append("g")
-        .attr("transform", `translate(0, ${height - margin.bottom})`)
-        .call(
-          (d3 as any).axisBottom(xScale)
-            .ticks(data.length)
-            .tickFormat((d: any) => {
-              return d
-            })
-        )
-        // .selectAll("text")
-        // .style("font-size", "12px")
-        // .style("color", "rgba(0, 0, 0, 0.4)")
-        .call((g) => {
-          g.select(".domain").attr("stroke", "rgba(0, 0, 0, 0.4)")
-          g.selectAll(".tick line") // 修改刻度线样式
-            // 虚线
-            .attr("stroke-dasharray", "5,5")
-            .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 0.5)
+  //     // 清空 SVG（防止多次渲染重复）
+  //     svg.selectAll("*").remove();
+  //     // 绘制 x 轴
+  //     svg
+  //       .append("g")
+  //       .attr("transform", `translate(0, ${height - margin.bottom})`)
+  //       .call(
+  //         (d3 as any).axisBottom(xScale)
+  //           .ticks(data.length)
+  //           .tickFormat((d: any) => {
+  //             return d
+  //           })
+  //       )
+  //       // .selectAll("text")
+  //       // .style("font-size", "12px")
+  //       // .style("color", "rgba(0, 0, 0, 0.4)")
+  //       .call((g) => {
+  //         g.select(".domain").attr("stroke", "rgba(0, 0, 0, 0.4)")
+  //         g.selectAll(".tick line") // 修改刻度线样式
+  //           // 虚线
+  //           .attr("stroke-dasharray", "5,5")
+  //           .attr("stroke", "rgba(0, 0, 0, 0.2)")
+  //           .attr("stroke-width", 0.5)
 
-          g.selectAll(".tick text") // 调整刻度文字的位置
-            // .attr("dx", "-0px") // 将文字向左移动 10px
-            .attr("fill", "black") // 设置文字颜色
-            .attr("font-size", "14px");
+  //         g.selectAll(".tick text") // 调整刻度文字的位置
+  //           // .attr("dx", "-0px") // 将文字向左移动 10px
+  //           .attr("fill", "black") // 设置文字颜色
+  //           .attr("font-size", "14px");
 
-          // 最后一个刻度左移 10px
-          g.selectAll(".tick:last-of-type text")
-            .attr("dx", "-10px")
-        })
-        .attr("font-size", "14px")
+  //         // 最后一个刻度左移 10px
+  //         g.selectAll(".tick:last-of-type text")
+  //           .attr("dx", "-10px")
+  //       })
+  //       .attr("font-size", "14px")
 
-      // 绘制 y 轴
-      svg
-        .append("g")
-        .call(
-          (d3 as any).axisLeft(yScale)
-            .ticks(5) // 设置刻度数量
-            .tickSize(-width) // 设置刻度线长度为图表宽度的负值，横穿整个象限
-            .tickFormat((d: any) => d) // 可选：保留默认刻度文字
-            .tickFormat((d: any) => {
-              // 0 不展示
-              if (d === 0) return ''
-              return "$" + d + 'M'
-            })
-        )
-        .attr("transform", `translate(${margin.left}, 0)`)
-        .call((g) => {
-          g.select(".domain").remove()
+  //     // 绘制 y 轴
+  //     svg
+  //       .append("g")
+  //       .call(
+  //         (d3 as any).axisLeft(yScale)
+  //           .ticks(5) // 设置刻度数量
+  //           .tickSize(-width) // 设置刻度线长度为图表宽度的负值，横穿整个象限
+  //           .tickFormat((d: any) => d) // 可选：保留默认刻度文字
+  //           .tickFormat((d: any) => {
+  //             // 0 不展示
+  //             if (d === 0) return ''
+  //             return "$" + d + 'M'
+  //           })
+  //       )
+  //       .attr("transform", `translate(${margin.left}, 0)`)
+  //       .call((g) => {
+  //         g.select(".domain").remove()
 
-          g.selectAll(".tick line") // 修改刻度线样式
-            .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 0.5)
-            // 虚线
-            .attr("stroke-dasharray", "5,5")
+  //         g.selectAll(".tick line") // 修改刻度线样式
+  //           .attr("stroke", "rgba(0, 0, 0, 0.2)")
+  //           .attr("stroke-width", 0.5)
+  //           // 虚线
+  //           .attr("stroke-dasharray", "5,5")
 
-          g.selectAll(".tick text") // 调整刻度文字的位置
-            .attr("dx", "-10px") // 将文字向左移动 10px
-            .attr("fill", "black") // 设置文字颜色
-            .attr("font-size", "14px");
-        }) // 移除轴线
-        .attr("font-size", "14px")
+  //         g.selectAll(".tick text") // 调整刻度文字的位置
+  //           .attr("dx", "-10px") // 将文字向左移动 10px
+  //           .attr("fill", "black") // 设置文字颜色
+  //           .attr("font-size", "14px");
+  //       }) // 移除轴线
+  //       .attr("font-size", "14px")
 
-      // 修改 Y 轴刻度文字的颜色
-      svg
-        .selectAll(".tick text") // 选择 Y 轴的刻度文字
-        .attr("fill", "rgba(0, 0, 0, 0.4)"); // 设置字体颜色
+  //     // 修改 Y 轴刻度文字的颜色
+  //     svg
+  //       .selectAll(".tick text") // 选择 Y 轴的刻度文字
+  //       .attr("fill", "rgba(0, 0, 0, 0.4)"); // 设置字体颜色
 
-      // 绘制填充区域
-      // const area = d3
-      //   .area()
-      //   .x((d: any) => xScale(d.date))
-      //   .y0(height - margin.bottom) // 起始 y 值（底部）
-      //   .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
-      //   .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
-      // 绘制填充区域
-      const gradient = svg.append("defs")
-        .append("linearGradient")
-        .attr("id", "greenGradient")
-        .attr("x1", "0.5")
-        .attr("y1", "0")
-        .attr("x2", "0.5")
-        .attr("y2", "1");
+  //     // 绘制填充区域
+  //     // const area = d3
+  //     //   .area()
+  //     //   .x((d: any) => xScale(d.date))
+  //     //   .y0(height - margin.bottom) // 起始 y 值（底部）
+  //     //   .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
+  //     //   .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
+  //     // 绘制填充区域
+  //     const gradient = svg.append("defs")
+  //       .append("linearGradient")
+  //       .attr("id", "greenGradient")
+  //       .attr("x1", "0.5")
+  //       .attr("y1", "0")
+  //       .attr("x2", "0.5")
+  //       .attr("y2", "1");
 
-      gradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", "rgba(18, 183, 106, 0.01)");
+  //     gradient.append("stop")
+  //       .attr("offset", "0%")
+  //       .attr("stop-color", "rgba(18, 183, 106, 0.01)");
 
-      gradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", "rgba(255, 255, 255, 0.9)");
-      svg
-        .append("path")
-        .datum(data)
-      // .attr("fill", "url(#greenGradient)") // 填充颜色
-      // .attr("d", (area as any));
+  //     gradient.append("stop")
+  //       .attr("offset", "100%")
+  //       .attr("stop-color", "rgba(255, 255, 255, 0.9)");
+  //     svg
+  //       .append("path")
+  //       .datum(data)
+  //     // .attr("fill", "url(#greenGradient)") // 填充颜色
+  //     // .attr("d", (area as any));
 
-      // 绘制折线
-      const line = d3
-        .line()
-        .x((d: any) => xScale(d.date))
-        .y((d: any) => yScale(d.value))
-        .curve(d3.curveLinear); // 曲线类型
+  //     // 绘制折线
+  //     const line = d3
+  //       .line()
+  //       .x((d: any) => xScale(d.date))
+  //       .y((d: any) => yScale(d.value))
+  //       .curve(d3.curveLinear); // 曲线类型
 
-      svg
-        .append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "#4CAF50") // 折线颜色
-        .attr("stroke-width", 2)
-        .attr("d", (line as any));
+  //     svg
+  //       .append("path")
+  //       .datum(data)
+  //       .attr("fill", "none")
+  //       .attr("stroke", "#4CAF50") // 折线颜色
+  //       .attr("stroke-width", 2)
+  //       .attr("d", (line as any));
 
-    }
-    if (svgRef4.current) {
-      const data = [
-        { date: 1996, value: 3 },
-        { date: 1998, value: 2.2 },
-        { date: 2000, value: 2.5 },
-        { date: 2002, value: 2.8 },
-        { date: 2004, value: 3 },
-        { date: 2006, value: 3.5 },
-        { date: 2008, value: 4 },
-        { date: 2010, value: 4.5 },
-        { date: 2012, value: 4 },
-        { date: 2014, value: 3 },
-        { date: 2016, value: 3.5 },
-      ];
+  //   }
+  //   if (svgRef4.current) {
+  //     const data = [
+  //       { date: 1996, value: 3 },
+  //       { date: 1998, value: 2.2 },
+  //       { date: 2000, value: 2.5 },
+  //       { date: 2002, value: 2.8 },
+  //       { date: 2004, value: 3 },
+  //       { date: 2006, value: 3.5 },
+  //       { date: 2008, value: 4 },
+  //       { date: 2010, value: 4.5 },
+  //       { date: 2012, value: 4 },
+  //       { date: 2014, value: 3 },
+  //       { date: 2016, value: 3.5 },
+  //     ];
 
-      // 图表尺寸
-      const width = 800;
-      const height = 400;
-      const margin = { top: 0, right: 5, bottom: 30, left: 40 };
-      // 创建比例尺
-      const xScale = d3
-        .scaleLinear()
-        .domain((d3 as any).extent(data, (d: any) => {
-          return d.date
-        }))
-        .range([margin.left, width - margin.right]);
+  //     // 图表尺寸
+  //     const width = 800;
+  //     const height = 400;
+  //     const margin = { top: 0, right: 5, bottom: 30, left: 40 };
+  //     // 创建比例尺
+  //     const xScale = d3
+  //       .scaleLinear()
+  //       .domain((d3 as any).extent(data, (d: any) => {
+  //         return d.date
+  //       }))
+  //       .range([margin.left, width - margin.right]);
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([1, (d3 as any).max(data, (d: any) => d.value) * 1.5]) // 放大最大值以留白
-        .range([height - margin.bottom, margin.top]);
+  //     const yScale = d3
+  //       .scaleLinear()
+  //       .domain([1, (d3 as any).max(data, (d: any) => d.value) * 1.5]) // 放大最大值以留白
+  //       .range([height - margin.bottom, margin.top]);
 
-      // 创建 SVG 容器
-      const svg = d3
-        .select(svgRef4.current)
-        .attr('viewBox', `0 0 ${width} ${height}`) // 设置视窗大小
-        .attr('preserveAspectRatio', 'xMidYMid meet') // 保持纵横比
-        .classed('responsive', true); // 添加类以便后续使用 CSS
+  //     // 创建 SVG 容器
+  //     const svg = d3
+  //       .select(svgRef4.current)
+  //       .attr('viewBox', `0 0 ${width} ${height}`) // 设置视窗大小
+  //       .attr('preserveAspectRatio', 'xMidYMid meet') // 保持纵横比
+  //       .classed('responsive', true); // 添加类以便后续使用 CSS
 
-      // svg.attr("width", width)
-      // svg.attr("height", height);
+  //     // svg.attr("width", width)
+  //     // svg.attr("height", height);
 
-      // 清空 SVG（防止多次渲染重复）
-      svg.selectAll("*").remove();
-      // 绘制 x 轴
-      svg
-        .append("g")
-        .attr("transform", `translate(0, ${height - margin.bottom})`)
-        .call(
-          (d3 as any).axisBottom(xScale)
-            .ticks(data.length)
-            .tickFormat((d: any) => {
-              return d
-            })
-        )
-        // .selectAll("text")
-        // .style("font-size", "12px")
-        // .style("color", "rgba(0, 0, 0, 0.4)")
-        .call((g) => {
-          g.select(".domain").attr("stroke", "rgba(0, 0, 0, 0.4)")
-          g.selectAll(".tick line") // 修改刻度线样式
-            .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 1)
+  //     // 清空 SVG（防止多次渲染重复）
+  //     svg.selectAll("*").remove();
+  //     // 绘制 x 轴
+  //     svg
+  //       .append("g")
+  //       .attr("transform", `translate(0, ${height - margin.bottom})`)
+  //       .call(
+  //         (d3 as any).axisBottom(xScale)
+  //           .ticks(data.length)
+  //           .tickFormat((d: any) => {
+  //             return d
+  //           })
+  //       )
+  //       // .selectAll("text")
+  //       // .style("font-size", "12px")
+  //       // .style("color", "rgba(0, 0, 0, 0.4)")
+  //       .call((g) => {
+  //         g.select(".domain").attr("stroke", "rgba(0, 0, 0, 0.4)")
+  //         g.selectAll(".tick line") // 修改刻度线样式
+  //           .attr("stroke", "rgba(0, 0, 0, 0.2)")
+  //           .attr("stroke-width", 1)
 
-          g.selectAll(".tick text") // 调整刻度文字的位置
-            // .attr("dx", "-0px") // 将文字向左移动 10px
-            .attr("fill", "black") // 设置文字颜色
-            .attr("font-size", "14px");
+  //         g.selectAll(".tick text") // 调整刻度文字的位置
+  //           // .attr("dx", "-0px") // 将文字向左移动 10px
+  //           .attr("fill", "black") // 设置文字颜色
+  //           .attr("font-size", "14px");
 
-          // 最后一个刻度左移 10px
-          g.selectAll(".tick:last-of-type text")
-            .attr("dx", "-10px")
-        })
-        .attr("font-size", "14px")
+  //         // 最后一个刻度左移 10px
+  //         g.selectAll(".tick:last-of-type text")
+  //           .attr("dx", "-10px")
+  //       })
+  //       .attr("font-size", "14px")
 
-      // 绘制 y 轴
-      svg
-        .append("g")
-        .call(
-          (d3 as any).axisLeft(yScale)
-            .ticks(5) // 设置刻度数量
-            .tickSize(-width) // 设置刻度线长度为图表宽度的负值，横穿整个象限
-            .tickFormat((d: any) => d) // 可选：保留默认刻度文字
-            .tickFormat((d: any) => {
-              // 0 不展示
-              if (d === 0) return ''
-              return "$" + d + 'M'
-            })
-        )
-        .attr("transform", `translate(${margin.left}, 0)`)
-        .call((g) => {
-          g.select(".domain").remove()
+  //     // 绘制 y 轴
+  //     svg
+  //       .append("g")
+  //       .call(
+  //         (d3 as any).axisLeft(yScale)
+  //           .ticks(5) // 设置刻度数量
+  //           .tickSize(-width) // 设置刻度线长度为图表宽度的负值，横穿整个象限
+  //           .tickFormat((d: any) => d) // 可选：保留默认刻度文字
+  //           .tickFormat((d: any) => {
+  //             // 0 不展示
+  //             if (d === 0) return ''
+  //             return "$" + d + 'M'
+  //           })
+  //       )
+  //       .attr("transform", `translate(${margin.left}, 0)`)
+  //       .call((g) => {
+  //         g.select(".domain").remove()
 
-          g.selectAll(".tick line") // 修改刻度线样式
-            .attr("stroke", "rgba(0, 0, 0, 0.2)")
-            .attr("stroke-width", 0.5)
-            // 虚线
-            .attr("stroke-dasharray", "5,5")
+  //         g.selectAll(".tick line") // 修改刻度线样式
+  //           .attr("stroke", "rgba(0, 0, 0, 0.2)")
+  //           .attr("stroke-width", 0.5)
+  //           // 虚线
+  //           .attr("stroke-dasharray", "5,5")
 
-          g.selectAll(".tick text") // 调整刻度文字的位置
-            .attr("dx", "-10px") // 将文字向左移动 10px
-            .attr("fill", "black") // 设置文字颜色
-            .attr("font-size", "14px");
-        }) // 移除轴线
-        .attr("font-size", "14px")
+  //         g.selectAll(".tick text") // 调整刻度文字的位置
+  //           .attr("dx", "-10px") // 将文字向左移动 10px
+  //           .attr("fill", "black") // 设置文字颜色
+  //           .attr("font-size", "14px");
+  //       }) // 移除轴线
+  //       .attr("font-size", "14px")
 
-      // 修改 Y 轴刻度文字的颜色
-      svg
-        .selectAll(".tick text") // 选择 Y 轴的刻度文字
-        .attr("fill", "rgba(0, 0, 0, 0.4)"); // 设置字体颜色
+  //     // 修改 Y 轴刻度文字的颜色
+  //     svg
+  //       .selectAll(".tick text") // 选择 Y 轴的刻度文字
+  //       .attr("fill", "rgba(0, 0, 0, 0.4)"); // 设置字体颜色
 
-      // 绘制填充区域
-      // const area = d3
-      //   .area()
-      //   .x((d: any) => xScale(d.date))
-      //   .y0(height - margin.bottom) // 起始 y 值（底部）
-      //   .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
-      //   .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
-      // 绘制填充区域
-      const gradient = svg.append("defs")
-        .append("linearGradient")
-        .attr("id", "greenGradient")
-        .attr("x1", "0.5")
-        .attr("y1", "0")
-        .attr("x2", "0.5")
-        .attr("y2", "1");
+  //     // 绘制填充区域
+  //     // const area = d3
+  //     //   .area()
+  //     //   .x((d: any) => xScale(d.date))
+  //     //   .y0(height - margin.bottom) // 起始 y 值（底部）
+  //     //   .y1((d: any) => yScale(d.value)) // 终止 y 值（数据点的 y 值）
+  //     //   .curve(d3.curveLinear); // 曲线类型（可改为 d3.curveMonotoneX）
+  //     // 绘制填充区域
+  //     const gradient = svg.append("defs")
+  //       .append("linearGradient")
+  //       .attr("id", "greenGradient")
+  //       .attr("x1", "0.5")
+  //       .attr("y1", "0")
+  //       .attr("x2", "0.5")
+  //       .attr("y2", "1");
 
-      gradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", "rgba(18, 183, 106, 0.01)");
+  //     gradient.append("stop")
+  //       .attr("offset", "0%")
+  //       .attr("stop-color", "rgba(18, 183, 106, 0.01)");
 
-      gradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", "rgba(255, 255, 255, 0.9)");
-      svg
-        .append("path")
-        .datum(data)
-      // .attr("fill", "url(#greenGradient)") // 填充颜色
-      // .attr("d", (area as any));
+  //     gradient.append("stop")
+  //       .attr("offset", "100%")
+  //       .attr("stop-color", "rgba(255, 255, 255, 0.9)");
+  //     svg
+  //       .append("path")
+  //       .datum(data)
+  //     // .attr("fill", "url(#greenGradient)") // 填充颜色
+  //     // .attr("d", (area as any));
 
-      // 绘制折线
-      const line = d3
-        .line()
-        .x((d: any) => xScale(d.date))
-        .y((d: any) => yScale(d.value))
-        .curve(d3.curveLinear); // 曲线类型
+  //     // 绘制折线
+  //     const line = d3
+  //       .line()
+  //       .x((d: any) => xScale(d.date))
+  //       .y((d: any) => yScale(d.value))
+  //       .curve(d3.curveLinear); // 曲线类型
 
-      svg
-        .append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "#4CAF50") // 折线颜色
-        .attr("stroke-width", 2)
-        .attr("d", (line as any));
+  //     svg
+  //       .append("path")
+  //       .datum(data)
+  //       .attr("fill", "none")
+  //       .attr("stroke", "#4CAF50") // 折线颜色
+  //       .attr("stroke-width", 2)
+  //       .attr("d", (line as any));
 
-    }
-  }, [])
+  //   }
+  // }, [])
   const handleNotify = () => {
     setStep(1)
   }
@@ -626,7 +626,7 @@ const Trade = () => {
   const renderMain = () => {
     switch (step) {
       case 0:
-        return <div className="md:my-[50px] my-[24px]">
+        return <div className="md:my-[40px] my-[24px]">
           <div className="flex md:text-[16px] text-[12px] font-[400] text-black-0-9 items-center poppins">
             <svg
               width="20"
@@ -859,19 +859,19 @@ const Trade = () => {
       case 0:
         return <div
           onClick={handleNotify}
-          className="h-[56px] cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[56px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
           Notify me on launch
         </div>
       case 1:
         return <div
           onClick={handleBuy}
-          className="h-[56px] cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[56px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
           Buy
         </div>
       case 2:
         return <div
           onClick={handleBuyOrSell}
-          className="h-[56px] cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[56px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
           {isBuy ? 'Buy' : 'Sell'}
         </div>
     }
@@ -880,9 +880,8 @@ const Trade = () => {
     <Header isLogin={true} />
     <div className='block md:mt-[40px] mt-[20px]'>
       <div className='trade_page'>
-        <div className='trade_page_image'>
-          <img src="/trade/1.png" alt="trade_page_image" />
-        </div>
+        <div className='trade_page_image' style={{ backgroundImage: `url(/trade/1.png)` }} />
+
         <img src="/trade/1.png" alt="trade_page_image_mobile" className="w-full md:hidden" />
         <div className='trade_page_content'>
           <div className="trade_desc_title VictorSherif font-[500]">Nature Morte avec des Fruits</div>
@@ -1000,8 +999,8 @@ const Trade = () => {
               <div key={index} className="md:block flex">
                 {item.icon}
                 <div className="block flex-1 md:mt-[24px] ml-[12px] md:ml-0">
-                  <div className="md:text-[20px] text-[15px] font-[500] md:leading-[32px] leading-[24px] text-black-0-9 VictorSherif ">{item.title}</div>
-                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[16px] mt-[8px] VictorSherif ">{item.desc}</div>
+                  <div className="md:text-[20px] text-[15px] font-[400] md:leading-[32px] leading-[24px] text-black-0-9 poppins ">{item.title}</div>
+                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[16px] mt-[8px] poppins ">{item.desc}</div>
                 </div>
               </div>
             ))
@@ -1011,12 +1010,12 @@ const Trade = () => {
         <div className="flex flex-col md:flex-row md:mb-[60px] mb-[30px]">
           <div>
             <div className="md:text-[60px] text-[30px] font-[400] md:leading-[80px] leading-[40px] text-black-0-9 VictorSherif">Valuation <span className="VictorSherif font-[500] italic">analytics</span></div>
-            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">Nature Morte avec des Fruits</div>
+            {/* <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">Nature Morte avec des Fruits</div> */}
           </div>
           <div className="flex-1 flex md:justify-end md:items-end mt-[30px] md:mt-0 gap-[40px]">
             <div className="md:min-w-[260px] max-md:flex-1">
-              <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px]">$1,734,000</div>
-              <div className="md:text-[16px] text-[12px] font-[500] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] VictorSherif">Initial Offering Price</div>
+              <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] poppins">$1,734,000</div>
+              <div className="md:text-[16px] text-[12px] font-[500] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Initial Offering Price</div>
             </div>
             <div className="md:min-w-[260px] max-md:flex-1">
               <div className="text-[#12B76A] font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] flex items-center">
@@ -1027,12 +1026,18 @@ const Trade = () => {
                 </svg>
                 16%
               </div>
-              <div className="md:text-[16px] text-[12px] font-[500] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] VictorSherif">Annual Growth of Record Price</div>
+              <div className="md:text-[16px] text-[10px] font-[500] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Annual Growth of Record Price</div>
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-col md:flex-row xl:gap-[120px] md:gap-[60px]">
-          <div className="flex-1 h-full">
+        <div className="w-full flex flex-col md:flex-row xl:gap-[120px] md:gap-[60px] gap-[30px]">
+          <div className="flex-1">
+            <img src="/trade/l1.png" alt="l1" className="w-full h-full object-cover" />
+          </div>
+          <div className="flex-1">
+            <img src="/trade/l2.png" alt="l2" className="w-full h-full object-cover" />
+          </div>
+          {/* <div className="flex-1 h-full">
             <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[18px] text-black-0-9 VictorSherif">Price vs Date Scatter Plot</div>
             <div className="w-full md:mt-[16px] mt-[8px]" ref={svgBoxRef3}>
               <svg ref={svgRef3}></svg>
@@ -1043,13 +1048,13 @@ const Trade = () => {
             <div className="w-full md:mt-[16px] mt-[8px]" ref={svgBoxRef4}>
               <svg ref={svgRef4}></svg>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
         <div className="flex flex-col md:flex-row md:mb-[60px] mb-[30px]">
           <div>
             <div className="md:text-[60px] text-[30px] font-[400] md:leading-[80px] leading-[40px] text-black-0-9 VictorSherif">Similar <span className="VictorSherif font-[500] italic">artworks</span></div>
-            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">Henri Matisse</div>
+            {/* <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">Henri Matisse</div> */}
           </div>
           <div className="flex-1 flex md:justify-end md:items-end max-md:grid max-md:grid-cols-2 max-md:gap-x-[20px] max-md:gap-y-[10px] max-md:mt-[10px]">
             {
@@ -1060,8 +1065,8 @@ const Trade = () => {
                 { num: '36%', desc: 'Price over estimate' },
               ].map((item, index) => (
                 <div key={index} className="md:min-w-[214px]">
-                  <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px]">{item.num}</div>
-                  <div className="md:text-[16px] text-[12px] font-[500] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] VictorSherif">{item.desc}</div>
+                  <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] poppins">{item.num}</div>
+                  <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">{item.desc}</div>
                 </div>
               ))
             }
@@ -1098,13 +1103,10 @@ const Trade = () => {
               <div className="max-md:flex">
                 <img src={item.img} alt={item.title} className="md:h-[320px] h-[134px]" />
                 <div className="max-md:flex-1 md:mt-[40px] max-md:ml-[20px]">
-                  <div className="md:text-[20px] text-[15px] font-[500] md:leading-[32px] leading-[24px] text-black-0-9 VictorSherif">{item.title}</div>
-                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif md:mt-[4px] mt-[2px]">{item.desc}</div>
-                  <div className="md:text-[24px] text-[18px] font-[500] md:leading-[38.4px] leading-[28.8px] text-black-0-9 VictorSherif md:mt-[16px] mt-[8px]">{item.price}</div>
-                  <div className="max-md:flex md:mt-[4px] mt-[8px]">
-                    <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">{item.lastSale}</div>
-                    <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif md:mt-[4px] mt-[0px] md:ml-[0px] ml-[10px]">{item.time}</div>
-                  </div>
+                  <div className="md:text-[20px] text-[16px] font-[500] md:leading-[32px] leading-[25.6px] text-black-0-9 VictorSherif">{item.title}</div>
+                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 poppins md:mt-[4px] mt-[2px]">{item.desc}</div>
+                  <div className="md:text-[24px] text-[18px] font-[400] md:leading-[38.4px] leading-[28.8px] text-black-0-9 poppins md:mt-[8px] mt-[8px]">{item.price}</div>
+                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 poppins md:mt-[4px] mt-[8px]">{item.lastSale} {item.time}</div>
                 </div>
               </div>
             </div>)
@@ -1119,14 +1121,14 @@ const Trade = () => {
               <div className="w-[409px] h-[222px] bg-[#D9D9D9]">
                 <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
               </div>
-              <div className="text-[32px] mt-[132px] text-right font-[500] leading-[38.4px] text-black-0-9 VictorSherif">The Lower East Side Gets a New Gallery.</div>
-              <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
+              <div className="text-[32px] mt-[132px] text-right font-[500] leading-[38.4px] text-black-0-9 poppins">The Lower East Side Gets a New Gallery.</div>
+              <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black-0-9 poppins">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
             </div>
           </div>
           <div className="w-[560px] pt-[25px]">
-            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 VictorSherif">Since</div>
-            <div className="text-[48px] font-[500] italic leading-[60px] text-black-0-9 VictorSherif">1869-1954</div>
-            <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
+            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 poppins">Since</div>
+            <div className="text-[48px] font-[500] leading-[60px] text-black-0-9 poppins">1869-1954</div>
+            <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
             <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
               <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
             </div>
@@ -1136,172 +1138,13 @@ const Trade = () => {
         <div className="md:hidden">
           <div className="text-[30px] font-[400] leading-[40px] text-black-0-9 VictorSherif">About <span className="font-[500] VictorSherif italic">Henri Matisse</span></div>
           <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover mt-[30px]" />
-          <div className="text-[20px] mt-[20px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Since</div>
-          <div className="text-[20px] font-[500] italic leading-[32px] text-black-0-9 VictorSherif">1869-1954</div>
-          <div className="text-[15px] mt-[20px] font-[400] leading-[24px] text-black-0-9 VictorSherif">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
-          <div className="text-[20px] mt-[20px] font-[500] leading-[38.4px] text-black-0-9 VictorSherif">The Lower East Side Gets a New Gallery.</div>
-          <div className="text-[15px] mt-[20px] font-[400] leading-[24px] text-black-0-9 VictorSherif">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
+          <div className="text-[14px] mt-[20px] font-[400] leading-[16.8px] text-black-0-9 poppins">Since</div>
+          <div className="text-[14px] mt-[8px] font-[400] leading-[16.8px] text-black-0-9 poppins">1869-1954</div>
+          <div className="text-[12px] mt-[20px] font-[400] leading-[19.2px] text-black-0-5 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
+          <div className="text-[14px] mt-[20px] font-[500] leading-[16.8px] text-black-0-9 poppins">The Lower East Side Gets a New Gallery.</div>
+          <div className="text-[12px] mt-[20px] font-[400] leading-[19.2px] text-black-0-5 poppins">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
           <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full mt-[20px] object-cover" />
-          {/* <div className="flex-1 mr-[80px]">
-            <div className="mt-[104px]">
-              <div className="w-[409px] h-[222px] bg-[#D9D9D9]">
-                <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
-              </div>
-              <div className="text-[32px] mt-[132px] text-right font-[400] leading-[38.4px] text-black-0-9 VictorSherif">The Lower East Side Gets a New Gallery.</div>
-              <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
-            </div>
-          </div>
-          <div className="w-[560px] pt-[25px]">
-            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 VictorSherif">Since</div>
-            <div className="text-[48px] font-[500] italic leading-[60px] text-black-0-9 VictorSherif">1869-1954</div>
-            <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 VictorSherif">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
-            <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
-              <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
-            </div>
-          </div> */}
         </div>
-        {/* artist career  */}
-        {/* <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px] max-md:hidden"></div>
-        <div className="md:block hidden text-[60px] font-[400] mb-[60px] leading-[80px] text-black-0-9 VictorSherif">Artist Career <span className="font-[500] VictorSherif italic">Path</span></div> */}
-        {/*  */}
-        {/* <div className="md:block hidden">
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Other -
-            </div>
-            <div className="flex-1 flex items-center">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index === 50 ? 'bg-green-0-1' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Textiles -
-            </div>
-            <div className="flex-1 flex items-center">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index === 20 ? 'bg-green-0-5' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Ceramics -
-            </div>
-            <div className="flex-1 flex items-center">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index > 10 && index < 20 ? 'bg-green-0-7' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Sculpture -
-            </div>
-            <div className="flex-1 flex items-center flex-shrink-0">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index > 30 && index < 80 ? 'bg-green-0-2' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Photographs -
-            </div>
-            <div className="flex-1 flex items-center flex-shrink-0">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index > 30 && index < 80 ? 'bg-green-0-2' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Prints & Multiples -
-            </div>
-            <div className="flex-1 flex items-center flex-shrink-0">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index > 30 && index < 80 ? 'bg-green-0-2' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Works on Paper -
-            </div>
-            <div className="flex-1 flex items-center flex-shrink-0">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index > 30 && index < 80 ? 'bg-green-0-2' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[120px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-              Paintings -
-            </div>
-            <div className="flex-1 flex items-center flex-shrink-0">
-              {Array.from({ length: 64 }).map((_, index) => <div key={index} className={`${index === 9 ? 'bg-green-0-2' : 'bg-black-0-02'}`} style={{
-                width: `${blockWidth}px`,
-                height: `${blockWidth}px`,
-                marginLeft: `${index === 0 ? 0 : 2}px`
-              }}></div>)}
-            </div>
-          </div>
-          <div className="flex items-center">
-            <div className="w-[112px] mr-[20px] text-right text-black-0-6 VictorSherif text-[14px] font-[400] flex items-center justify-end">
-            </div>
-            <div className="flex-1 flex items-center flex-shrink-0">
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif"
-                style={{ width: `${blockWidth * 10 + 2 * 9}px`, marginLeft: `${2}px` }}>
-                1889
-              </div>
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif"
-                style={{ width: `${blockWidth * 10 + 2 * 9}px`, marginLeft: `${2}px` }}>
-                1900
-              </div>
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif"
-                style={{ width: `${blockWidth * 10 + 2 * 9}px`, marginLeft: `${2}px` }}>
-                1910
-              </div>
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif"
-                style={{ width: `${blockWidth * 10 + 2 * 9}px`, marginLeft: `${2}px` }}>
-                1920
-              </div>
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif"
-                style={{ width: `${blockWidth * 10 + 2 * 9}px`, marginLeft: `${2}px` }}>
-                1930
-              </div>
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif"
-                style={{ width: `${blockWidth * 10 + 2 * 9}px`, marginLeft: `${2}px` }}>
-                1940
-              </div>
-              <div
-                className="text-[14px] font-[400] leading-[25.6px] text-black-0-6 VictorSherif">
-                1950
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
         <div className="flex md:mb-[60px] mb-[30px] items-center">
           <div className="md:text-[60px] text-[30px] font-[400] md:leading-[80px] leading-[36px] text-black-0-9 VictorSherif">Relevant <span className="font-[500] VictorSherif italic">News</span></div>
@@ -1338,15 +1181,15 @@ const Trade = () => {
               },
             ].map((item, index) => <div key={index} className="flex">
               <div className="md:mr-[20px] mr-[10px]">
-                <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[20px] italic text-black-0-9 VictorSherif">{item.time}</div>
-                <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[20px] italic text-black-0-9 VictorSherif">{item.time2}</div>
+                <div className="md:text-[20px] text-[12px] md:font-[500] font-[400] md:leading-[32px] leading-[20px] text-black-0-9 poppins">{item.time}</div>
+                <div className="md:text-[20px] text-[12px] md:font-[500] font-[400] md:leading-[32px] leading-[20px] text-black-0-9 poppins">{item.time2}</div>
               </div>
 
               <div className="flex-1">
                 <div className="w-full md:h-[220px] h-[110px] bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${item.img})` }}></div>
-                <div className="md:text-[20px] text-[12px] font-[500] md:leading-[32px] leading-[20px] text-black-0-9 VictorSherif md:mt-[24px] mt-[12px]">{item.title}</div>
-                <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 VictorSherif md:mt-[24px] mt-[12px]">{item.desc}</div>
-                <div className="flex items-center md:text-[20px] text-[10px] font-[500] md:leading-[32px] leading-[16px] text-black-0-9 VictorSherif md:mt-[60px] mt-[30px] hover:underline cursor-pointer">
+                <div className="md:text-[20px] text-[14px] font-[500] md:leading-[32px] leading-[20px] text-black-0-9 poppins md:mt-[24px] mt-[12px]">{item.title}</div>
+                <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 poppins md:mt-[24px] mt-[12px]">{item.desc}</div>
+                <div className="flex items-center md:text-[20px] text-[10px] font-[500] md:leading-[32px] leading-[16px] text-black-0-9 poppins md:mt-[60px] mt-[30px] hover:underline cursor-pointer">
                   See More
                   <svg
                     className="mt-[2px] md:ml-[4px] ml-[2px] md:w-[10px] md:h-[10px] w-[6px] h-[6px]"

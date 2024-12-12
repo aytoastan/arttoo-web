@@ -364,7 +364,7 @@ const LandingPage = () => {
         </section>
         {/* section 1：mask  */}
         <div className="relative h-svh w-full bg-transparent relative inset-0" ref={step1BoxRef}>
-          <div ref={circleRef} className='absolute md:bottom-[35px] left-1/2 md:w-[70px] md:h-[70px] w-[60px] h-[60px] bottom-[25px] ml-[-35px] bg-transparent cursor-pointer rounded-full'
+          <div ref={circleRef} className='absolute md:bottom-[35px] left-1/2 md:w-[70px] md:h-[70px] w-[60px] h-[60px] bottom-[25px] md:ml-[-35px] ml-[-30px] bg-transparent cursor-pointer rounded-full'
             onMouseEnter={() => {
               const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
               if (isMobile) return
