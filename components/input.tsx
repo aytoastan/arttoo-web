@@ -188,9 +188,12 @@ export const ProgressBar: FC<ProgressBarProps> = (props) => {
 
 interface SlippageInputProps {
   close: () => void
+  value: number
+  onChange: (value: number) => void
 }
 export const SlippageInput = (props: SlippageInputProps) => {
-  const [value, setValue] = useState(0.5)
+  // const [value, setValue] = useState(0.5)
+  // const [value, setValue] = useState(props.value)
   return <>
     <div
       onClick={() => props.close()}
@@ -199,7 +202,7 @@ export const SlippageInput = (props: SlippageInputProps) => {
       <div className="text-[20px] font-[600] leading-[28.8px] text-center text-[#121212]">Max. slippage</div>
       <div className="my-[24px] flex items-center justify-between">
         {
-          [0.3, 0.5, 1, 100].map((item) => <div key={item} className={`w-[100px] h-[88px] rounded-[8px] ${value === item ? 'bg-black text-white' : 'border-[1px] border-black-0-1 text-black-0-9 hover:opacity-80 cursor-pointer'} text-[18px] font-[400] text-center flex items-center justify-center`} onClick={() => setValue(item)}>
+          [0.3, 0.5, 1, 100].map((item) => <div key={item} className={`w-[100px] h-[88px] rounded-[8px] ${props.value === item ? 'bg-black text-white' : 'border-[1px] border-black-0-1 text-black-0-9 hover:opacity-80 cursor-pointer'} text-[18px] font-[400] text-center flex items-center justify-center`} onClick={() => props.onChange(item)}>
             {item}%
           </div>)
         }

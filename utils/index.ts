@@ -25,3 +25,7 @@ const numberRegex = /^$|^[1-9]\d*$|^0$|^[1-9]\d*\.\d*$|^0\.\d*$/
 export const isValidNumber = (value: string): boolean => {
   return numberRegex.test(value)
 }
+
+export const formatNumber = (value: number): string => {
+  return value.toFixed(2)
+}

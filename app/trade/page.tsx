@@ -3,7 +3,7 @@
 import Header from "@/components/Header"
 import { useEmailSubmit } from "@/pages/landing/components/Footer"
 import { useEffect, useRef, useState } from "react"
-import { isValidNumber } from "@/utils"
+import { formatNumber, isValidNumber } from "@/utils"
 import { AmountInput, ProgressBar, SlideInput, SlippageInput } from "@/components/input"
 import * as d3 from "d3";
 import { useSearchParams, useRouter } from "next/navigation"
@@ -74,6 +74,7 @@ const props3 = [
 const Trade = () => {
   const [showAlert, setShowAlert] = useState(false)
   const [slippage, setSlippage] = useState(false)
+  const [slippageValue, setSlippageValue] = useState(0)
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   const [showMore, setShowMore] = useState(false)
   const [showMorePrice, setShowMorePrice] = useState(false)
@@ -85,6 +86,7 @@ const Trade = () => {
   const [isBuy, setIsBuy] = useState(true)
   const [amount, setAmount] = useState('')
   const [slideValue, setSlideValue] = useState(78)
+  const [confirmBuy, setConfirmBuy] = useState(false)
   // const blockWidth = (width - 160 - 140 - (2 * 63)) / 64
   const svgRef = useRef<SVGSVGElement>(null)
   const svgRef2 = useRef<SVGSVGElement>(null)
@@ -657,7 +659,9 @@ const Trade = () => {
   // const handleBuy = () => {
   //   setStep(2)
   // }
-  const handleBuyOrSell = () => { }
+  const handleBuyOrSell = () => {
+    setConfirmBuy(true)
+  }
   const renderMain = () => {
     const buyStyle = Number(searchParams?.get('style')) || 0
     switch (step) {
@@ -751,9 +755,9 @@ const Trade = () => {
                   width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9.46222 4.50195C11.8054 4.50195 14.6653 4.50195 14.6653 4.50195M2.66534 4.50195H5.16534M5.16534 4.50195C5.16534 5.60652 6.06077 6.50195 7.16534 6.50195C8.26991 6.50195 9.16534 5.60652 9.16534 4.50195C9.16534 3.39738 8.26991 2.50195 7.16534 2.50195C6.06077 2.50195 5.16534 3.39738 5.16534 4.50195ZM2.66534 11.502H7.86222M12.1653 11.502H14.6653M12.1653 11.502C12.1653 12.6066 11.2699 13.502 10.1653 13.502C9.06077 13.502 8.16534 12.6066 8.16534 11.502C8.16534 10.3974 9.06077 9.50195 10.1653 9.50195C11.2699 9.50195 12.1653 10.3974 12.1653 11.502Z" stroke="black" strokeOpacity="0.5" strokeLinecap="round" />
                 </svg>
-                1.00% slippage
+                {formatNumber(slippageValue)}% slippage
               </div> : null}
-              {slippage ? <SlippageInput close={() => setSlippage(false)} /> : null}
+              {slippage ? <SlippageInput close={() => setSlippage(false)} value={slippageValue} onChange={(value) => setSlippageValue(value)} /> : null}
             </div>
             <AmountInput
               hideSuffix={true}
@@ -872,9 +876,9 @@ const Trade = () => {
                   width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9.46222 4.50195C11.8054 4.50195 14.6653 4.50195 14.6653 4.50195M2.66534 4.50195H5.16534M5.16534 4.50195C5.16534 5.60652 6.06077 6.50195 7.16534 6.50195C8.26991 6.50195 9.16534 5.60652 9.16534 4.50195C9.16534 3.39738 8.26991 2.50195 7.16534 2.50195C6.06077 2.50195 5.16534 3.39738 5.16534 4.50195ZM2.66534 11.502H7.86222M12.1653 11.502H14.6653M12.1653 11.502C12.1653 12.6066 11.2699 13.502 10.1653 13.502C9.06077 13.502 8.16534 12.6066 8.16534 11.502C8.16534 10.3974 9.06077 9.50195 10.1653 9.50195C11.2699 9.50195 12.1653 10.3974 12.1653 11.502Z" stroke="black" strokeOpacity="0.5" strokeLinecap="round" />
                 </svg>
-                1.00% slippage
+                {formatNumber(slippageValue)}% slippage
               </div>
-              {slippage ? <SlippageInput close={() => setSlippage(false)} /> : null}
+              {slippage ? <SlippageInput close={() => setSlippage(false)} value={slippageValue} onChange={(value) => setSlippageValue(value)} /> : null}
             </div>
             <AmountInput
               value={amount}
@@ -1362,8 +1366,57 @@ const Trade = () => {
           onClick={() => {
             setShowAlert(false)
           }}
-          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
           Submit
+        </div>
+        <div className="md:hidden h-[24px]"></div>
+      </div>
+    </div>}
+    {confirmBuy && <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center transition-all duration-300">
+      <div
+        onClick={() => {
+          setConfirmBuy(false)
+        }}
+        className="flex items-center justify-center absolute top-0 left-0 w-full h-full"></div>
+      <div className="max-md:flex-1" />
+      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full md:rounded-[16px] rounded-t-[16px] transition-all duration-300 ${confirmBuy ? 'scale-100' : 'scale-0'}`}>
+        <div className="md:hidden flex h-[36px] items-center justify-center" onClick={() => {
+          setConfirmBuy(false)
+        }}>
+          <div className="w-[32px] h-[4px] bg-black-0-1 rounded-full flex items-center justify-center"></div>
+        </div>
+        {
+          [
+            {
+              key: 'Type',
+              value: 'Market / Buy'
+            },
+            {
+              key: 'Amount',
+              value: '30'
+            },
+            {
+              key: 'Cost',
+              value: '1.00 USDC'
+            },
+            {
+              key: 'Total Cost',
+              value: '0.00 USDC'
+            },
+          ].map((item, index) => <div key={index} className="flex justify-between md:mb-[16px] mb-[8px] mt-[20px]">
+            <div className="md:text-[20px] text-[14px] font-[400] text-black/30 poppins">{item.key}</div>
+            <div className="md:text-[20px] text-[14px] font-[400] text-black/90 poppins">{item.value}</div>
+          </div>)
+        }
+        {/* line */}
+        <div className="h-[1px] bg-black-0-1 w-full"></div>
+        <div className="md:text-[16px] text-[14px] font-[400] text-black/30 poppins md:mt-[16px] mt-[8px]">You’re placing an order to buy 3 share(s) of NATHM1898 at 1.00 price. </div>
+        <div
+          onClick={() => {
+            setConfirmBuy(false)
+          }}
+          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          Confirm
         </div>
         <div className="md:hidden h-[24px]"></div>
       </div>

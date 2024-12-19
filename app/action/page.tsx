@@ -3,7 +3,7 @@ import Header from "@/components/Header"
 import { AmountInput, ProgressBar, SlideInput } from "@/components/input"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
-import { isValidNumber } from "@/utils"
+import { formatNumber, isValidNumber } from "@/utils"
 import * as d3 from "d3";
 const ActionPage = () => {
   const svgRef2 = useRef<SVGSVGElement>(null)
@@ -12,7 +12,7 @@ const ActionPage = () => {
   const type = searchParams?.get('type') === 'buy' ? true : false
   const [slippage, setSlippage] = useState(false)
   const [slideValue, setSlideValue] = useState(78)
-  const [value, setValue] = useState(0.5)
+  const [value, setValue] = useState(0)
   const [isBuy, setIsBuy] = useState(type)
   const [amount, setAmount] = useState('')
   const buyStyle = Number(searchParams?.get('style')) || 0
@@ -219,7 +219,7 @@ const ActionPage = () => {
         {
           buyStyle === 4 ? <>
             <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
-            <div className="md:text-[16px] text-[12px] font-[400] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
+            <div className="md:text-[16px] text-[12px] font-[400] mb-[-8px] md:leading-[20px] leading-[14.4px] text-black-0-9 poppins">Price (USDC)</div>
             <div className="w-full">
               <svg ref={svgRef2} />
             </div>
@@ -240,7 +240,7 @@ const ActionPage = () => {
                 width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.46222 4.50195C11.8054 4.50195 14.6653 4.50195 14.6653 4.50195M2.66534 4.50195H5.16534M5.16534 4.50195C5.16534 5.60652 6.06077 6.50195 7.16534 6.50195C8.26991 6.50195 9.16534 5.60652 9.16534 4.50195C9.16534 3.39738 8.26991 2.50195 7.16534 2.50195C6.06077 2.50195 5.16534 3.39738 5.16534 4.50195ZM2.66534 11.502H7.86222M12.1653 11.502H14.6653M12.1653 11.502C12.1653 12.6066 11.2699 13.502 10.1653 13.502C9.06077 13.502 8.16534 12.6066 8.16534 11.502C8.16534 10.3974 9.06077 9.50195 10.1653 9.50195C11.2699 9.50195 12.1653 10.3974 12.1653 11.502Z" stroke="black" strokeOpacity="0.5" strokeLinecap="round" />
               </svg>
-              1.00% slippage
+              {formatNumber(value)}% slippage
             </div> : null}
           </div>
           <AmountInput
@@ -280,7 +280,7 @@ const ActionPage = () => {
         </div>
         <div
           onClick={() => { }}
-          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[24px] flex items-center justify-center hover:bg-[#474747] poppins">
+          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] text-center mt-[24px] flex items-center justify-center hover:bg-[#474747] poppins">
           {buyStyle > 0 ? 'Lock' : 'Buy'}
         </div>
       </>
@@ -312,7 +312,7 @@ const ActionPage = () => {
             3.35%</div>
         </div>
       </div>
-      <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
+      <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[-8px] md:leading-[20px] leading-[14.4px] text-black-0-9 poppins">Price (USDC)</div>
       <div className="w-full">
         <svg ref={svgRef2} />
       </div>
@@ -322,10 +322,10 @@ const ActionPage = () => {
         <div className="h-[48px] w-full bg-black-0-05 rounded-[12px] mb-[16px] flex items-center justify-center p-[4px]">
           <div
             onClick={() => setIsBuy(true)}
-            className={`flex-1 h-full poppins text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Buy</div>
+            className={`flex-1 h-full poppins text-center text-[16px] font-[500] flex items-center justify-center leading-[20px] cursor-pointer ${isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Buy</div>
           <div
             onClick={() => setIsBuy(false)}
-            className={`flex-1 h-full poppins text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
+            className={`flex-1 h-full poppins text-center text-[16px] font-[500] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
         </div>
         <div className="flex items-center justify-between mb-[8px]">
           <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-6">
@@ -339,7 +339,7 @@ const ActionPage = () => {
               width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9.46222 4.50195C11.8054 4.50195 14.6653 4.50195 14.6653 4.50195M2.66534 4.50195H5.16534M5.16534 4.50195C5.16534 5.60652 6.06077 6.50195 7.16534 6.50195C8.26991 6.50195 9.16534 5.60652 9.16534 4.50195C9.16534 3.39738 8.26991 2.50195 7.16534 2.50195C6.06077 2.50195 5.16534 3.39738 5.16534 4.50195ZM2.66534 11.502H7.86222M12.1653 11.502H14.6653M12.1653 11.502C12.1653 12.6066 11.2699 13.502 10.1653 13.502C9.06077 13.502 8.16534 12.6066 8.16534 11.502C8.16534 10.3974 9.06077 9.50195 10.1653 9.50195C11.2699 9.50195 12.1653 10.3974 12.1653 11.502Z" stroke="black" strokeOpacity="0.5" strokeLinecap="round" />
             </svg>
-            1.00% slippage
+            {formatNumber(value)}% slippage
           </div>
         </div>
         <AmountInput
@@ -383,7 +383,7 @@ const ActionPage = () => {
         </div>)}
         <div
           onClick={() => { }}
-          className="h-[48px] poppins cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          className="h-[48px] poppins font-[500] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
           {isBuy ? 'Buy' : 'Sell'}
         </div>
       </div>
