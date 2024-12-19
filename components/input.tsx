@@ -9,7 +9,7 @@ interface AmountInputProps {
 }
 export const AmountInput = (props: AmountInputProps) => {
   const [isFocus, setIsFocus] = useState(false)
-  return <div className={`flex items-center px-[12px] md:py-[20px] py-[15px] w-full md:h-[68px] h-[56px] border-2 ${!isFocus ? 'border-black' : 'border-[#12B76A]'} rounded-[12px]`}>
+  return <div className={`flex items-center px-[12px] md:py-[20px] py-[15px] w-full md:h-[68px] h-[56px] border-2 ${!isFocus ? 'border-black' : 'border-black'} rounded-[12px]`}>
     <input
       className="flex-1 h-full bg-transparent outline-none md:text-[24px] text-[18px] font-[400] text-black-0-9 caret-[#12B76A] poppins"
       value={props.value}

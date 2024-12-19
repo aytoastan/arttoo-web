@@ -730,7 +730,7 @@ const Trade = () => {
           {
             buyStyle === 4 ? <>
               <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
-              <div className="md:text-[16px] text-[12px] font-[400] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
+              <div className="md:text-[16px] text-[12px] font-[400] mb-[-8px] md:leading-[20px] leading-[14.4px] text-black-0-9 poppins">Price (USDC)</div>
               <div className="w-full">
                 <svg ref={svgRef2} />
               </div>
@@ -791,13 +791,13 @@ const Trade = () => {
                 value: '0.00 USDC'
               },
             ].map((item, index) => <div className={`${index === 3 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between`} key={index}>
-              <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
-              <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
+              <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
+              <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
             </div>)}
           </div>
           <div
             onClick={() => { }}
-            className="h-[48px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+            className="h-[48px] max-md:hidden cursor-pointer font-[500] poppins rounded-[12px] bg-black text-white text-[18px] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
             {buyStyle > 0 ? 'Lock' : 'Buy'}
           </div>
         </div>
@@ -805,8 +805,8 @@ const Trade = () => {
         return <div className="md:my-[40px] my-[24px]">
           <div className="h-[51px] mt-[16px] flex">
             <div className="flex-1">
-              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6">Price (USDC)</div>
-              <div className="md:text-[20px] text-[15px] font-[500] md:leading-[30px] leading-[22.5px] text-black-0-9">100.2350</div>
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 poppins">Price (USDC)</div>
+              <div className="md:text-[20px] text-[15px] font-[500] md:leading-[30px] leading-[22.5px] text-black-0-9 poppins">100.2350</div>
             </div>
             <div className="flex-1">
               <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6">24h Change</div>
@@ -833,7 +833,7 @@ const Trade = () => {
             </div>
           </div>
           <div className={`${showMorePrice ? 'block' : 'hidden'}`}>
-            <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
+            <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[-8px] md:leading-[20px] leading-[14.4px] text-black-0-9 poppins">Price (USDC)</div>
             <div className="w-full">
               <svg ref={svgRef2} />
             </div>
@@ -855,12 +855,12 @@ const Trade = () => {
             <div className="h-[48px] w-full bg-black-0-05 rounded-[12px] mb-[16px] flex items-center justify-center p-[4px]">
               <div
                 onClick={() => setIsBuy(true)}
-                className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Buy</div>
+                className={`flex-1 h-full text-center text-[16px] font-[500] flex items-center justify-center leading-[20px] cursor-pointer ${isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Buy</div>
               <div
                 onClick={() => setIsBuy(false)}
-                className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
+                className={`flex-1 h-full text-center text-[16px] font-[500] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
             </div>
-            <div className="flex items-center justify-between mb-[8px]">
+            <div className="flex items-center justify-between mb-[8px] relative">
               <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-6">
                 Amount
               </div>
@@ -912,12 +912,12 @@ const Trade = () => {
                 value: '0.00 USDC'
               },
             ].map((item, index) => <div className={`${index === 5 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between ${index === 1 || index === 2 ? 'md:ml-[24px] ml-[12px]' : ''}`} key={index}>
-              <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
-              <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
+              <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
+              <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
             </div>)}
             <div
               onClick={handleBuyOrSell}
-              className="h-[56px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+              className="h-[56px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
               {isBuy ? 'Buy' : 'Sell'}
             </div>
           </div>
@@ -930,25 +930,25 @@ const Trade = () => {
       case 0:
         return <div
           onClick={handleNotify}
-          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
           Notify me on launch
         </div>
       case 1:
         return <div
           onClick={() => router.push(`/action?step=${step}&style=${buyStyle}`)}
-          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747]">
           {buyStyle > 0 ? 'Lock' : 'Buy'}
         </div>
       case 2:
         return <div className="flex mx-[20px] gap-[10px]">
           <div
             onClick={() => router.push(`/action?step=${step}&style=${buyStyle}&type=buy`)}
-            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] items-center justify-center poppins">
+            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] items-center justify-center poppins">
             Buy
           </div>
           <div
             onClick={() => router.push(`/action?step=${step}&style=${buyStyle}&type=sell`)}
-            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black/5 text-black text-[18px] font-[400] text-center mt-[16px] items-center justify-center poppins">
+            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black/5 text-black text-[18px] font-[500] poppins text-center mt-[16px] items-center justify-center poppins">
             Sell
           </div>
         </div>
@@ -1088,7 +1088,7 @@ const Trade = () => {
                 {item.icon}
                 <div className="block flex-1 md:mt-[24px] ml-[12px] md:ml-0">
                   <div className="md:text-[20px] text-[15px] font-[500] md:leading-[40px] leading-[24px] text-black-0-9 poppins ">{item.title}</div>
-                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[16px] mt-[8px] poppins ">{item.desc}</div>
+                  <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black/50 md:mt-[16px] mt-[8px] poppins ">{item.desc}</div>
                 </div>
               </div>
             ))
@@ -1103,7 +1103,7 @@ const Trade = () => {
           <div className="flex-1 flex md:justify-end md:items-end mt-[30px] md:mt-0 gap-[40px]">
             <div className="md:min-w-[260px] max-md:flex-1">
               <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] poppins">$1,734,000</div>
-              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Initial Offering Price</div>
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black/50 md:mt-[8px] mt-[4px] poppins">Initial Offering Price</div>
             </div>
             <div className="md:min-w-[260px] max-md:flex-1">
               <div className="text-[#12B76A] font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] flex items-center">
@@ -1114,7 +1114,7 @@ const Trade = () => {
                 </svg>
                 16%
               </div>
-              <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">Annual Growth of Record Price</div>
+              <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black/50 md:mt-[8px] mt-[4px] poppins">Annual Growth of Record Price</div>
             </div>
           </div>
         </div>
@@ -1154,7 +1154,7 @@ const Trade = () => {
               ].map((item, index) => (
                 <div key={index} className="xl:min-w-[214px] lg:min-w-[170px] md:min-w-[150px]">
                   <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] poppins">{item.num}</div>
-                  <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">{item.desc}</div>
+                  <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black/50 md:mt-[8px] mt-[4px] poppins">{item.desc}</div>
                 </div>
               ))
             }
@@ -1210,15 +1210,15 @@ const Trade = () => {
               <div className="w-[409px] h-[222px] bg-[#D9D9D9]">
                 <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
               </div>
-              <div className="text-[32px] mt-[132px] text-right font-[500] leading-[38.4px] text-black-0-9 poppins">The Lower East Side Gets a New Gallery.</div>
-              <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black-0-9 poppins">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
+              <div className="text-[32px] mt-[132px] text-right font-[400] leading-[38.4px] text-black-0-9 poppins">The Lower East Side Gets a New Gallery.</div>
+              <div className="text-[20px] ml-[100px] mt-[122px] font-[400] leading-[32px] text-black/50 poppins">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
             </div>
           </div>
           <div className="w-[560px] pt-[25px]">
-            <div className="text-[48px] font-[500] leading-[60px] text-black-0-9 poppins">Since</div>
-            <div className="text-[48px] font-[500] leading-[60px] text-black-0-9 poppins">1869-1954</div>
-            <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black-0-9 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
-            <div className="w-full h-[448px] bg-[#D9D9D9] mt-[195px]">
+            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 poppins">Since</div>
+            <div className="text-[48px] font-[400] leading-[60px] text-black-0-9 poppins">1869-1954</div>
+            <div className="text-[20px] mt-[80px] font-[400] leading-[32px] text-black/50 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
+            <div className="w-full h-[448px] bg-[#D9D9D9] mt-[125px]">
               <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full object-cover" />
             </div>
           </div>
@@ -1229,9 +1229,9 @@ const Trade = () => {
           <img src="/trade/trade_1.jpg" alt="Henri Matisse" className="w-full h-full object-cover mt-[30px]" />
           <div className="text-[14px] mt-[20px] font-[400] leading-[16.8px] text-black-0-9 poppins">Since</div>
           <div className="text-[14px] mt-[8px] font-[400] leading-[16.8px] text-black-0-9 poppins">1869-1954</div>
-          <div className="text-[12px] mt-[20px] font-[400] leading-[19.2px] text-black-0-5 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
+          <div className="text-[12px] mt-[20px] font-[400] leading-[19.2px] text-black/50 poppins">Born into a world of law and order, Henri Matisse was destined for a life of contracts and courtrooms. But fate, in the form of a nasty bout of appendicitis, had other plans. Bedridden and bored, he picked up a paintbrush, and in that moment, a legal career was unceremoniously dumped for a life of color and chaos.</div>
           <div className="text-[14px] mt-[20px] font-[500] leading-[16.8px] text-black-0-9 poppins">The Lower East Side Gets a New Gallery.</div>
-          <div className="text-[12px] mt-[20px] font-[400] leading-[19.2px] text-black-0-5 poppins">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
+          <div className="text-[12px] mt-[20px] font-[400] leading-[19.2px] text-black/50 poppins">Matisse was no timid artist. He was a bold, brazen revolutionary who dared to defy the rules of art. With his Fauvist comrades, he unleashed a riot of color onto the canvas, shocking the art world with his audacious brushstrokes and disregard for traditional representation. But Matisse was no one-trick pony. He was a shape-shifter, constantly exploring new avenues of artistic expression. From the vibrant intensity of his early works to the serene, almost ethereal beauty of his later cut-outs, Matisse was a master of reinvention. </div>
           <img src="/trade/trade_2.jpg" alt="Henri Matisse" className="w-full h-full mt-[20px] object-cover" />
         </div>
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
@@ -1349,13 +1349,13 @@ const Trade = () => {
         }}
         className="flex items-center justify-center absolute top-0 left-0 w-full h-full"></div>
       <div className="max-md:flex-1" />
-      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full rounded-[16px] transition-all duration-300 ${showAlert ? 'scale-100' : 'scale-0'}`}>
+      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full md:rounded-[16px] rounded-t-[16px] transition-all duration-300 ${showAlert ? 'scale-100' : 'scale-0'}`}>
         <div className="md:hidden flex h-[36px] items-center justify-center" onClick={() => {
           setShowAlert(false)
         }}>
           <div className="w-[32px] h-[4px] bg-black-0-1 rounded-full flex items-center justify-center"></div>
         </div>
-        <div className="text-[#121212] text-center md:text-[32px] text-[24px] font-[600] poppins md:leading-[48px] leading-[36px]">Add Invitation Code</div>
+        <div className="text-[#121212] text-left md:text-[32px] text-[24px] font-[600] poppins md:leading-[48px] leading-[36px]">Add Invitation Code</div>
         <div className="text-black-0-5 text-[16px] md:mt-[24px] mt-[12px] mb-[24px] font-[400] poppins leading-[24px]">{`Initial Art Offering for this artwork is currently in its whitelist phase and is only accessible to invited participants. You'll need a valid invitation code to participate at this phase.`}</div>
         <input type="text" className="border border-black-0-1 border-width-[1px] w-full px-[16px] py-[12px] rounded-[8px] text-[16px] font-[400] leading-[24px] text-[#121212] poppins" placeholder="Invitation Code" />
         <div

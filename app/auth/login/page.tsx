@@ -95,14 +95,14 @@ export default function Home() {
     </div>
   }
   return <div className='md:h-full w-full flex md:items-center flex-col md:px-[0px] px-[20px]'>
-    <div className='text-[30px] font-[600] leading-[45px] md:w-[444px] md:mt-[80px] mt-[40px] myLabel'>
+    <div className='text-[30px] font-[600] leading-[45px] md:w-[444px] md:mt-[80px] mt-[40px] myLabel poppins'>
       Login
     </div>
     <div className="md:w-[444px] mt-[40px]">
-      <div className='text-[16px] font-[400] leading-[24px] myLabel'>Email</div>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your Email" className='w-full h-[48px] p-[14px_16px] login_input mt-[8px]' />
+      <div className='text-[16px] font-[400] leading-[24px] myLabel poppins'>Email</div>
+      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your Email" className='w-full h-[48px] p-[14px_16px] login_input mt-[8px] poppins' />
       
-      <div className="w-full mt-[40px] login_submit_button" onClick={handleEmailLogin}>
+      <div className="w-full mt-[40px] login_submit_button poppins" onClick={handleEmailLogin}>
         {isEmailLoading ? <div className="w-[20px] h-[20px] rounded-full border-t-2 border-b-2 border-gray-900 animate-spin"></div> : "Log in"}
       </div>
       {/* <div className="w-full flex justify-center mt-[24px] text-[14px] font-[400] leading-[20px] text-[#6B6B6B]">
@@ -110,10 +110,10 @@ export default function Home() {
       </div> */}
       <div className="w-full flex mt-[48px] mb-[40px] items-center">
         <div className="flex-1 h-[1px] bg-black-0-1"></div>
-        <div className="text-[14px] font-[400] leading-[20px] text-black-0-6 px-[16px]">Or continue with</div>
+        <div className="text-[16px] font-[400] leading-[20px] text-black-0-6 px-[16px] poppins">Or continue with</div>
         <div className="flex-1 h-[1px] bg-black-0-1"></div>
       </div>
-      <div className="w-full social_login_button" onClick={handleGoogleLogin}>
+      <div className="w-full social_login_button poppins font-[500] leading-[20px]" onClick={handleGoogleLogin}>
         {isLoading ? <div className="w-[20px] h-[20px] rounded-full border-t-2 border-b-2 border-gray-900 animate-spin"></div> : <>
           <svg className="mr-[8px]" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.1716 8.368H17.5003V8.33341H10.0003V11.6667H14.7099C14.0228 13.6072 12.1766 15.0001 10.0003 15.0001C7.23908 15.0001 5.00033 12.7613 5.00033 10.0001C5.00033 7.23883 7.23908 5.00008 10.0003 5.00008C11.2749 5.00008 12.4345 5.48091 13.3174 6.26633L15.6745 3.90925C14.1862 2.52216 12.1953 1.66675 10.0003 1.66675C5.39824 1.66675 1.66699 5.398 1.66699 10.0001C1.66699 14.6022 5.39824 18.3334 10.0003 18.3334C14.6024 18.3334 18.3337 14.6022 18.3337 10.0001C18.3337 9.44133 18.2762 8.89591 18.1716 8.368Z" fill="#FFC107" />

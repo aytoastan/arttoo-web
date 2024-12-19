@@ -265,7 +265,7 @@ input:-webkit-autofill:focus {
 
 .mainPage2 * {
   user-select: none;
-  font-family: sans-serif;
+  font-family: "Lato";
 }
 
 .login_input {
@@ -519,7 +519,7 @@ input:-webkit-autofill:focus {
 }
 
 .poppins {
-  font-family: 'Lato';
+  font-family: 'Lato'!important;
 }
 
 .bg-green-0-1 {

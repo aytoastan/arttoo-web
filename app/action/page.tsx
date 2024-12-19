@@ -9,10 +9,11 @@ const ActionPage = () => {
   const svgRef2 = useRef<SVGSVGElement>(null)
   const searchParams = useSearchParams()
   const step = Number(searchParams?.get('step')) || 0
+  const type = searchParams?.get('type') === 'buy' ? true : false
   const [slippage, setSlippage] = useState(false)
   const [slideValue, setSlideValue] = useState(78)
   const [value, setValue] = useState(0.5)
-  const [isBuy, setIsBuy] = useState(true)
+  const [isBuy, setIsBuy] = useState(type)
   const [amount, setAmount] = useState('')
   const buyStyle = Number(searchParams?.get('style')) || 0
   useEffect(() => {
@@ -273,8 +274,8 @@ const ActionPage = () => {
               value: '0.00 USDC'
             },
           ].map((item, index) => <div className={`${index === 3 ? 'mt-[10px]' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
-            <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
-            <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
+            <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
+            <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
           </div>)}
         </div>
         <div
@@ -377,8 +378,8 @@ const ActionPage = () => {
             value: '0.00 USDC'
           },
         ].map((item, index) => <div className={`${index === 5 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between ${index === 1 || index === 2 ? 'md:ml-[24px] ml-[12px]' : ''}`} key={index}>
-          <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
-          <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
+          <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
+          <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
         </div>)}
         <div
           onClick={() => { }}
@@ -408,7 +409,7 @@ const ActionPage = () => {
         }}
         className="flex items-center justify-center absolute top-0 left-0 w-full h-full"></div>
       <div className="max-md:flex-1" />
-      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full rounded-[16px] transition-all duration-300 ${slippage ? 'scale-100' : 'scale-0'}`}>
+      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full md:rounded-[16px] rounded-t-[16px] transition-all duration-300 ${slippage ? 'scale-100' : 'scale-0'}`}>
         <div className="md:hidden flex h-[36px] items-center justify-center" onClick={() => {
           setSlippage(false)
         }}>
