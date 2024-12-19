@@ -1,7 +1,7 @@
 'use client'
 import Header from "@/components/Header"
 import { AmountInput, ProgressBar, SlideInput } from "@/components/input"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { formatNumber, isValidNumber } from "@/utils"
 import * as d3 from "d3";
@@ -15,7 +15,9 @@ const ActionPage = () => {
   const [value, setValue] = useState(0)
   const [isBuy, setIsBuy] = useState(type)
   const [amount, setAmount] = useState('')
+  const [confirmBuy, setConfirmBuy] = useState(false)
   const buyStyle = Number(searchParams?.get('style')) || 0
+  const router = useRouter()
   useEffect(() => {
     if (svgRef2.current) {
       const data = [
@@ -382,7 +384,9 @@ const ActionPage = () => {
           <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[400]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
         </div>)}
         <div
-          onClick={() => { }}
+          onClick={() => {
+            setConfirmBuy(true)
+          }}
           className="h-[48px] poppins font-[500] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
           {isBuy ? 'Buy' : 'Sell'}
         </div>
@@ -429,6 +433,57 @@ const ActionPage = () => {
           }}
           className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center flex items-center justify-center hover:bg-[#474747] poppins">
           Save
+        </div>
+        <div className="md:hidden h-[24px]"></div>
+      </div>
+    </div>}
+    {confirmBuy && <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center transition-all duration-300">
+      <div
+        onClick={() => {
+          setConfirmBuy(false)
+        }}
+        className="flex items-center justify-center absolute top-0 left-0 w-full h-full"></div>
+      <div className="max-md:flex-1" />
+      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full md:rounded-[16px] rounded-t-[16px] transition-all duration-300 ${confirmBuy ? 'scale-100' : 'scale-0'}`}>
+        <div className="md:hidden flex h-[36px] items-center justify-center" onClick={() => {
+          setConfirmBuy(false)
+        }}>
+          <div className="w-[32px] h-[4px] bg-black-0-1 rounded-full flex items-center justify-center"></div>
+        </div>
+        {
+          [
+            {
+              key: 'Type',
+              value: 'Market / Buy'
+            },
+            {
+              key: 'Amount',
+              value: '30'
+            },
+            {
+              key: 'Cost',
+              value: '1.00 USDC'
+            },
+            {
+              key: 'Total Cost',
+              value: '0.00 USDC'
+            },
+          ].map((item, index) => <div key={index} className="flex justify-between mb-[8px]">
+            <div className="md:text-[16px] text-[14px] font-[400] text-black/30 poppins">{item.key}</div>
+            <div className="md:text-[16px] text-[14px] font-[400] text-black/90 poppins">{item.value}</div>
+          </div>)
+        }
+        {/* line */}
+        <div className="h-[1px] bg-black-0-1 w-full"></div>
+        <div className="md:text-[16px] text-[14px] font-[400] text-black/30 poppins md:mt-[16px] mt-[8px]">You’re placing an order to buy 3 share(s) of NATHM1898 at 1.00 price. </div>
+        <div
+          onClick={() => {
+            setConfirmBuy(false)
+            router.push('/result')
+            // setToSuccessPage(true)
+          }}
+          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          Confirm
         </div>
         <div className="md:hidden h-[24px]"></div>
       </div>
