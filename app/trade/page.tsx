@@ -935,25 +935,25 @@ const Trade = () => {
       case 0:
         return <div
           onClick={handleNotify}
-          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[48px] md:hidden cursor-pointer flex rounded-[8px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
           Notify me on launch
         </div>
       case 1:
         return <div
           onClick={() => router.push(`/action?step=${step}&style=${buyStyle}`)}
-          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747]">
+          className="h-[48px] md:hidden cursor-pointer flex rounded-[8px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747]">
           {buyStyle > 0 ? 'Lock' : 'Buy'}
         </div>
       case 2:
         return <div className="flex mx-[20px] gap-[10px]">
           <div
             onClick={() => router.push(`/action?step=${step}&style=${buyStyle}&type=buy`)}
-            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] items-center justify-center poppins">
+            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[8px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[16px] items-center justify-center poppins">
             Buy
           </div>
           <div
             onClick={() => router.push(`/action?step=${step}&style=${buyStyle}&type=sell`)}
-            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black/5 text-black text-[18px] font-[500] poppins text-center mt-[16px] items-center justify-center poppins">
+            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[8px] bg-black/5 text-black text-[18px] font-[500] poppins text-center mt-[16px] items-center justify-center poppins">
             Sell
           </div>
         </div>

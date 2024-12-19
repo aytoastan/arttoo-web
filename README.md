@@ -22,7 +22,7 @@ https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/action?step=1&st
 https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/trade?step=2
 3.1. Buy & Sell 移动端的样式
 https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/action?step=2
-3.2. 点击 Buy & Sell 弹窗
+3.2. 点击 Buy & Sell 弹窗，弹出确认弹窗
 
-4. 成功支付页面
-
+4. 成功支付页面 (移动端)
+https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/result

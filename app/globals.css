@@ -262,6 +262,9 @@ input:-webkit-autofill:focus {
 .mainPage textarea {
   user-select: auto;
 }
+/* .mainPage2{
+  overflow-x: hidden;
+} */
 
 .mainPage2 * {
   user-select: none;

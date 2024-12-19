@@ -282,7 +282,7 @@ const ActionPage = () => {
         </div>
         <div
           onClick={() => { }}
-          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] text-center mt-[24px] flex items-center justify-center hover:bg-[#474747] poppins">
+          className="h-[48px] cursor-pointer rounded-[8px] bg-black text-white text-[18px] font-[500] text-center mt-[24px] flex items-center justify-center hover:bg-[#474747] poppins">
           {buyStyle > 0 ? 'Lock' : 'Buy'}
         </div>
       </>
@@ -387,7 +387,7 @@ const ActionPage = () => {
           onClick={() => {
             setConfirmBuy(true)
           }}
-          className="h-[48px] poppins font-[500] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          className="h-[48px] poppins font-[500] cursor-pointer rounded-[8px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
           {isBuy ? 'Buy' : 'Sell'}
         </div>
       </div>
@@ -482,7 +482,7 @@ const ActionPage = () => {
             router.push('/result')
             // setToSuccessPage(true)
           }}
-          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          className="h-[48px] cursor-pointer rounded-[8px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
           Confirm
         </div>
         <div className="md:hidden h-[24px]"></div>

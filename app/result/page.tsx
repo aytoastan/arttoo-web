@@ -53,7 +53,7 @@ const ResultPage = () => {
         onClick={() => {
           // setToSuccessPage(false)
         }}
-        className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+        className="h-[48px] cursor-pointer rounded-[8px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
         Done
       </div>
       <div className="flex items-center justify-center mt-[24px] ">
