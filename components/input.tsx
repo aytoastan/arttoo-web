@@ -1,13 +1,15 @@
-import { useRef, useState, useEffect } from "react"
+import { useWindowSize } from "@/utils"
+import { useRef, useState, useEffect, FC } from "react"
 
 interface AmountInputProps {
   value: string
   disabled?: boolean
   onChange: (value: string) => void
+  hideSuffix?: boolean
 }
 export const AmountInput = (props: AmountInputProps) => {
   const [isFocus, setIsFocus] = useState(false)
-  return <div className={`flex items-center px-[12px] md:py-[20px] py-[15px] w-full md:h-[72px] h-[56px] border-2 ${!isFocus ? 'border-black' : 'border-[#12B76A]'} rounded-[12px]`}>
+  return <div className={`flex items-center px-[12px] md:py-[20px] py-[15px] w-full md:h-[68px] h-[56px] border-2 ${!isFocus ? 'border-black' : 'border-[#12B76A]'} rounded-[12px]`}>
     <input
       className="flex-1 h-full bg-transparent outline-none md:text-[24px] text-[18px] font-[400] text-black-0-9 caret-[#12B76A] poppins"
       value={props.value}
@@ -16,9 +18,9 @@ export const AmountInput = (props: AmountInputProps) => {
       onChange={(e) => !props.disabled && props.onChange(e.target.value)}
       disabled={props.disabled}
     />
-    <div className="md:text-[24px] text-[18px] font-[400] text-black-0-3 md:mr-[12px] mr-[6px] poppins">
+    {!props.hideSuffix && <div className="md:text-[24px] text-[18px] font-[400] text-black-0-3 md:mr-[12px] mr-[6px] poppins">
       USDC
-    </div>
+    </div>}
     <div className="md:w-[48px] md:h-[48px] w-[36px] h-[36px] bg-black-0-05 rounded-[8px] flex items-center justify-center cursor-pointer" onClick={() => !props.disabled && setIsFocus(true)}>
       <svg
         className="md:w-[24px] md:h-[24px] w-[18px] h-[18px]"
@@ -36,7 +38,7 @@ interface SlideInputProps {
 }
 export const SlideInput = (props: SlideInputProps) => {
   const percent = props.value / 100
-  const [showPercent, setShowPercent] = useState(false)
+  const [showPercent, setShowPercent] = useState(props.value > 0)
   const isDraggingRef = useRef(false)
 
   useEffect(() => {
@@ -80,6 +82,9 @@ export const SlideInput = (props: SlideInputProps) => {
         setShowPercent(true)
       }
     }}
+    // onTouchMove={(e) => {
+    //   console.log('touch move')
+    // }}
     className="md:my-[16px] my-[8px] mb-[14px] h-[26px] w-[calc(100%-15px)] ml-[5px] relative cursor-pointer w-full">
     <div className="h-[2px] w-full bg-gray-1 absolute bottom-[4px]"></div>
     {/* 0% */}
@@ -137,4 +142,75 @@ export const SlideInput = (props: SlideInputProps) => {
       {props.value}%
     </div> : null}
   </div>
+}
+
+interface ProgressBarProps {
+  value: number
+  isThin?: boolean
+}
+export const ProgressBar: FC<ProgressBarProps> = (props) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const [list, setList] = useState<number[]>([])
+  const [size] = useWindowSize()
+  useEffect(() => {
+    // 获取宽度
+    console.log(props.value, ref.current?.clientWidth)
+    const width = (ref.current?.clientWidth || 0) + 30
+    // 每个 1px ，间隔 3 px
+    const count = Math.floor(width / (props.isThin ? 3.5 : 4))
+    const list = []
+    for (let i = 0; i < count; i++) {
+      list.push(i)
+    }
+    setList(list)
+  }, [props.value, size])
+  return <div
+    style={{
+      width: `${props.value}%`
+    }}
+    className={`h-[11px] relative overflow-hidden`} ref={ref}>
+    <div className="absolute top-0 left-0 flex">
+      {
+        // 旋转中心 50%
+        list.map((item) => <div key={item}
+          className="h-[30px] bg-black"
+          style={{
+            width: props.isThin ? '0.5px' : '1px',
+            marginLeft: props.isThin ? '3px' : '3px',
+            transformOrigin: '0% 0%',
+            transform: `rotate(45deg)`
+          }}
+        ></div>)
+      }
+    </div>
+  </div>
+}
+
+interface SlippageInputProps {
+  close: () => void
+}
+export const SlippageInput = (props: SlippageInputProps) => {
+  const [value, setValue] = useState(0.5)
+  return <>
+    <div
+      onClick={() => props.close()}
+      className="fixed top-0 left-0 w-full h-full bg-black-0-5 z-[2] "></div>
+    <div className="w-[100%] h-[261px] px-[20px] py-[24px] bg-white my-shadow-2xl rounded-[16px] absolute top-[24px] left-0 z-[9]">
+      <div className="text-[20px] font-[600] leading-[28.8px] text-center text-[#121212]">Max. slippage</div>
+      <div className="my-[24px] flex items-center justify-between">
+        {
+          [0.3, 0.5, 1, 100].map((item) => <div key={item} className={`w-[100px] h-[88px] rounded-[8px] ${value === item ? 'bg-black text-white' : 'border-[1px] border-black-0-1 text-black-0-9 hover:opacity-80 cursor-pointer'} text-[18px] font-[400] text-center flex items-center justify-center`} onClick={() => setValue(item)}>
+            {item}%
+          </div>)
+        }
+      </div>
+      <div
+        onClick={() => {
+          props.close()
+        }}
+        className="h-[48px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center flex items-center justify-center hover:bg-[#474747]">
+        Save
+      </div>
+    </div>
+  </>
 }

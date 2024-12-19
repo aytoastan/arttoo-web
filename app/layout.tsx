@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Head from 'next/head';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Arttoo',
@@ -19,6 +20,16 @@ export const metadata: Metadata = {
     ],
     locale: 'en_US',
   },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@arttoo',
+    images: [
+      {
+        url: '/hero.jpg',
+        alt: 'Arttoo',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -36,7 +47,11 @@ export default function RootLayout({
         <link rel='manifest' href='/site.webmanifest' />
         <meta name='theme-color' content='#FFFFFF' />
       </Head>
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <Suspense>
+          {children}
+        </Suspense>
+      </body>
     </html>
   );
 }

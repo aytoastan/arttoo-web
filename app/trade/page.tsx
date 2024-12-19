@@ -4,8 +4,10 @@ import Header from "@/components/Header"
 import { useEmailSubmit } from "@/pages/landing/components/Footer"
 import { useEffect, useRef, useState } from "react"
 import { isValidNumber } from "@/utils"
-import { AmountInput, SlideInput } from "@/components/input"
+import { AmountInput, ProgressBar, SlideInput, SlippageInput } from "@/components/input"
 import * as d3 from "d3";
+import { useSearchParams, useRouter } from "next/navigation"
+
 const times = ['Days', 'Hours', 'Min', 'Seconds']
 const props = [
   {
@@ -28,33 +30,65 @@ const props = [
 const props2 = [
   {
     key: 'License type',
-    value: 'All rights reserved'
+    value: 'All rights reserved',
+    link: 'https://www.google.com'
   },
   {
     key: 'Certificate of provenance',
-    value: 'See here'
+    value: 'See here',
+    link: 'https://www.google.com'
   },
   {
     key: 'Terms of sales',
-    value: 'Read more'
+    value: 'Read more',
+    link: 'https://www.google.com'
   },
   {
     key: 'Agreement with foundation',
-    value: 'Read more'
+    value: 'Read more',
+    link: 'https://www.google.com'
+  }
+]
+const props3 = [
+  {
+    key: 'Smart contract',
+    value: '0x413a..8567',
+    canCopy: true
+  },
+  {
+    key: 'Metadata',
+    value: 'See here',
+    canCopy: false
+  },
+  {
+    key: 'Date of creation',
+    value: 'XCCC',
+    canCopy: false
+  },
+  {
+    key: '[[ticker]]',
+    value: 'XCCC',
+    canCopy: false
   }
 ]
 const Trade = () => {
+  const [showAlert, setShowAlert] = useState(false)
+  const [slippage, setSlippage] = useState(false)
   const { email, setEmail, loading, message, messageError, handleSubmit } = useEmailSubmit();
   const [showMore, setShowMore] = useState(false)
   const [showMorePrice, setShowMorePrice] = useState(false)
-  const [step, setStep] = useState(0)
+  // 从 URL 中获取 step
+  const searchParams = useSearchParams()
+  // const [step, setStep] = useState(Number(searchParams?.get('step')) || 0)
+  const step = Number(searchParams?.get('step')) || 0
   // const [width] = useWindowSize()
   const [isBuy, setIsBuy] = useState(true)
   const [amount, setAmount] = useState('')
-  const [slideValue, setSlideValue] = useState(0)
+  const [slideValue, setSlideValue] = useState(78)
   // const blockWidth = (width - 160 - 140 - (2 * 63)) / 64
   const svgRef = useRef<SVGSVGElement>(null)
   const svgRef2 = useRef<SVGSVGElement>(null)
+  const router = useRouter()
   // const svgRef3 = useRef<SVGSVGElement>(null)
   // const svgBoxRef3 = useRef<HTMLDivElement>(null)
   // const svgRef4 = useRef<SVGSVGElement>(null)
@@ -141,7 +175,7 @@ const Trade = () => {
     }
   }, [step])
   useEffect(() => {
-    if (svgRef2.current && step === 2 && showMorePrice) {
+    if (svgRef2.current) {
       const data = [
         { date: "2024-01", value: 1 },
         { date: "2024-02", value: 2 },
@@ -299,7 +333,7 @@ const Trade = () => {
         .attr("stroke-width", 2)
         .attr("d", (line as any));
     }
-  }, [step, showMorePrice])
+  }, [])
   // useEffect(() => {
   //   if (svgRef3.current) {
   //     const data = [
@@ -617,30 +651,32 @@ const Trade = () => {
   //   }
   // }, [])
   const handleNotify = () => {
-    setStep(1)
+    // setStep(1)
+    setShowAlert(true)
   }
-  const handleBuy = () => {
-    setStep(2)
-  }
+  // const handleBuy = () => {
+  //   setStep(2)
+  // }
   const handleBuyOrSell = () => { }
   const renderMain = () => {
+    const buyStyle = Number(searchParams?.get('style')) || 0
     switch (step) {
       case 0:
         return <div className="md:my-[40px] my-[24px]">
           <div className="flex md:text-[16px] text-[12px] font-[400] text-black-0-9 items-center poppins">
             <svg
-              width="20"
-              height="20"
+              className="md:w-[20px] md:h-[20px] w-[16px] h-[16px] mr-[4px]"
+              // width="20"
+              // height="20"
               viewBox="0 0 20 20"
               fill="none"
-              className="mr-[4px]"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M4.16699 7.34078H15.8337V5.25745C15.8337 5.19328 15.8069 5.13453 15.7535 5.0812C15.7001 5.02772 15.6414 5.00099 15.5772 5.00099H4.42345C4.35928 5.00099 4.30053 5.02772 4.2472 5.0812C4.19373 5.13453 4.16699 5.19328 4.16699 5.25745V7.34078ZM4.42345 17.9177C4.00248 17.9177 3.64616 17.7718 3.35449 17.4802C3.06283 17.1885 2.91699 16.8322 2.91699 16.4112V5.25745C2.91699 4.83648 3.06283 4.48016 3.35449 4.18849C3.64616 3.89682 4.00248 3.75099 4.42345 3.75099H5.5772V1.98828H6.85928V3.75099H13.1735V1.98828H14.4235V3.75099H15.5772C15.9982 3.75099 16.3545 3.89682 16.6462 4.18849C16.9378 4.48016 17.0837 4.83648 17.0837 5.25745V9.81036C16.8838 9.72273 16.6797 9.65189 16.4714 9.59786C16.263 9.54398 16.0505 9.50155 15.8337 9.47057V8.59078H4.16699V16.4112C4.16699 16.4754 4.19373 16.5341 4.2472 16.5874C4.30053 16.6409 4.35928 16.6677 4.42345 16.6677H9.84178C9.9122 16.8984 9.99741 17.1165 10.0974 17.3222C10.1973 17.5279 10.3107 17.7264 10.4378 17.9177H4.42345ZM15.1605 18.751C14.12 18.751 13.2348 18.3861 12.5051 17.6564C11.7754 16.9267 11.4105 16.0415 11.4105 15.001C11.4105 13.9604 11.7754 13.0753 12.5051 12.3456C13.2348 11.6159 14.12 11.251 15.1605 11.251C16.2012 11.251 17.0864 11.6159 17.816 12.3456C18.5457 13.0753 18.9105 13.9604 18.9105 15.001C18.9105 16.0415 18.5457 16.9267 17.816 17.6564C17.0864 18.3861 16.2012 18.751 15.1605 18.751ZM16.5485 16.9081L17.0676 16.3889L15.5293 14.8504V12.5491H14.792V15.1516L16.5485 16.9081Z" fill="black" fillOpacity="0.9" />
             </svg>
             Launching soon · Sale stars 2024-10-10 8:47 P.M.
           </div>
-          <div className="flex md:mt-[16px] mt-[8px] gap-[48px] md:gap-[32px]">
+          <div className="flex md:mt-[16px] mt-[8px] md:gap-[48px] gap-[32px]">
             {['07', '27', '59', '20'].map((item, index) => <div key={index} className={`flex flex-col items-center`}>
               <div className="md:text-[32px] text-[24px] text-black-0-9 font-[500] md:leading-[38.4px] leading-[28.8px] poppins">{item}</div>
               <div className="md:text-[12px] text-[8px] text-black-0-9 font-[400] md:leading-[14.4px] leading-[9.6px] poppins">{times[index]}</div>
@@ -648,22 +684,31 @@ const Trade = () => {
           </div>
           <div
             onClick={handleNotify}
-            className="h-[56px] md:flex hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] items-center justify-center hover:bg-[#474747] poppins">
+            className="h-[48px] md:flex hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] text-center mt-[40px] items-center justify-center hover:bg-[#474747] poppins">
             Notify me on launch
           </div>
         </div>
       case 1:
         return <div className="md:my-[40px] my-[24px]">
-          <div className="md:text-[24px] text-[18px] font-[500] md:leading-[28.8px] leading-[21.6px] text-black-0-9 poppins">Amount for Sale 50,000 SUI</div>
-          <div className="relative bg-black-0-1 h-[11px] md:my-[16px] my-[8px]">
+          <div className="flex items-center">
+            <div className="w-[50%] md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-5 poppins">Whitelist</div>
+            {buyStyle === 4 ? <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-5 poppins">Public</div> : null}
+          </div>
+          {buyStyle !== 4 ? <div className="relative bg-black-0-1 h-[11px] md:my-[8px] my-[8px]">
+            {buyStyle === 1 ? <div className="h-[11px] bg-black w-[0%]"></div> : null}
+            {buyStyle === 2 || buyStyle === 0 ? <div className="h-[11px] bg-black w-[50%]"></div> : null}
+            {buyStyle === 3 ? <div className="h-[11px] bg-black w-[100%]"></div> : null}
+          </div> : <div className="relative flex bg-black-0-1 h-[11px] md:my-[8px] my-[8px]">
             <div className="h-[11px] bg-black w-[50%]"></div>
-          </div>
+            <ProgressBar value={20} />
+            <ProgressBar value={30} isThin={true} />
+          </div>}
           <div className="flex justify-between">
-            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 poppins">Goal 100,000 SUI</div>
+            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-5 poppins">270,141 USDC</div>
             <div className="flex-1"></div>
-            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 poppins">Progress 50.5%</div>
+            <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-5 poppins">Goal 100,000 SUI</div>
           </div>
-          <div className="flex md:mt-[24px] mt-[12px] gap-[48px]">
+          <div className="flex items-center justify-between  md:mt-[24px] mt-[12px] gap-[48px]">
             {[
               {
                 key: 'Backers',
@@ -672,34 +717,46 @@ const Trade = () => {
               {
                 key: 'Days to go',
                 value: '18'
+              },
+              {
+                key: 'Progress',
+                value: buyStyle === 4 ? '155%' : buyStyle === 1 ? '0%' : buyStyle === 2 ? '50%' : buyStyle === 3 ? '100%' : '50%'
               }
-            ].map((item, index) => <div className="flex flex-col items-center" key={index}>
-              <div className="md:text-[24px] text-[18px] font-[400] md:leading-[28.8px] leading-[21.6px] text-black-0-6 poppins">{item.value}</div>
-              <div className="md:text-[12px] text-[8px] font-[400] md:leading-[14.4px] leading-[9.6px] text-black-0-6 poppins">{item.key}</div>
+            ].map((item, index) => <div className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[28.8px] leading-[18px] poppins" key={index}>
+              <div className="text-black-0-9 font-[500] mr-[4px] poppins">{item.value}</div>
+              <div className="text-black-0-5 font-[400] poppins">{item.key}</div>
             </div>)}
           </div>
+          {
+            buyStyle === 4 ? <>
+              <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
+              <div className="md:text-[16px] text-[12px] font-[400] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
+              <div className="w-full">
+                <svg ref={svgRef2} />
+              </div>
+            </> : null
+          }
           <div className="max-md:hidden">
-            <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
+            <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px] relative"></div>
             {/* 输入框 */}
-            <div className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 mb-[8px]">
-              {`Amount (`}
-              <svg
-                className="md:w-[20px] md:h-[20px] w-[10px] h-[10px] mx-[4px]"
-                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clipPath="url(#clip0_1_3747)">
-                  <path d="M10 20C15.5417 20 20 15.5417 20 10C20 4.4583 15.5417 0 10 0C4.4583 0 0 4.4583 0 10C0 15.5417 4.4583 20 10 20Z" fill="#2775CA" />
-                  <path d="M12.7513 11.583C12.7513 10.1247 11.8763 9.62471 10.1263 9.41641C8.87627 9.24971 8.62627 8.91641 8.62627 8.33301C8.62627 7.74961 9.04297 7.37471 9.87627 7.37471C10.6263 7.37471 11.043 7.62471 11.2513 8.24971C11.293 8.37471 11.418 8.45801 11.543 8.45801H12.2096C12.3763 8.45801 12.5013 8.33301 12.5013 8.16641V8.12471C12.3346 7.20801 11.5846 6.49971 10.6263 6.41641V5.41641C10.6263 5.24971 10.5013 5.12471 10.293 5.08301H9.66797C9.50127 5.08301 9.37627 5.20801 9.33457 5.41641V6.37471C8.08457 6.54141 7.29297 7.37471 7.29297 8.41641C7.29297 9.79141 8.12627 10.333 9.87627 10.5414C11.043 10.7497 11.418 10.9997 11.418 11.6664C11.418 12.3331 10.8346 12.7914 10.043 12.7914C8.95957 12.7914 8.58457 12.333 8.45957 11.708C8.41797 11.5414 8.29297 11.458 8.16797 11.458H7.45957C7.29297 11.458 7.16797 11.583 7.16797 11.7497V11.7914C7.33457 12.833 8.00127 13.583 9.37627 13.7914V14.7914C9.37627 14.958 9.50127 15.083 9.70957 15.1247H10.3346C10.5013 15.1247 10.6263 14.9997 10.668 14.7914V13.7914C11.918 13.583 12.7513 12.708 12.7513 11.583Z" fill="white" />
-                  <path d="M7.87581 15.9576C4.62581 14.791 2.95911 11.166 4.16751 7.95762C4.79251 6.20762 6.16751 4.87432 7.87581 4.24932C8.04251 4.16602 8.12581 4.04102 8.12581 3.83262V3.24932C8.12581 3.08262 8.04251 2.95762 7.87581 2.91602C7.83411 2.91602 7.75081 2.91602 7.70911 2.95762C3.75081 4.20762 1.58411 8.41602 2.83411 12.3743C3.58411 14.7076 5.37581 16.4993 7.70911 17.2493C7.87581 17.3326 8.04251 17.2493 8.08411 17.0826C8.12581 17.041 8.12581 16.9993 8.12581 16.916V16.3326C8.12581 16.2076 8.00081 16.041 7.87581 15.9576ZM12.2925 2.95762C12.1258 2.87432 11.9591 2.95762 11.9175 3.12432C11.8758 3.16602 11.8758 3.20762 11.8758 3.29102V3.87432C11.8758 4.04102 12.0008 4.20762 12.1258 4.29102C15.3758 5.45762 17.0425 9.08262 15.8341 12.291C15.2091 14.041 13.8341 15.3743 12.1258 15.9993C11.9591 16.0826 11.8758 16.2076 11.8758 16.416V16.9993C11.8758 17.166 11.9591 17.291 12.1258 17.3326C12.1675 17.3326 12.2508 17.3326 12.2925 17.291C16.2508 16.041 18.4175 11.8326 17.1675 7.87432C16.4175 5.49932 14.5841 3.70762 12.2925 2.95762Z" fill="white" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_1_3747">
-                    <rect width="20" height="20" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              {`USDC)`}
+            <div className="flex items-center justify-between mb-[8px] relative">
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-6 poppins">
+                Amount
+              </div>
+              {buyStyle > 0 ? <div
+                onClick={() => setSlippage(true)}
+                className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-5 poppins cursor-pointer">
+                <svg
+                  className="mr-[5px]"
+                  width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.46222 4.50195C11.8054 4.50195 14.6653 4.50195 14.6653 4.50195M2.66534 4.50195H5.16534M5.16534 4.50195C5.16534 5.60652 6.06077 6.50195 7.16534 6.50195C8.26991 6.50195 9.16534 5.60652 9.16534 4.50195C9.16534 3.39738 8.26991 2.50195 7.16534 2.50195C6.06077 2.50195 5.16534 3.39738 5.16534 4.50195ZM2.66534 11.502H7.86222M12.1653 11.502H14.6653M12.1653 11.502C12.1653 12.6066 11.2699 13.502 10.1653 13.502C9.06077 13.502 8.16534 12.6066 8.16534 11.502C8.16534 10.3974 9.06077 9.50195 10.1653 9.50195C11.2699 9.50195 12.1653 10.3974 12.1653 11.502Z" stroke="black" strokeOpacity="0.5" strokeLinecap="round" />
+                </svg>
+                1.00% slippage
+              </div> : null}
+              {slippage ? <SlippageInput close={() => setSlippage(false)} /> : null}
             </div>
             <AmountInput
+              hideSuffix={true}
               value={'$10,385.00'}
               disabled={true}
               onChange={(value) => {
@@ -709,11 +766,21 @@ const Trade = () => {
                 }
               }}
             />
-            <div className="md:h-[16px] h-[8px]"></div>
+            <div className="pr-[12px]">
+              <SlideInput
+                value={slideValue}
+                onChange={(value) => setSlideValue(value)}
+              />
+            </div>
+            {/* <div className="md:h-[16px] h-[8px]"></div> */}
             {[
               {
-                key: 'Buying Power',
-                value: '$188,888.00'
+                key: 'Avail. Buying Power',
+                value: '0.00 USDC'
+              },
+              {
+                key: 'Avail. Quota',
+                value: '300.00 / 300.00 USDC'
               },
               {
                 key: 'Estimated Fee',
@@ -721,17 +788,17 @@ const Trade = () => {
               },
               {
                 key: 'Estimated Total',
-                value: '$10,385.00'
+                value: '0.00 USDC'
               },
-            ].map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between`} key={index}>
-              <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-black-0-3 poppins">{item.key}</div>
-              <div className="flex-1 md:text-[16px] text-[12px] text-right font-[400] md:leading-[20px] leading-[18px] text-black-0-9 poppins">{item.value}</div>
+            ].map((item, index) => <div className={`${index === 3 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between`} key={index}>
+              <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
+              <div className={`flex-1 ${index === 3 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
             </div>)}
           </div>
           <div
-            onClick={handleBuy}
-            className="h-[56px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
-            Buy
+            onClick={() => { }}
+            className="h-[48px] max-md:hidden cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+            {buyStyle > 0 ? 'Lock' : 'Buy'}
           </div>
         </div>
       case 2:
@@ -765,15 +832,13 @@ const Trade = () => {
               <svg ref={svgRef} />
             </div>
           </div>
-          {
-            showMorePrice ? <>
-              <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
-              <div className="w-full">
-                <svg ref={svgRef2} />
-              </div>
-              <div className='md:h-[16px] h-[0px]'></div>
-            </> : null
-          }
+          <div className={`${showMorePrice ? 'block' : 'hidden'}`}>
+            <div className="md:text-[16px] text-[12px] font-[400] mt-[24px] mb-[8px] md:leading-[20px] leading-[14.4px] text-black-0-9">Price (USDC)</div>
+            <div className="w-full">
+              <svg ref={svgRef2} />
+            </div>
+            <div className='md:h-[16px] h-[0px]'></div>
+          </div>
           <div className="flex items-center justify-center mt-[8px]">
             <div className="w-[21px] h-[20px] cursor-pointer" onClick={() => setShowMorePrice(!showMorePrice)}>
               <svg
@@ -784,7 +849,6 @@ const Trade = () => {
                   strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-
           </div>
           <div className="max-md:hidden">
             <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
@@ -796,42 +860,48 @@ const Trade = () => {
                 onClick={() => setIsBuy(false)}
                 className={`flex-1 h-full text-center text-[16px] font-[400] flex items-center justify-center leading-[20px] cursor-pointer ${!isBuy ? 'text-white bg-black-0-9 rounded-[10px]' : 'text-black-0-3'}`}>Sell</div>
             </div>
-            <div className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[14.4px] text-black-0-6 mb-[8px]">
-              {`Amount (`}
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-[4px]">
-                <g clipPath="url(#clip0_1_3747)">
-                  <path d="M10 20C15.5417 20 20 15.5417 20 10C20 4.4583 15.5417 0 10 0C4.4583 0 0 4.4583 0 10C0 15.5417 4.4583 20 10 20Z" fill="#2775CA" />
-                  <path d="M12.7513 11.583C12.7513 10.1247 11.8763 9.62471 10.1263 9.41641C8.87627 9.24971 8.62627 8.91641 8.62627 8.33301C8.62627 7.74961 9.04297 7.37471 9.87627 7.37471C10.6263 7.37471 11.043 7.62471 11.2513 8.24971C11.293 8.37471 11.418 8.45801 11.543 8.45801H12.2096C12.3763 8.45801 12.5013 8.33301 12.5013 8.16641V8.12471C12.3346 7.20801 11.5846 6.49971 10.6263 6.41641V5.41641C10.6263 5.24971 10.5013 5.12471 10.293 5.08301H9.66797C9.50127 5.08301 9.37627 5.20801 9.33457 5.41641V6.37471C8.08457 6.54141 7.29297 7.37471 7.29297 8.41641C7.29297 9.79141 8.12627 10.333 9.87627 10.5414C11.043 10.7497 11.418 10.9997 11.418 11.6664C11.418 12.3331 10.8346 12.7914 10.043 12.7914C8.95957 12.7914 8.58457 12.333 8.45957 11.708C8.41797 11.5414 8.29297 11.458 8.16797 11.458H7.45957C7.29297 11.458 7.16797 11.583 7.16797 11.7497V11.7914C7.33457 12.833 8.00127 13.583 9.37627 13.7914V14.7914C9.37627 14.958 9.50127 15.083 9.70957 15.1247H10.3346C10.5013 15.1247 10.6263 14.9997 10.668 14.7914V13.7914C11.918 13.583 12.7513 12.708 12.7513 11.583Z" fill="white" />
-                  <path d="M7.87581 15.9576C4.62581 14.791 2.95911 11.166 4.16751 7.95762C4.79251 6.20762 6.16751 4.87432 7.87581 4.24932C8.04251 4.16602 8.12581 4.04102 8.12581 3.83262V3.24932C8.12581 3.08262 8.04251 2.95762 7.87581 2.91602C7.83411 2.91602 7.75081 2.91602 7.70911 2.95762C3.75081 4.20762 1.58411 8.41602 2.83411 12.3743C3.58411 14.7076 5.37581 16.4993 7.70911 17.2493C7.87581 17.3326 8.04251 17.2493 8.08411 17.0826C8.12581 17.041 8.12581 16.9993 8.12581 16.916V16.3326C8.12581 16.2076 8.00081 16.041 7.87581 15.9576ZM12.2925 2.95762C12.1258 2.87432 11.9591 2.95762 11.9175 3.12432C11.8758 3.16602 11.8758 3.20762 11.8758 3.29102V3.87432C11.8758 4.04102 12.0008 4.20762 12.1258 4.29102C15.3758 5.45762 17.0425 9.08262 15.8341 12.291C15.2091 14.041 13.8341 15.3743 12.1258 15.9993C11.9591 16.0826 11.8758 16.2076 11.8758 16.416V16.9993C11.8758 17.166 11.9591 17.291 12.1258 17.3326C12.1675 17.3326 12.2508 17.3326 12.2925 17.291C16.2508 16.041 18.4175 11.8326 17.1675 7.87432C16.4175 5.49932 14.5841 3.70762 12.2925 2.95762Z" fill="white" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_1_3747">
-                    <rect width="20" height="20" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              {`USDC)`}
+            <div className="flex items-center justify-between mb-[8px]">
+              <div className="md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-6">
+                Amount
+              </div>
+              <div
+                onClick={() => setSlippage(true)}
+                className="flex items-center md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[14.4px] text-black-0-5 poppins cursor-pointer">
+                <svg
+                  className="mr-[5px]"
+                  width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.46222 4.50195C11.8054 4.50195 14.6653 4.50195 14.6653 4.50195M2.66534 4.50195H5.16534M5.16534 4.50195C5.16534 5.60652 6.06077 6.50195 7.16534 6.50195C8.26991 6.50195 9.16534 5.60652 9.16534 4.50195C9.16534 3.39738 8.26991 2.50195 7.16534 2.50195C6.06077 2.50195 5.16534 3.39738 5.16534 4.50195ZM2.66534 11.502H7.86222M12.1653 11.502H14.6653M12.1653 11.502C12.1653 12.6066 11.2699 13.502 10.1653 13.502C9.06077 13.502 8.16534 12.6066 8.16534 11.502C8.16534 10.3974 9.06077 9.50195 10.1653 9.50195C11.2699 9.50195 12.1653 10.3974 12.1653 11.502Z" stroke="black" strokeOpacity="0.5" strokeLinecap="round" />
+                </svg>
+                1.00% slippage
+              </div>
+              {slippage ? <SlippageInput close={() => setSlippage(false)} /> : null}
             </div>
             <AmountInput
               value={amount}
               onChange={(value) => {
-                // 只允许输入数字，'',可以带上小数点，但是小数点不能在开头和结尾
                 if (isValidNumber(value)) {
                   setAmount(value)
                 }
               }}
             />
-            {
-              isBuy ? <div className="h-[16px]"></div> :
-                <SlideInput
-                  value={slideValue}
-                  onChange={(value) => setSlideValue(value)}
-                />
-            }
+            <div className="pr-[12px]">
+              <SlideInput
+                value={slideValue}
+                onChange={(value) => setSlideValue(value)}
+              />
+            </div>
             {[
               {
-                key: 'Buying Power',
-                value: '$188,888.00'
+                key: 'Avail. Buying Power',
+                value: '0.00 USDC'
+              },
+              {
+                key: 'Available USDC',
+                value: '0.00 USDC'
+              },
+              {
+                key: 'Available Points',
+                value: '30.00 AP'
               },
               {
                 key: 'Estimated Fee',
@@ -839,11 +909,11 @@ const Trade = () => {
               },
               {
                 key: 'Estimated Total',
-                value: '$10,385.00'
+                value: '0.00 USDC'
               },
-            ].map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
-              <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-black-0-3">{item.key}</div>
-              <div className="flex-1 md:text-[16px] text-[12px] text-right font-[400] md:leading-[20px] leading-[18px] text-black-0-9">{item.value}</div>
+            ].map((item, index) => <div className={`${index === 5 ? '' : 'md:mb-[16px] mb-[8px]'} flex justify-between ${index === 1 || index === 2 ? 'md:ml-[24px] ml-[12px]' : ''}`} key={index}>
+              <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-3 poppins`}>{item.key}</div>
+              <div className={`flex-1 ${index === 4 ? 'md:text-[24px] text-[18px] md:leading-[24px] leading-[18px] font-[500]' : 'md:text-[16px] text-[12px] md:leading-[20px] leading-[18px] font-[400]'} text-black-0-9 poppins text-right`}>{item.value}</div>
             </div>)}
             <div
               onClick={handleBuyOrSell}
@@ -855,24 +925,32 @@ const Trade = () => {
     }
   }
   const renderFooter = () => {
+    const buyStyle = Number(searchParams?.get('style')) || 0
     switch (step) {
       case 0:
         return <div
           onClick={handleNotify}
-          className="h-[56px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
           Notify me on launch
         </div>
       case 1:
         return <div
-          onClick={handleBuy}
-          className="h-[56px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
-          Buy
+          onClick={() => router.push(`/action?step=${step}&style=${buyStyle}`)}
+          className="h-[48px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
+          {buyStyle > 0 ? 'Lock' : 'Buy'}
         </div>
       case 2:
-        return <div
-          onClick={handleBuyOrSell}
-          className="h-[56px] md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] mx-[20px] items-center justify-center active:bg-[#474747] poppins">
-          {isBuy ? 'Buy' : 'Sell'}
+        return <div className="flex mx-[20px] gap-[10px]">
+          <div
+            onClick={() => router.push(`/action?step=${step}&style=${buyStyle}&type=buy`)}
+            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[16px] items-center justify-center poppins">
+            Buy
+          </div>
+          <div
+            onClick={() => router.push(`/action?step=${step}&style=${buyStyle}&type=sell`)}
+            className="h-[48px] flex-1 md:hidden cursor-pointer flex rounded-[12px] bg-black/5 text-black text-[18px] font-[400] text-center mt-[16px] items-center justify-center poppins">
+            Sell
+          </div>
         </div>
     }
   }
@@ -881,7 +959,6 @@ const Trade = () => {
     <div className='block md:mt-[40px] mt-[20px]'>
       <div className='trade_page'>
         <div className='trade_page_image' style={{ backgroundImage: `url(/trade/1.png)` }} />
-
         <img src="/trade/1.png" alt="trade_page_image_mobile" className="w-full md:hidden" />
         <div className='trade_page_content'>
           <div className="trade_desc_title VictorSherif font-[500]">Nature Morte avec des Fruits</div>
@@ -890,19 +967,30 @@ const Trade = () => {
             <div className="trade_desc_desc_item2 mx-[8px] poppins">/</div>
             <div className="trade_desc_desc_item2 poppins">USDC</div>
           </div>
-          <div className="h-[1px] bg-black-0-1 w-full md:mt-[50px] mt-[24px]"></div>
+          <div className="h-[1px] bg-black-0-1 w-full md:mt-[40px] mt-[24px]"></div>
           {renderMain()}
           <div className="h-[1px] bg-black-0-1 w-full md:mb-[40px] mb-[24px]"></div>
-          {props.map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
-            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
-            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] md:text-left text-right text-black-0-9 poppins">{item.value}</div>
+          {props.map((item, index) => <div className={`${index === props.length - 1 ? '' : 'md:mb-[12px] mb-[4px]'} flex justify-between`} key={index}>
+            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
+            <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[18px] md:text-left text-right text-black-0-9 poppins">{item.value}</div>
           </div>)}
           {
             showMore ? <>
               <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
               {props2.map((item, index) => <div className={`${index === props2.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
-                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
-                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[20px] leading-[18px] md:text-left text-right text-black-0-9 poppins">{item.value}</div>
+                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
+                <a href={item.link} target="_blank" className="underline flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[18px] md:text-left text-right text-black-0-9 poppins">{item.value}</a>
+              </div>)}
+              <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
+              {props3.map((item, index) => <div className={`${index === props3.length - 1 ? '' : 'md:mb-[16px] mb-[4px]'} flex justify-between`} key={index}>
+                <div className="flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[18px] text-left text-black-0-3 poppins">{item.key}</div>
+                <div className={`${item.canCopy ? 'cursor-pointer underline' : ''} flex items-center max-md:justify-end flex-1 md:text-[16px] text-[12px] font-[400] md:leading-[24px] leading-[18px] md:text-left text-right text-black-0-9 poppins`}>
+                  {item.value}
+                  {item.canCopy && <svg className="mt-[2px] ml-[8px]" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.1667 16.6667H8C7.72386 16.6667 7.5 16.4428 7.5 16.1667V8C7.5 7.72386 7.72386 7.5 8 7.5H16.1667C16.4428 7.5 16.6667 7.72386 16.6667 8V16.1667C16.6667 16.4428 16.4428 16.6667 16.1667 16.6667Z" stroke="black" strokeOpacity="0.3" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12.4987 7.4987V3.83203C12.4987 3.55589 12.2749 3.33203 11.9987 3.33203H3.83203C3.55589 3.33203 3.33203 3.55589 3.33203 3.83203V11.9987C3.33203 12.2749 3.55589 12.4987 3.83203 12.4987H7.4987" stroke="black" strokeOpacity="0.3" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>}
+                </div>
               </div>)}
               <div className="md:h-[40px] h-[5px]"></div>
             </> : <div className="h-[1px] bg-black-0-1 w-full md:mt-[40px] mt-[24px]"></div>
@@ -999,7 +1087,7 @@ const Trade = () => {
               <div key={index} className="md:block flex">
                 {item.icon}
                 <div className="block flex-1 md:mt-[24px] ml-[12px] md:ml-0">
-                  <div className="md:text-[20px] text-[15px] font-[500] md:leading-[32px] leading-[24px] text-black-0-9 poppins ">{item.title}</div>
+                  <div className="md:text-[20px] text-[15px] font-[500] md:leading-[40px] leading-[24px] text-black-0-9 poppins ">{item.title}</div>
                   <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 md:mt-[16px] mt-[8px] poppins ">{item.desc}</div>
                 </div>
               </div>
@@ -1007,7 +1095,7 @@ const Trade = () => {
           }
         </div>
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
-        <div className="flex flex-col md:flex-row md:mb-[60px] mb-[30px]">
+        <div className="flex flex-col md:flex-row md:items-center md:mb-[60px] mb-[30px]">
           <div>
             <div className="md:text-[60px] text-[30px] font-[400] md:leading-[80px] leading-[40px] text-black-0-9 VictorSherif">Valuation <span className="VictorSherif font-[500] italic">analytics</span></div>
             {/* <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">Nature Morte avec des Fruits</div> */}
@@ -1051,7 +1139,7 @@ const Trade = () => {
           </div> */}
         </div>
         <div className="h-[1px] bg-black-0-1 w-full md:my-[120px] my-[60px]"></div>
-        <div className="flex flex-col md:flex-row md:mb-[60px] mb-[30px]">
+        <div className="flex flex-col md:flex-row md:items-center md:mb-[60px] mb-[30px]">
           <div>
             <div className="md:text-[60px] text-[30px] font-[400] md:leading-[80px] leading-[40px] text-black-0-9 VictorSherif">Similar <span className="VictorSherif font-[500] italic">artworks</span></div>
             {/* <div className="md:text-[16px] text-[12px] font-[400] md:leading-[25.6px] leading-[19.2px] text-black-0-6 VictorSherif">Henri Matisse</div> */}
@@ -1064,7 +1152,7 @@ const Trade = () => {
                 { num: '$235K', desc: 'Sale price' },
                 { num: '36%', desc: 'Price over estimate' },
               ].map((item, index) => (
-                <div key={index} className="md:min-w-[214px]">
+                <div key={index} className="xl:min-w-[214px] lg:min-w-[170px] md:min-w-[150px]">
                   <div className="text-black-0-9 font-[400] md:leading-[38.4px] leading-[24px] md:text-[32px] text-[20px] poppins">{item.num}</div>
                   <div className="md:text-[16px] text-[10px] font-[400] md:leading-[25.6px] leading-[16px] text-black-0-6 md:mt-[8px] mt-[4px] poppins">{item.desc}</div>
                 </div>
@@ -1081,7 +1169,7 @@ const Trade = () => {
                 price: 'US$9,035,000',
                 lastSale: `Last sale at Christie's`,
                 time: '2023/5/11',
-                img: '/trade/image101.jpg'
+                img: '/trade/image103.jpg'
               },
               {
                 title: 'Mademoiselle Matisse en manteau écossais',
@@ -1089,7 +1177,8 @@ const Trade = () => {
                 price: 'US$9,035,000',
                 lastSale: `Last sale at Sotheby's`,
                 time: '2022/5/17',
-                img: '/trade/image102.jpg'
+                img: '/trade/image101.jpg'
+
               },
               {
                 title: 'Mademoiselle Matisse en manteau écossais',
@@ -1097,9 +1186,9 @@ const Trade = () => {
                 price: 'US$9,035,000',
                 lastSale: `Last sale at Christie's`,
                 time: '2023/5/11',
-                img: '/trade/image103.jpg'
+                img: '/trade/image102.jpg'
               },
-            ].map((item, index) => <div className="flex gap-4" key={index}>
+            ].map((item, index) => <div className="flex gap-[40px]" key={index}>
               <div className="max-md:flex">
                 <img src={item.img} alt={item.title} className="md:h-[320px] h-[134px]" />
                 <div className="max-md:flex-1 md:mt-[40px] max-md:ml-[20px]">
@@ -1250,13 +1339,36 @@ const Trade = () => {
         <div className="trade-footer-fixed"></div>
       </div>
     </div>
-
     <div className="trade-footer">
-      {
-        renderFooter()
-      }
+      {renderFooter()}
     </div>
-  </div >
+    {showAlert && <div className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex flex-col items-center justify-center transition-all duration-300 ${showAlert ? 'bg-opacity-50' : 'bg-opacity-0'}`}>
+      <div
+        onClick={() => {
+          setShowAlert(false)
+        }}
+        className="flex items-center justify-center absolute top-0 left-0 w-full h-full"></div>
+      <div className="max-md:flex-1" />
+      <div className={`bg-white md:px-[32px] px-[20px] py-[0] md:py-[32px] md:w-[480px] w-full rounded-[16px] transition-all duration-300 ${showAlert ? 'scale-100' : 'scale-0'}`}>
+        <div className="md:hidden flex h-[36px] items-center justify-center" onClick={() => {
+          setShowAlert(false)
+        }}>
+          <div className="w-[32px] h-[4px] bg-black-0-1 rounded-full flex items-center justify-center"></div>
+        </div>
+        <div className="text-[#121212] text-center md:text-[32px] text-[24px] font-[600] poppins md:leading-[48px] leading-[36px]">Add Invitation Code</div>
+        <div className="text-black-0-5 text-[16px] md:mt-[24px] mt-[12px] mb-[24px] font-[400] poppins leading-[24px]">{`Initial Art Offering for this artwork is currently in its whitelist phase and is only accessible to invited participants. You'll need a valid invitation code to participate at this phase.`}</div>
+        <input type="text" className="border border-black-0-1 border-width-[1px] w-full px-[16px] py-[12px] rounded-[8px] text-[16px] font-[400] leading-[24px] text-[#121212] poppins" placeholder="Invitation Code" />
+        <div
+          onClick={() => {
+            setShowAlert(false)
+          }}
+          className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[400] text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
+          Submit
+        </div>
+        <div className="md:hidden h-[24px]"></div>
+      </div>
+    </div>}
+  </div>
 }
 
 export default Trade

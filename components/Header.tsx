@@ -55,7 +55,7 @@ export default function Header({ isLogin }: HeaderProps) {
         }
       </div>
       <div className='md:hidden flex-1 flex items-center justify-end'>
-        <div className={`w-[52px] h-[52px] flex mr-[4px] items-center justify-center cursor-pointer text-black `}>
+        {/* <div className={`w-[52px] h-[52px] flex mr-[4px] items-center justify-center cursor-pointer text-black `}>
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M33 33L28.65 28.65M31 23C31 27.4183 27.4183 31 23 31C18.5817 31 15 27.4183 15 23C15 18.5817 18.5817 15 23 15C27.4183 15 31 18.5817 31 23Z" stroke="black" strokeOpacity="0.9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -64,7 +64,7 @@ export default function Header({ isLogin }: HeaderProps) {
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M32.3333 29.8334C32.3333 30.2937 31.9602 30.6667 31.5 30.6667H16.5C16.0397 30.6667 15.6666 30.2937 15.6666 29.8334C15.6666 29.3732 16.0397 29.0001 16.5 29.0001V23.1929C16.5 19.0363 19.8578 15.6667 24 15.6667C28.1421 15.6667 31.5 19.0363 31.5 23.1929V29.0001C31.9602 29.0001 32.3333 29.3732 32.3333 29.8334ZM18.1666 29.0001H29.8333V23.1929C29.8333 19.9568 27.2216 17.3334 24 17.3334C20.7783 17.3334 18.1666 19.9568 18.1666 23.1929V29.0001ZM21.9166 31.5001H26.0833C26.0833 32.6507 25.1505 33.5834 24 33.5834C22.8494 33.5834 21.9166 32.6507 21.9166 31.5001Z" fill="black" fillOpacity="0.9" />
           </svg>
-        </div>
+        </div> */}
         {
           isLogin ? <div className={`w-[28px] h-[28px] ml-[4px] flex items-center justify-center cursor-pointer text-black rounded-full bg-black`}>
           </div> : null

@@ -314,6 +314,7 @@ input:-webkit-autofill:focus {
 .login_submit_button:hover {
   background-color: #474747;
 }
+
 .text-black-0-6 {
   color: rgba(0, 0, 0, 0.6);
 }
@@ -387,12 +388,12 @@ input:-webkit-autofill:focus {
   align-items: start;
   display: grid;
   grid-template-columns: 1fr 460px;
-  gap: 80px;
+  gap: 40px;
 }
 
 .trade_page_2 {
   margin-top: 20px;
-  padding: 0px 80px;
+  padding: 0px 60px;
   /* background-color: #ffff00; */
   /* height: 1300px; */
 }
@@ -436,12 +437,14 @@ input:-webkit-autofill:focus {
   /* font-family: Victor Sherif; */
   /* font-weight: 500; */
   font-size: 36px;
-  line-height: 43.2px;
+  line-height: 54px;
+  color: rgba(0, 0, 0, 0.9);
+
 }
 
 .trade_desc_desc {
   font-size: 16px;
-  line-height: 25.6px;
+  line-height: 24px;
   margin-top: 8px;
   font-weight: 400;
   display: flex;
@@ -452,7 +455,7 @@ input:-webkit-autofill:focus {
 }
 
 .trade_desc_desc_item2 {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
@@ -470,6 +473,11 @@ input:-webkit-autofill:focus {
     display: none;
   }
 
+  .trade_desc_desc {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
   .trade_page_content {
     width: 100%;
     padding: 0px 20px;
@@ -479,13 +487,13 @@ input:-webkit-autofill:focus {
 
   .trade_desc_title {
     font-family: 'Victor Sherif';
-    font-weight: 500px;
+    font-weight: 500;
     font-size: 30px;
     line-height: 36px;
   }
 
   .trade-footer-fixed {
-    height: calc(88px + env(safe-area-inset-bottom));
+    height: calc(80px + env(safe-area-inset-bottom));
     background-color: #000;
   }
 
@@ -496,7 +504,7 @@ input:-webkit-autofill:focus {
     right: 0;
     width: 100%;
     /*  IOS 安全区 */
-    height: calc(88px + env(safe-area-inset-bottom));
+    height: calc(80px + env(safe-area-inset-bottom));
     background-color: #fff;
     border-top: 0.5px solid rgba(0, 0, 0, 0.1);
   }
@@ -590,4 +598,9 @@ input:-webkit-autofill:focus {
 svg.responsive {
   width: 100%;
   height: auto;
+}
+
+/* box-shadow: 0px 10px 30px 0px #00000033; */
+.my-shadow-2xl {
+  box-shadow: 0px 10px 30px 0px #00000033;
 }
