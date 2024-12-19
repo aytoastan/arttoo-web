@@ -1413,7 +1413,8 @@ const Trade = () => {
         <div className="md:text-[16px] text-[14px] font-[400] text-black/30 poppins md:mt-[16px] mt-[8px]">You’re placing an order to buy 3 share(s) of NATHM1898 at 1.00 price. </div>
         <div
           onClick={() => {
-            setConfirmBuy(false)
+            // setConfirmBuy(false)
+            router.push('/result')
           }}
           className="h-[48px] cursor-pointer rounded-[12px] bg-black text-white text-[18px] font-[500] poppins text-center mt-[40px] flex items-center justify-center hover:bg-[#474747]">
           Confirm
