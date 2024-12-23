@@ -40,12 +40,13 @@ export const SlideInput = (props: SlideInputProps) => {
   const percent = props.value / 100
   const [showPercent, setShowPercent] = useState(props.value > 0)
   const isDraggingRef = useRef(false)
+  const isTouchingRef = useRef(false)
 
   useEffect(() => {
-    window.addEventListener('mouseup', () => {
-      console.log('mouse up')
-      isDraggingRef.current = false
-    })
+    // window.addEventListener('mouseup', () => {
+    //   console.log('mouse up')
+    //   isDraggingRef.current = false
+    // })
   }, [])
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -55,37 +56,65 @@ export const SlideInput = (props: SlideInputProps) => {
     if (value > 100) value = 100
     props.onChange(value)
     // 如果是 0 则不显示百分比
-    if (value === 0) {
-      setShowPercent(false)
-    } else {
-      setShowPercent(true)
-    }
-
+    // if (value === 0) {
+    //   setShowPercent(false)
+    // } else {
+    //   setShowPercent(true)
+    // }
   }
   const handleClickPoint = (index: number = 25) => {
     props.onChange(index)
     setShowPercent(true)
   }
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    console.log('touch start')
+    isTouchingRef.current = true
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.touches[0].clientX - rect.left
+    let value = Math.round(x / rect.width * 100)
+    if (value < 0) value = 0
+    if (value > 100) value = 100
+    props.onChange(value)
+  }
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (isTouchingRef.current) {
+      const rect = e.currentTarget.getBoundingClientRect()
+      const x = e.touches[0].clientX - rect.left
+      let value = Math.round(x / rect.width * 100)
+      if (value < 0) value = 0
+      if (value > 100) value = 100
+      props.onChange(value)
+    }
+  }
+  const handleTouchEnd = () => {
+    isTouchingRef.current = false
+  }
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true
+    handleClick(e)
+  }
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isDraggingRef.current) {
+      handleClick(e)
+    }
+  }
+  const handleMouseUp = () => {
+    isDraggingRef.current = false
+  }
+  const handleMouseLeave = () => {
+    isDraggingRef.current = false
+  }
   return <div
-    onMouseLeave={() => {
-      // setShowPercent(false)
-    }}
-    onClick={handleClick}
-    onMouseMove={(e) => {
-      if (isDraggingRef.current) {
-        const rect = e.currentTarget.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        let value = Math.round(x / rect.width * 100)
-        if (value < 0) value = 0
-        if (value > 100) value = 100
-        props.onChange(value)
-        setShowPercent(true)
-      }
-    }}
-    // onTouchMove={(e) => {
-    //   console.log('touch move')
-    // }}
-    className="md:my-[16px] my-[8px] mb-[14px] h-[26px] w-[calc(100%-15px)] ml-[5px] relative cursor-pointer w-full">
+    onTouchStart={handleTouchStart}
+    onTouchMove={handleTouchMove}
+    onTouchEnd={handleTouchEnd}
+    onTouchCancel={handleTouchEnd}
+    // 兼容 pc 和 移动端
+    onMouseDown={handleMouseDown}
+    onMouseMove={handleMouseMove}
+    onMouseUp={handleMouseUp}
+    onMouseLeave={handleMouseLeave}
+    className="md:my-[16px] my-[8px] mb-[14px] h-[26px] w-[calc(100%-15px)] ml-[5px] relative cursor-pointer w-full user-select-none">
     <div className="h-[2px] w-full bg-gray-1 absolute bottom-[4px]"></div>
     {/* 0% */}
     <div className="h-[10px] w-[10px] rounded-full bg-gray-1 absolute bottom-0 left-[0%] ml-[-5px]" onClick={() => handleClickPoint(0)}>
@@ -111,17 +140,7 @@ export const SlideInput = (props: SlideInputProps) => {
       ></div>
     </div>
     {/* cursor */}
-    {props.value > 0 && <div
-      // 鼠标拖动
-      onMouseDown={() => {
-        console.log('mouse down')
-        // setIsDragging(true)
-        isDraggingRef.current = true
-      }}
-      // onMouseUp={() => {
-      //   console.log('mouse up')
-      //   setIsDragging(false)
-      // }}
+    {<div
 
 
       className="h-[10px] w-[10px] rounded-full bg-gray-1 absolute bottom-0 hover:scale-150 transition-transform duration-300"
@@ -216,4 +235,26 @@ export const SlippageInput = (props: SlippageInputProps) => {
       </div>
     </div>
   </>
+}
+
+
+interface ListButtonProps {
+  activeIndex: number
+  onChange: (index: number) => void
+}
+export const ListButton = (props: ListButtonProps) => {
+  const { activeIndex, onChange } = props
+  const list = [
+    'LIVE',
+    "4h",
+    "1D",
+    "1W",
+    "1Y",
+    "MAX"
+  ]
+  return <div className="flex items-center justify-between mt-[12px] select-none">
+    {
+      list.map((item, index) => <div key={item} className={`px-[8px] py-[2px] rounded-[4px] ${activeIndex === index ? 'bg-black text-white' : 'bg-black/5 text-black-0-9'} text-[14px] font-[400] poppins text-center flex items-center justify-center cursor-pointer`} onClick={() => onChange(index)}>{item}</div>)
+    }
+  </div>
 }

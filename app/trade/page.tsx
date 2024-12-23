@@ -4,7 +4,7 @@ import Header from "@/components/Header"
 import { useEmailSubmit } from "@/pages/landing/components/Footer"
 import { useEffect, useRef, useState } from "react"
 import { formatNumber, isValidNumber } from "@/utils"
-import { AmountInput, ProgressBar, SlideInput, SlippageInput } from "@/components/input"
+import { AmountInput, ListButton, ProgressBar, SlideInput, SlippageInput } from "@/components/input"
 import * as d3 from "d3";
 import { useSearchParams, useRouter } from "next/navigation"
 
@@ -72,6 +72,7 @@ const props3 = [
   }
 ]
 const Trade = () => {
+  const [activeIndex, setActiveIndex] = useState(0)
   const [showAlert, setShowAlert] = useState(false)
   const [slippage, setSlippage] = useState(false)
   const [slippageValue, setSlippageValue] = useState(0)
@@ -739,6 +740,10 @@ const Trade = () => {
               <div className="w-full">
                 <svg ref={svgRef2} />
               </div>
+              <ListButton
+                activeIndex={activeIndex}
+                onChange={(index) => setActiveIndex(index)}
+              />
             </> : null
           }
           <div className="max-md:hidden">
@@ -842,6 +847,10 @@ const Trade = () => {
             <div className="w-full">
               <svg ref={svgRef2} />
             </div>
+            <ListButton
+              activeIndex={activeIndex}
+              onChange={(index) => setActiveIndex(index)}
+            />
             <div className='md:h-[16px] h-[0px]'></div>
           </div>
           <div className="flex items-center justify-center mt-[8px]">

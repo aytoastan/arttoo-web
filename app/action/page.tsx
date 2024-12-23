@@ -1,11 +1,12 @@
 'use client'
 import Header from "@/components/Header"
-import { AmountInput, ProgressBar, SlideInput } from "@/components/input"
+import { AmountInput, ListButton, ProgressBar, SlideInput } from "@/components/input"
 import { useSearchParams, useRouter } from "next/navigation"
 import { useEffect, useRef, useState } from "react"
 import { formatNumber, isValidNumber } from "@/utils"
 import * as d3 from "d3";
 const ActionPage = () => {
+  const [activeIndex, setActiveIndex] = useState(0)
   const svgRef2 = useRef<SVGSVGElement>(null)
   const searchParams = useSearchParams()
   const step = Number(searchParams?.get('step')) || 0
@@ -225,6 +226,10 @@ const ActionPage = () => {
             <div className="w-full">
               <svg ref={svgRef2} />
             </div>
+            <ListButton
+              activeIndex={activeIndex}
+              onChange={(index) => setActiveIndex(index)}
+            />
           </> : null
         }
         <div className="">
@@ -318,6 +323,10 @@ const ActionPage = () => {
       <div className="w-full">
         <svg ref={svgRef2} />
       </div>
+      <ListButton
+        activeIndex={activeIndex}
+        onChange={(index) => setActiveIndex(index)}
+      />
       <div className='md:h-[16px] h-[0px]'></div>
       <div className="">
         <div className="h-[1px] bg-black-0-1 w-full md:my-[40px] my-[24px]"></div>
