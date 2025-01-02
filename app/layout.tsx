@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Head from 'next/head';
 import { Suspense } from 'react';
+import { UserProvider } from '@/contexts/UserContext';
 
 export const metadata: Metadata = {
   title: 'Arttoo',
@@ -39,17 +39,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <Head>
+      {/* <Head>
         <link rel='icon' href='/favicon.ico' sizes='16x16' />
         <link rel='icon' href='/favicon-32x32.png' sizes='32x32' />
         <link rel='icon' href='/favicon-96x96.png' sizes='96x96' />
         <link rel='apple-touch-icon' href='/apple-icon-180x180.png' />
         <link rel='manifest' href='/site.webmanifest' />
         <meta name='theme-color' content='#FFFFFF' />
-      </Head>
+      </Head> */}
       <body className={`antialiased`}>
         <Suspense>
-          {children}
+          <UserProvider>
+            {children}
+          </UserProvider>
         </Suspense>
       </body>
     </html>

@@ -2,7 +2,7 @@
 import Header from "@/components/Header"
 const ResultPage = () => {
   return <div className="w-full bg-white result_page">
-    <Header isLogin={true} />
+    <Header />
     <div className="px-[20px]">
       <div className="flex flex-col mb-[40px] mt-[60px] items-center justify-center">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">

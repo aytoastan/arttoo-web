@@ -403,7 +403,7 @@ const ActionPage = () => {
     </>
   }
   return <div className="w-full bg-white action_page">
-    <Header isLogin={true} />
+    <Header />
     <div className="w-full h-[100px] px-[20px]">
       <div className="mt-[16px] mb-[8px] flex items-center text-[18px] font-[500] leading-[27px] text-black">
         <div className="trade_desc_desc_item1 poppins">NATHM1898</div>

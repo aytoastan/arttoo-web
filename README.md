@@ -26,3 +26,13 @@ https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/action?step=2
 
 4. 成功支付页面 (移动端)
 https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/result
+
+
+5. 输入邮箱
+https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/add-email
+
+6. 输入验证码
+https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/check-code
+
+7. 邀请码
+https://arttoo-web-git-master-hans-projects-faff121d.vercel.app/invitation

@@ -969,7 +969,7 @@ const Trade = () => {
     }
   }
   return <div className='w-full bg-white mainPage2'>
-    <Header isLogin={true} />
+    <Header />
     <div className='block md:mt-[40px] mt-[20px]'>
       <div className='trade_page'>
         <div className='trade_page_image' style={{ backgroundImage: `url(/trade/1.png)` }} />
